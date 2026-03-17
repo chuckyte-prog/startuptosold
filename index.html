@@ -1206,8 +1206,11 @@
           <div>
             <button type="submit" class="btn-contact" id="submit-btn">Send Message</button>
           </div>
-          <p id="form-success" style="display:none;color:var(--gold-light);font-size:1rem;text-align:center;">Message sent! I'll be in touch soon.</p>
         </form>
+        <div id="form-success" style="display:none;padding:2rem;text-align:center;">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--gold-light);margin-bottom:0.75rem;">Message received.</p>
+          <p style="font-size:1rem;font-weight:300;color:rgba(245,240,232,0.7);">I'll be in touch soon.</p>
+        </div>
         <script>
           document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -1219,8 +1222,10 @@
             try {
               var res = await fetch('https://formspree.io/f/xaqplpgv', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
               if (res.ok) {
-                this.style.display = 'none';
-                document.getElementById('form-success').style.display = 'block';
+                document.getElementById('contact-form').style.display = 'none';
+                var success = document.getElementById('form-success');
+                success.style.display = 'block';
+                success.scrollIntoView({ behavior: 'smooth', block: 'center' });
               } else {
                 btn.textContent = 'Send Message';
                 btn.disabled = false;
