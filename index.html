@@ -1188,9 +1188,7 @@
 
       <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:3rem;margin-bottom:3rem;">
         <p style="font-size:0.85rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.75rem;">Or send a quick message</p>
-        <form action="https://formspree.io/f/xaqplpgv" method="POST" style="display:flex;flex-direction:column;gap:1.25rem;">
-          <input type="hidden" name="_subject" value="New inquiry from startuptosold.com" />
-          <input type="hidden" name="_next" value="https://startuptosold.com/#contact" />
+        <form id="contact-form" style="display:flex;flex-direction:column;gap:1.25rem;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
             <div style="display:flex;flex-direction:column;gap:0.5rem;">
               <label for="name" style="font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.55);">Your Name</label>
@@ -1206,9 +1204,35 @@
             <textarea id="message" name="message" required rows="4" placeholder="Tell me a little about your business and what you're thinking about..." style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:0.9rem 1.1rem;outline:none;transition:border-color 0.2s;resize:vertical;" onfocus="this.style.borderColor='rgba(184,146,74,0.7)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'"></textarea>
           </div>
           <div>
-            <button type="submit" class="btn-contact">Send Message</button>
+            <button type="submit" class="btn-contact" id="submit-btn">Send Message</button>
           </div>
+          <p id="form-success" style="display:none;color:var(--gold-light);font-size:1rem;text-align:center;">Message sent! I'll be in touch soon.</p>
         </form>
+        <script>
+          document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var btn = document.getElementById('submit-btn');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            var data = new FormData(this);
+            data.append('_subject', 'New inquiry from startuptosold.com');
+            try {
+              var res = await fetch('https://formspree.io/f/xaqplpgv', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+              if (res.ok) {
+                this.style.display = 'none';
+                document.getElementById('form-success').style.display = 'block';
+              } else {
+                btn.textContent = 'Send Message';
+                btn.disabled = false;
+                alert('Something went wrong. Please email chuck@startuptosold.com directly.');
+              }
+            } catch(err) {
+              btn.textContent = 'Send Message';
+              btn.disabled = false;
+              alert('Something went wrong. Please email chuck@startuptosold.com directly.');
+            }
+          });
+        </script>
       </div>
 
       <div class="contact-links">
