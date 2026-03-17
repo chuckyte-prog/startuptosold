@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startup to Sold — Chuck Temple</title>
+  <meta name="description" content="I help business owners build the operations that make their company sellable. Chuck Temple — fractional COO, author of Startup to Sold." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="book-cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0e0e0e;
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --gold: #b8924a;
+      --gold-light: #d4aa6a;
+      --muted: #6b6560;
+      --rule: #d4cfc8;
+      --section-bg: #1a1714;
+      --dark-text: #e8e2d8;
+      --dark-muted: #8a8078;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-cta:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 5rem;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-content { max-width: 580px; }
+
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #4a4540;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.25rem;
+      transition: background 0.2s, transform 0.15s;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
+
+    .btn-secondary {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4a4540;
+      text-decoration: none;
+      border-bottom: 2px solid #4a4540;
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+
+    .hero-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-left: 3rem;
+      border-left: 1px solid var(--rule);
+    }
+
+    .hero-stat {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-stat:last-child { border-bottom: none; }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #4a4540;
+      letter-spacing: 0.02em;
+    }
+
+    /* PROBLEM SECTION */
+    .section-dark {
+      background: var(--section-bg);
+      color: var(--dark-text);
+      padding: 7rem 3rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-dark h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    .section-dark h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3.5rem;
+    }
+
+    .problem-body {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: #a09890;
+      line-height: 1.85;
+      max-width: 65ch;
+    }
+
+    .problem-body p + p { margin-top: 1.75rem; }
+
+    .stats-column {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-left: 3rem;
+      border-left: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .dark-stat {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .dark-stat:last-child { border-bottom: none; }
+
+    .dark-stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .dark-stat-label {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--dark-muted);
+      line-height: 1.55;
+    }
+
+    /* WHAT I DO */
+    .section-light {
+      padding: 7rem 3rem;
+      background: var(--warm-white);
+    }
+
+    .section-light h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 600px;
+    }
+
+    .section-light h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .section-intro {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #4a4540;
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .service-item {
+      padding: 2.5rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.2s;
+    }
+
+    .service-item:nth-child(2n) { border-right: none; }
+    .service-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .service-item:hover { background: var(--cream); }
+
+    .service-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .service-desc {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #4a4540;
+      line-height: 1.75;
+    }
+
+    /* PROCESS */
+    .section-cream {
+      background: var(--cream);
+      padding: 7rem 3rem;
+    }
+
+    .section-cream h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-cream h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .process-timeline {
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      left: 5.5rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 2.5rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .process-step:last-child { border-bottom: none; }
+
+    .step-marker {
+      text-align: right;
+      padding-right: 2.5rem;
+      position: relative;
+    }
+
+    .step-marker::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 0.3rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+
+    .step-month {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .step-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+
+    .step-content p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #4a4540;
+      line-height: 1.8;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-headshot {
+      width: 100%;
+      max-width: 320px;
+      display: block;
+      margin-bottom: 2.5rem;
+      filter: grayscale(10%);
+    }
+
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1.75rem;
+    }
+
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .about-body {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #3a3530;
+      line-height: 1.9;
+      max-width: 65ch;
+    }
+
+    .about-body p + p { margin-top: 1.75rem; }
+
+    .about-credentials {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #4a4540;
+    }
+
+    .credential::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .book-card {
+      background: var(--section-bg);
+      padding: 3rem;
+      color: var(--dark-text);
+    }
+
+    /* Interview rows */
+    .interview-row {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 2.5rem;
+      text-decoration: none;
+      background: var(--cream);
+      transition: background 0.2s;
+    }
+
+    .interview-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .interview-show {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .interview-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .interview-desc {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #4a4540;
+      line-height: 1.7;
+    }
+
+    .interview-cta {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .book-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .book-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      color: var(--dark-text);
+    }
+
+    .book-subtitle {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--dark-muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .book-publisher {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .book-description {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--dark-muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .book-link {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      text-decoration: none;
+      border-bottom: 2px solid rgba(184, 146, 74, 0.5);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .book-link:hover { color: var(--dark-text); border-color: var(--dark-text); }
+
+    /* CONTACT */
+    .section-contact {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 7rem 3rem;
+      text-align: center;
+    }
+
+    .section-contact .section-inner { max-width: 640px; }
+
+    .contact-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .contact-eyebrow::before,
+    .contact-eyebrow::after {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-contact h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-contact h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .contact-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.7);
+      margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.35rem 0;
+    }
+
+    .contact-link:hover { color: var(--gold-light); }
+
+    .contact-link-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      width: 4.5rem;
+      text-align: right;
+    }
+
+    .contact-divider {
+      width: 1px;
+      height: 1rem;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .cta-block {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn-contact {
+      display: inline-flex;
+      align-items: center;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.75rem;
+      min-height: 52px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-contact:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(245, 240, 232, 0.4);
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.25);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; opacity: 0; }
+    h1 { animation: fadeUp 0.7s ease both; animation-delay: 0.2s; opacity: 0; }
+    .hero-sub { animation: fadeUp 0.7s ease both; animation-delay: 0.35s; opacity: 0; }
+    .hero-actions { animation: fadeUp 0.7s ease both; animation-delay: 0.5s; opacity: 0; }
+    .hero-aside { animation: fadeUp 0.8s ease both; animation-delay: 0.4s; opacity: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 4rem;
+        gap: 3rem;
+      }
+
+      .hero-aside {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid var(--rule);
+        padding-top: 2rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .hero-stat {
+        flex: 1;
+        min-width: 120px;
+        padding: 1.25rem 1.5rem 1.25rem 0;
+        border-bottom: none;
+        border-right: 1px solid var(--rule);
+      }
+
+      .hero-stat:last-child { border-right: none; }
+
+      .problem-grid,
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .stats-column {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 2rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .dark-stat { flex: 1; min-width: 140px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none; }
+      .service-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+      .service-item:last-child { border-bottom: none; }
+
+      .process-timeline::before { left: 4rem; }
+      .process-step { grid-template-columns: 4rem 1fr; gap: 1.5rem; }
+
+      .section-dark,
+      .section-light,
+      .section-cream,
+      .section-contact { padding: 5rem 1.5rem; }
+
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    /* SMALL PHONES */
+    @media (max-width: 480px) {
+      #contact .btn-contact {
+        width: 100%;
+        justify-content: center;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        padding: 1rem 1.25rem;
+      }
+      nav {
+        padding: 1rem 1.25rem;
+        gap: 0.5rem;
+      }
+
+      .nav-logo {
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
+      nav > div { gap: 0.75rem; }
+
+      .nav-cta { font-size: 0.75rem; letter-spacing: 0.04em; white-space: nowrap; }
+
+      .hero { padding: 6rem 1.25rem 3rem; gap: 2.5rem; }
+
+      h1 { font-size: 2.2rem; }
+
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+      .btn-primary { width: 100%; justify-content: center; }
+
+      .btn-secondary { white-space: nowrap; }
+
+      .hero-aside {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .hero-stat {
+        min-width: unset;
+        width: 100%;
+        padding: 1rem 0;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .hero-stat:last-child { border-bottom: none; }
+
+      .stat-number { font-size: 2.2rem; }
+
+      .section-dark,
+      .section-light,
+      .section-cream,
+      .section-contact { padding: 4rem 1.25rem; }
+
+      .section-dark h2,
+      .section-light h2,
+      .section-cream h2 { font-size: 1.8rem; }
+
+      .problem-grid { gap: 2rem; }
+
+      .stats-column { flex-direction: column; }
+
+      .dark-stat { min-width: unset; width: 100%; }
+
+      .service-item { padding: 1.75rem 1.25rem; }
+
+      .process-timeline::before { display: none; }
+      .process-step { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.75rem 0; }
+      .step-marker { text-align: left; padding-right: 0; }
+      .step-marker::after { display: none; }
+
+      .about-grid { gap: 2rem; }
+      .about-headshot { max-width: 100%; }
+      .book-card { padding: 2rem 1.25rem; }
+
+      /* Interviews: hide number, fix label/title sizing on small screens */
+      .interview-row {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 1.5rem 1.25rem;
+      }
+
+      .interview-num { display: none; }
+
+      .interview-show {
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+      }
+
+      .interview-title { font-size: 1.1rem; }
+
+      .interview-desc { font-size: 0.9rem; }
+
+      .section-contact { padding: 4rem 1.25rem; }
+      .section-inner { padding: 0; }
+
+      /* Contact form: stack name/email vertically */
+      #contact form > div:first-of-type {
+        grid-template-columns: 1fr !important;
+      }
+
+      .contact-link { font-size: 0.95rem; }
+      .contact-link-label { width: 3.5rem; font-size: 0.7rem; }
+
+      footer > div { flex-direction: column; gap: 0.4rem; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Startup to Sold</a>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="#interviews" class="nav-cta" style="color:var(--muted);border-color:var(--rule);">Interviews</a>
+      <a href="#contact" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section style="background: var(--warm-white);">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Exit Readiness Consulting</div>
+        <h1>Your business should be worth <em>more</em> than it is.</h1>
+        <p class="hero-sub">I help business owners build the operations that make their company sellable. The systems, the documentation, the team structure that lets a buyer say yes.</p>
+        <div class="hero-actions">
+          <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Call</a>
+          <a href="#how-it-works" class="btn-secondary">See how it works</a>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <div class="hero-stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Businesses built and sold</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-number">27</div>
+          <div class="stat-label">Employees across 4 locations</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-number">2023</div>
+          <div class="stat-label">Startup to Sold — Inc. Magazine Imprints</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section-dark">
+    <div class="section-inner">
+      <div class="section-label">The Problem</div>
+      <h2>Buyers don't want to buy <em>a job.</em></h2>
+      <div class="problem-grid">
+        <div class="problem-body">
+          <p>Most small businesses are too dependent on the owner. The owner knows how everything works, handles the important customers, makes all the decisions, and keeps the whole thing running. That works fine until it's time to sell.</p>
+          <p>When your business can't function without you, it sells for less, takes longer to close, or doesn't sell at all. Buyers discount heavily for key-person risk. The operations that felt like a strength become the thing that kills the deal.</p>
+          <p>The owners who get full price are the ones who built a business that works on its own. That's not an accident. It's a system.</p>
+        </div>
+        <div class="stats-column">
+          <div class="dark-stat">
+            <div class="dark-stat-number">&gt;50%</div>
+            <div class="dark-stat-label">of small business owners have no transition plan</div>
+          </div>
+          <div class="dark-stat">
+            <div class="dark-stat-number">&lt;1 in 3</div>
+            <div class="dark-stat-label">have a documented exit strategy</div>
+          </div>
+          <div class="dark-stat">
+            <div class="dark-stat-number">10,000+</div>
+            <div class="dark-stat-label">baby boomers reach retirement age every day</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="section-light">
+    <div class="section-inner" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-label" style="color: var(--gold);">What I Do</div>
+      <h2>I come in and build the systems that let your <em>business run without you.</em></h2>
+      <p class="section-intro">That means documented processes, restructured roles, upgraded tools, and trained people. Everything a buyer needs to see a business that stands on its own.</p>
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-number">01</div>
+          <div class="service-title">Process Documentation</div>
+          <p class="service-desc">Every critical workflow written down so anyone can follow it. No more institutional knowledge locked in the owner's head.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">02</div>
+          <div class="service-title">Role Restructuring</div>
+          <p class="service-desc">Identify where the owner is the bottleneck. Redistribute decision-making and authority so the business operates without daily owner involvement.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">03</div>
+          <div class="service-title">Systems Upgrade</div>
+          <p class="service-desc">Install or improve the tools your team actually needs: project management, CRM, accounting, inventory. The right stack for a sellable operation.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">04</div>
+          <div class="service-title">Team Development</div>
+          <p class="service-desc">Train your people to own the work you've been doing yourself for years. Build the management layer that makes ownership optional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section-cream" id="how-it-works">
+    <div class="section-inner" style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-label">How It Works</div>
+      <h2>Six months to a <em>sellable business.</em></h2>
+      <p class="section-intro" style="color: var(--muted);">A structured engagement with clear deliverables at every stage. You know exactly what we're building and why.</p>
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-marker">
+            <div class="step-month">Month 1</div>
+          </div>
+          <div class="step-content">
+            <h3>Assessment</h3>
+            <p>I walk through every part of your operation and identify where the owner is the bottleneck. You get a clear report showing what needs to change and a realistic timeline to get there.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-marker">
+            <div class="step-month">Months 2–5</div>
+          </div>
+          <div class="step-content">
+            <h3>Build and Implement</h3>
+            <p>This is the real work. Documented SOPs, restructured roles, upgraded systems, trained team members. Everything your business needs to operate independently.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-marker">
+            <div class="step-month">Month 6</div>
+          </div>
+          <div class="step-content">
+            <h3>Transition and Handoff</h3>
+            <p>We verify the business runs without the owner in the room. Your broker, advisor, or buyer gets documentation showing a business that stands on its own.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-light">
+    <div class="about-grid">
+      <div class="about-text">
+        <img src="chuck-headshot.jpg" alt="Chuck Temple" class="about-headshot" />
+        <div class="section-label" style="color: var(--gold);">About Chuck</div>
+        <h2>I've built this. Then <em>sold it.</em></h2>
+        <div class="about-body">
+          <p>I built DVD Your Memories from a side hustle into 27 employees across four locations in two states, then sold it. The buyer looked at more than fifty companies before choosing mine. What stood out was that the business actually worked without me. I had built the operations playbooks, the training systems, and the store-opening procedures that let new locations come online fast and run consistently. That's the book: <em>Startup to Sold</em>, published by Inc. Magazine Imprints in 2023.</p>
+          <p>The systems I built are the reason the company was sellable. And that pattern has repeated in everything I've done since.</p>
+          <p>As COO of a food and beverage startup, I tripled revenue and built their first ERP system from scratch to manage a perishable supply chain and scale production. I built and sold a media company in the electric scooter space, where the systems were solid enough that the business transferred cleanly. And I built a two-sided marketplace from scratch (payments, SMS, custom database) that now runs 25,000 monthly users on its own.</p>
+          <p>MBA from UC Davis. Previously taught Go-to-Market Strategy at UC Berkeley Extension.</p>
+          <p>If your business needs to run without you, that's what I do.</p>
+        </div>
+        <div class="about-credentials">
+          <div class="credential">27 employees, 4 locations, 2 states</div>
+          <div class="credential">Multiple businesses built and sold</div>
+          <div class="credential">Author: Startup to Sold (Inc. Magazine Imprints, 2023)</div>
+          <div class="credential">MBA, UC Davis</div>
+          <div class="credential">Taught Go-to-Market Strategy, UC Berkeley Extension</div>
+        </div>
+      </div>
+      <div class="book-card">
+        <div class="book-label">The Book</div>
+        <a href="https://amzn.to/40wiXiD" target="_blank" rel="noopener" style="display:block;margin-bottom:0.75rem;">
+          <img src="book-3d.png" alt="Startup to Sold book cover" style="width:100%;max-width:260px;display:block;" />
+        </a>
+        <div class="book-title">Startup to Sold</div>
+        <div class="book-subtitle">How I Built My Side Hustle into a Multi-Million Dollar Company</div>
+        <div class="book-publisher">Inc. Magazine Imprints — 2023</div>
+        <p class="book-description">The full story of building DVD Your Memories from a college side project into a multi-location, multi-million dollar company and then selling it. Every chapter ends with resources on the specific topic it covers.</p>
+        <a href="https://amzn.to/40wiXiD" class="book-link" target="_blank" rel="noopener">Get the book on Amazon</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVIEWS -->
+  <section class="section-cream" id="interviews">
+    <div class="section-inner" style="max-width:1200px;margin:0 auto;">
+      <div class="section-label">Press &amp; Interviews</div>
+      <h2>Listen &amp; <em>Watch</em></h2>
+      <p class="section-intro" style="color:var(--muted);">Podcast appearances and interviews on building, systems, and selling a business.</p>
+      <div style="display:flex;flex-direction:column;gap:0;margin-top:3rem;border:1px solid var(--rule);">
+
+        <a href="https://voices.berkeley.edu/podcast/side-hustle-startup" target="_blank" rel="noopener" class="interview-row" style="border-bottom:1px solid var(--rule);" onmouseover="this.style.background='#ece7dc'" onmouseout="this.style.background='var(--cream)'">
+          <div class="interview-num">01</div>
+          <div class="interview-body">
+            <div class="interview-show">UC Berkeley Extension — Future of Work</div>
+            <div class="interview-title">From Side Hustle to Startup</div>
+            <div class="interview-desc">Are side hustles the new normal? Chuck talks demand testing, validation, and the path from idea to exit.</div>
+          </div>
+          <div class="interview-cta">Listen &rarr;</div>
+        </a>
+
+        <a href="https://open.spotify.com/episode/2GH6NFCqXn8KN3giBX2gO5" target="_blank" rel="noopener" class="interview-row" style="border-bottom:1px solid var(--rule);" onmouseover="this.style.background='#ece7dc'" onmouseout="this.style.background='var(--cream)'">
+          <div class="interview-num">02</div>
+          <div class="interview-body">
+            <div class="interview-show">Side Hustle Hero</div>
+            <div class="interview-title">From Zero to Seven Figures</div>
+            <div class="interview-desc">Host Joan Pasovey. Building DVD Your Memories from a college couch to four locations, 27 employees, and a successful exit.</div>
+          </div>
+          <div class="interview-cta">Listen &rarr;</div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=D4Xs62Blo28" target="_blank" rel="noopener" class="interview-row" onmouseover="this.style.background='#ece7dc'" onmouseout="this.style.background='var(--cream)'">
+          <div class="interview-num">03</div>
+          <div class="interview-body">
+            <div class="interview-show">The PR Playbook</div>
+            <div class="interview-title">EP 129: The Serial Startup Founder</div>
+            <div class="interview-desc">Host Regini Joshua. The full arc: DVD Your Memories, Electric Scooter Guide, and what it takes to build, grow, and sell.</div>
+          </div>
+          <div class="interview-cta">Watch &rarr;</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-contact" id="contact">
+    <div class="section-inner" style="max-width:720px;">
+      <div class="contact-eyebrow">Get in Touch</div>
+      <h2>Ready to make your business <em>sellable?</em></h2>
+      <p class="contact-sub">I work with a small number of clients at a time. If you're thinking about an exit in the next 1 to 3 years, the work starts now.</p>
+
+      <div style="margin-bottom:3rem;">
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-contact">Schedule a Free 30-Minute Call</a>
+      </div>
+
+      <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:3rem;margin-bottom:3rem;">
+        <p style="font-size:0.85rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.75rem;">Or send a quick message</p>
+        <form action="https://formspree.io/f/xaqplpgv" method="POST" style="display:flex;flex-direction:column;gap:1.25rem;">
+          <input type="hidden" name="_subject" value="New inquiry from startuptosold.com" />
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <label for="name" style="font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.55);">Your Name</label>
+              <input type="text" id="name" name="name" required placeholder="Jane Smith" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:0.9rem 1.1rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(184,146,74,0.7)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <label for="email" style="font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.55);">Your Email</label>
+              <input type="email" id="email" name="email" required placeholder="jane@company.com" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:0.9rem 1.1rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(184,146,74,0.7)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'" />
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <label for="message" style="font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.55);">Your Question</label>
+            <textarea id="message" name="message" required rows="4" placeholder="Tell me a little about your business and what you're thinking about..." style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:0.9rem 1.1rem;outline:none;transition:border-color 0.2s;resize:vertical;" onfocus="this.style.borderColor='rgba(184,146,74,0.7)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'"></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn-contact">Send Message</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="contact-links">
+        <a href="mailto:chuck@startuptosold.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-divider"></span>
+          chuck@startuptosold.com
+        </a>
+        <a href="https://linkedin.com/in/chuck-temple" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-divider"></span>
+          linkedin.com/in/chuck-temple
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Startup to Sold</div>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="#interviews" style="font-size:0.75rem;font-weight:300;color:rgba(245,240,232,0.35);text-decoration:none;" onmouseover="this.style.color='rgba(245,240,232,0.65)'" onmouseout="this.style.color='rgba(245,240,232,0.35)'">Interviews</a>
+      <div class="footer-copy">© 2025 Chuck Temple. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
