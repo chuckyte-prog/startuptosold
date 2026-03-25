@@ -241,7 +241,7 @@
       <!-- Pillar 1 -->
       <div class="quiz-pillar">
         <div class="pillar-number">Pillar 01</div>
-        <div class="pillar-heading">Administrative Logic &amp; Gatekeeping</div>
+        <div class="pillar-heading">Administrative Control</div>
 
         <div class="question" data-question="1">
           <p class="question-text">Does pricing rely on your personal judgment rather than a documented, repeatable formula?</p>
@@ -252,7 +252,7 @@
         </div>
 
         <div class="question" data-question="2">
-          <p class="question-text">Is your lead-to-cash process (invoicing and follow-up) handled manually by you?</p>
+          <p class="question-text">Do you personally handle invoicing, follow-up, or getting paid?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -260,7 +260,7 @@
         </div>
 
         <div class="question" data-question="3">
-          <p class="question-text">Are you the one dispatching staff or setting appointments?</p>
+          <p class="question-text">Do you personally schedule staff or set appointments?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -274,7 +274,7 @@
         <div class="pillar-heading">Personnel &amp; Operations</div>
 
         <div class="question" data-question="4">
-          <p class="question-text">Do your SOPs exist mainly as tribal knowledge rather than documented, enforced processes?</p>
+          <p class="question-text">Do your processes live in people's heads rather than written-down, step-by-step guides?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -290,7 +290,7 @@
         </div>
 
         <div class="question" data-question="6">
-          <p class="question-text">Would you need to be personally involved to train a new operator?</p>
+          <p class="question-text">Would you need to be personally involved to onboard and train a new employee?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">No</button>
@@ -304,7 +304,7 @@
         <div class="pillar-heading">The Vacation Test</div>
 
         <div class="question" data-question="7">
-          <p class="question-text">Would your business experience revenue loss or operational failure if you were unreachable for 48 hours?</p>
+          <p class="question-text">Would your business lose money or break down if you went dark for 48 hours?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -320,7 +320,7 @@
         </div>
 
         <div class="question" data-question="9">
-          <p class="question-text">Is there no clear decision-maker when you are unavailable?</p>
+          <p class="question-text">Do responsibilities and decisions wait for you and pile up when you are out?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -334,7 +334,7 @@
         <div class="pillar-heading">Financial &amp; Data Transparency</div>
 
         <div class="question" data-question="10">
-          <p class="question-text">Can an outsider NOT view your P&amp;L, lead volume, and staff efficiency without calling you?</p>
+          <p class="question-text">Would a buyer struggle to review your financials and key business data without your help?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -342,7 +342,7 @@
         </div>
 
         <div class="question" data-question="11">
-          <p class="question-text">Does any single client represent more than 15% of your revenue?</p>
+          <p class="question-text">Would you feel uneasy handing your best clients off to a new owner?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -484,7 +484,7 @@
     }
 
     const PILLARS = [
-      { name: 'Administrative Logic', questions: [1, 2, 3] },
+      { name: 'Administrative Control', questions: [1, 2, 3] },
       { name: 'Personnel & Operations', questions: [4, 5, 6] },
       { name: 'The Vacation Test', questions: [7, 8, 9] },
       { name: 'Financial Transparency', questions: [10, 11, 12] },
