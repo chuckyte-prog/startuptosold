@@ -327,6 +327,20 @@
     </div>
   </section>
 
+  <section id="results" class="section-cream" style="display:none;">
+    <div class="section-inner">
+      <div class="section-label">Your Results</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem;">
+        <div>
+          <div id="score-display" style="font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:300;line-height:1;color:var(--ink);margin-bottom:0.5rem;"></div>
+          <div id="score-label" style="font-size:0.82rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;"></div>
+          <p id="score-copy" style="font-size:1rem;color:#4a4540;line-height:1.75;max-width:400px;"></p>
+        </div>
+        <div id="pillar-breakdown"></div>
+      </div>
+    </div>
+  </section>
+
   <script>
     function selectAnswer(btn) {
       const group = btn.closest('.answer-group');
@@ -339,9 +353,82 @@
       btn.dataset.selected = 'true';
     }
 
+    const PILLARS = [
+      { name: 'Administrative Logic', questions: [1, 2, 3] },
+      { name: 'Personnel & Operations', questions: [4, 5, 6] },
+      { name: 'The Vacation Test', questions: [7, 8, 9] },
+      { name: 'Financial Transparency', questions: [10, 11, 12] },
+    ];
+
     function calculateScore() {
-      // placeholder -- will be implemented in Task 3
-      alert('Score calculation coming in Task 3');
+      const questions = document.querySelectorAll('.question');
+      let answered = 0;
+      const scores = {};
+
+      questions.forEach(q => {
+        const qNum = parseInt(q.dataset.question);
+        const selected = q.querySelector('.answer-btn[data-selected="true"]');
+        if (selected) {
+          answered++;
+          scores[qNum] = parseInt(selected.dataset.value);
+        }
+      });
+
+      if (answered < 12) {
+        document.getElementById('quiz-error').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('quiz-error').style.display = 'none';
+
+      const total = Object.values(scores).reduce((a, b) => a + b, 0);
+
+      let label, multiple, copy;
+      if (total >= 8) {
+        label = 'High Dependency';
+        multiple = 1.85;
+        copy = 'Your business is heavily owner-dependent. Buyers see this as risk and price accordingly -- typically 1.5x to 2.2x SDE. The gap between where you are and where you could be is significant.';
+      } else if (total >= 4) {
+        label = 'Operational Hybrid';
+        multiple = 2.85;
+        copy = 'Your business has some systems in place but still relies on you in key areas. Strategic buyers will offer 2.5x to 3.2x SDE -- better, but still well below institutional multiples.';
+      } else {
+        label = 'Turnkey Asset';
+        multiple = 4.0;
+        copy = "Your business operates with minimal owner dependency. You are in the top tier for exit multiples -- 3.5x to 4.5x SDE. If you're not already talking to buyers, you should be.";
+      }
+
+      document.getElementById('score-display').textContent = total;
+      document.getElementById('score-label').textContent = label;
+      document.getElementById('score-copy').textContent = copy;
+
+      // Pillar breakdown
+      const breakdownEl = document.getElementById('pillar-breakdown');
+      breakdownEl.innerHTML = '';
+      PILLARS.forEach(pillar => {
+        const pillarScore = pillar.questions.reduce((acc, q) => acc + (scores[q] || 0), 0);
+        const pct = (pillarScore / 3) * 100;
+        const barColor = pct >= 67 ? 'var(--ink)' : pct >= 34 ? 'var(--gold)' : 'var(--gold-light)';
+        breakdownEl.innerHTML += `
+          <div style="margin-bottom:1.75rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+              <span style="font-size:0.9rem;font-weight:500;color:var(--ink);">${pillar.name}</span>
+              <span style="font-size:0.9rem;color:var(--muted);">${pillarScore}/3</span>
+            </div>
+            <div style="height:4px;background:var(--rule);width:100%;">
+              <div style="height:4px;background:${barColor};width:${pct}%;transition:width 0.6s ease;"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Store for valuation section (Task 4)
+      window._assessmentScore = { total, multiple };
+
+      // Show results and scroll
+      const resultsEl = document.getElementById('results');
+      resultsEl.style.display = 'block';
+      setTimeout(() => resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     }
   </script>
 
