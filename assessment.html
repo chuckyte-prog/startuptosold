@@ -178,18 +178,17 @@
     @media (max-width: 768px) {
       nav { padding: 1.25rem 1.5rem; }
       .section-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .section-light, .section-cream, .section-dark { padding: 4rem 1.5rem; }
-      .question { grid-template-columns: 1fr; gap: 0.75rem; }
+      .section-light, .section-cream, .section-dark { padding: 2.5rem 1.5rem; }
+      .assessment-hero > div { padding-top: 6rem !important; padding-bottom: 2.5rem !important; padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+      .quiz-pillar { margin-bottom: 2rem; }
+      .question { grid-template-columns: 1fr; gap: 0.75rem; padding: 1rem 0; }
       .answer-group { justify-content: flex-start; }
-      .results-grid { grid-template-columns: 1fr; gap: 2rem; }
-      #valuation-results .section-inner > div { grid-template-columns: 1fr; gap: 2rem; }
+      .results-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      #valuation-results .section-inner > div { grid-template-columns: 1fr; gap: 1.5rem; }
       #val-gap { font-size: 3rem; }
       #score-display { font-size: 4.5rem; }
-      /* Form name/email side-by-side — stack on tablet too */
       .form-name-email { grid-template-columns: 1fr; }
-      /* Valuation results box full width */
       #valuation-results .section-inner > div > div:last-child { margin-top: 0; }
-      /* Lead form full width */
       #lead-form { max-width: 100%; }
     }
 
@@ -197,17 +196,18 @@
       nav { padding: 1rem 1.25rem; }
       .nav-logo { font-size: 1rem; }
       .nav-cta { font-size: 0.78rem; }
-      .section-light, .section-cream, .section-dark { padding: 3rem 1.25rem; }
+      .section-light, .section-cream, .section-dark { padding: 2rem 1.25rem; }
+      .assessment-hero > div { padding-top: 5.5rem !important; padding-bottom: 2rem !important; padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
       h1 { font-size: 2rem; line-height: 1.15; }
       .hero-sub { font-size: 0.95rem; }
+      .quiz-pillar { margin-bottom: 1.5rem; }
       .answer-btn { padding: 0.6rem 0.9rem; font-size: 0.78rem; }
       .pillar-heading { font-size: 1.2rem; }
       #score-display { font-size: 3.5rem; }
       #val-current, #val-optimized { font-size: 2.5rem; }
       #val-gap { font-size: 2.5rem; }
-      /* Ensure inputs don't overflow on 360px */
       input[type="text"], input[type="email"], input[type="number"], textarea {
-        font-size: 16px; /* prevents iOS zoom on focus */
+        font-size: 16px;
         width: 100%;
       }
       #lead-form button[type="submit"] { font-size: 0.82rem; padding: 1rem 1.5rem; }
