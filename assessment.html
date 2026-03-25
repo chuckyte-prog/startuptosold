@@ -162,6 +162,18 @@
     .section-cream { background: var(--cream); padding: 7rem 3rem; }
     .section-dark { background: var(--section-bg); color: var(--dark-text); padding: 7rem 3rem; }
     .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* QUIZ */
+    .quiz-pillar { margin-bottom: 3.5rem; }
+    .pillar-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+    .pillar-number { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .question { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--rule); }
+    .question-text { font-size: 1rem; font-weight: 400; color: #4a4540; line-height: 1.65; }
+    .answer-group { display: flex; gap: 0.5rem; }
+    .answer-btn { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.65rem 1.25rem; border: 1px solid var(--rule); background: transparent; color: var(--muted); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .answer-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .answer-btn.selected-yes { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .answer-btn.selected-no { background: var(--gold); color: var(--ink); border-color: var(--gold); }
   </style>
 </head>
 <body>
@@ -181,6 +193,157 @@
       <p class="hero-sub">Answer 12 questions about your operations. See your Dependency Score and what it means for your exit valuation.</p>
     </div>
   </section>
+
+  <!-- QUIZ -->
+  <section class="section-light" id="quiz">
+    <div class="section-inner">
+      <div class="section-label">The Assessment</div>
+      <p style="font-size:1rem;color:#4a4540;max-width:560px;margin-bottom:3.5rem;line-height:1.75;">Answer Yes or No for each question. Yes indicates the owner (you) is the bottleneck for that area.</p>
+
+      <!-- Pillar 1 -->
+      <div class="quiz-pillar">
+        <div class="pillar-number">Pillar 01</div>
+        <div class="pillar-heading">Administrative Logic &amp; Gatekeeping</div>
+
+        <div class="question" data-question="1">
+          <p class="question-text">Does pricing rely on your personal judgment rather than a documented, repeatable formula?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="2">
+          <p class="question-text">Is your lead-to-cash process (invoicing and follow-up) handled manually by you?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="3">
+          <p class="question-text">Are you the one dispatching staff or setting appointments?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="quiz-pillar">
+        <div class="pillar-number">Pillar 02</div>
+        <div class="pillar-heading">Personnel &amp; Operations</div>
+
+        <div class="question" data-question="4">
+          <p class="question-text">Do your SOPs exist mainly as tribal knowledge rather than documented, enforced processes?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="5">
+          <p class="question-text">Do staff or customer disputes typically require your involvement to resolve?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="6">
+          <p class="question-text">Would you need to be personally involved to train a new operator?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="quiz-pillar">
+        <div class="pillar-number">Pillar 03</div>
+        <div class="pillar-heading">The Vacation Test</div>
+
+        <div class="question" data-question="7">
+          <p class="question-text">Would your business experience revenue loss or operational failure if you were unreachable for 48 hours?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="8">
+          <p class="question-text">Do you personally hold all passwords, bank access, and key vendor contacts?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="9">
+          <p class="question-text">Is there no clear decision-maker when you are unavailable?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="quiz-pillar">
+        <div class="pillar-number">Pillar 04</div>
+        <div class="pillar-heading">Financial &amp; Data Transparency</div>
+
+        <div class="question" data-question="10">
+          <p class="question-text">Can an outsider NOT view your P&amp;L, lead volume, and staff efficiency without calling you?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="11">
+          <p class="question-text">Does any single client represent more than 15% of your revenue?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="12">
+          <p class="question-text">Are personal expenses mixed into your business financials?</p>
+          <div class="answer-group">
+            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
+            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem;text-align:center;">
+        <p id="quiz-error" style="color:#c0392b;font-size:0.9rem;margin-bottom:1rem;display:none;">Please answer all 12 questions before continuing.</p>
+        <button class="btn-primary" onclick="calculateScore()">See My Score</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function selectAnswer(btn) {
+      const group = btn.closest('.answer-group');
+      group.querySelectorAll('.answer-btn').forEach(b => {
+        b.classList.remove('selected-yes', 'selected-no');
+        delete b.dataset.selected;
+      });
+      const value = parseInt(btn.dataset.value);
+      btn.classList.add(value === 1 ? 'selected-yes' : 'selected-no');
+      btn.dataset.selected = 'true';
+    }
+
+    function calculateScore() {
+      // placeholder -- will be implemented in Task 3
+      alert('Score calculation coming in Task 3');
+    }
+  </script>
 
 </body>
 </html>
