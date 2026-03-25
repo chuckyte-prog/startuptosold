@@ -181,7 +181,7 @@
       .section-light, .section-cream, .section-dark { padding: 4rem 1.5rem; }
       .question { grid-template-columns: 1fr; gap: 0.75rem; }
       .answer-group { justify-content: flex-start; }
-      #results .section-inner > div { grid-template-columns: 1fr; gap: 2rem; }
+      .results-grid { grid-template-columns: 1fr; gap: 2rem; }
       #valuation-results .section-inner > div { grid-template-columns: 1fr; gap: 2rem; }
       #val-gap { font-size: 3rem; }
       #score-display { font-size: 4.5rem; }
@@ -368,7 +368,7 @@
   <section id="results" class="section-cream" style="display:none;">
     <div class="section-inner">
       <div class="section-label">Your Results</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem;">
+      <div class="results-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem;">
         <div>
           <div id="score-display" style="font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:300;line-height:1;color:var(--ink);margin-bottom:0.5rem;"></div>
           <div id="score-label" style="font-size:0.82rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;"></div>
@@ -541,9 +541,9 @@
         const barColor = pct >= 67 ? 'var(--ink)' : pct >= 34 ? 'var(--gold)' : 'var(--gold-light)';
         breakdownEl.innerHTML += `
           <div style="margin-bottom:1.75rem;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
-              <span style="font-size:0.9rem;font-weight:500;color:var(--ink);">${pillar.name}</span>
-              <span style="font-size:0.9rem;color:var(--muted);">${pillarScore}/3</span>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.75rem;margin-bottom:0.4rem;">
+              <span style="font-size:0.9rem;font-weight:500;color:var(--ink);min-width:0;">${pillar.name}</span>
+              <span style="font-size:0.9rem;color:var(--muted);white-space:nowrap;flex-shrink:0;">${pillarScore}/3</span>
             </div>
             <div style="height:4px;background:var(--rule);width:100%;">
               <div style="height:4px;background:${barColor};width:${pct}%;transition:width 0.6s ease;"></div>
