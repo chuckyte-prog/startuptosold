@@ -7,6 +7,14 @@
   <meta name="description" content="Find out if your business is sellable — or just a job. The free 12-question Exit Readiness Assessment by Chuck Temple." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="book-cover.png" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -177,35 +185,44 @@
 
     @media (max-width: 768px) {
       nav { padding: 1.25rem 1.5rem; }
-      .section-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .section-light, .section-cream, .section-dark { padding: 2.5rem 1.5rem; }
+      .section-inner { padding-left: 0; padding-right: 0; }
+      .section-light, .section-cream, .section-dark { padding: 2.5rem 1.25rem; }
       .assessment-hero > div { padding-top: 6rem !important; padding-bottom: 2.5rem !important; padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
-      .quiz-pillar { margin-bottom: 2rem; }
-      .question { grid-template-columns: 1fr; gap: 0.75rem; padding: 1rem 0; }
+      .quiz-pillar { margin-bottom: 0; border-top: 1px solid var(--rule); padding-top: 1.25rem; }
+      .quiz-pillar:first-of-type { border-top: none; padding-top: 0; }
+      .pillar-heading { margin-bottom: 0.75rem; border-bottom: none; padding-bottom: 0.25rem; }
+      .question { grid-template-columns: 1fr; gap: 0.5rem; padding: 0.75rem 0; border-bottom: none; }
+      #quiz .section-inner > p { margin-bottom: 1.5rem; }
       .answer-group { justify-content: flex-start; }
       .results-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      #valuation-results .section-inner > div { grid-template-columns: 1fr; gap: 1.5rem; }
-      #val-gap { font-size: 3rem; }
       #score-display { font-size: 4.5rem; }
       .form-name-email { grid-template-columns: 1fr; }
-      #valuation-results .section-inner > div > div:last-child { margin-top: 0; }
       #lead-form { max-width: 100%; }
+      .valuation-grid { display: block !important; }
+      .valuation-gap-box { padding: 1.25rem; margin-bottom: 1.25rem; }
+      #val-gap { font-size: 2.5rem; }
+      .valuation-numbers { display: block; }
+      .valuation-numbers > div:first-child { margin-bottom: 1rem; padding-bottom: 1rem; }
+      #val-current, #val-optimized { font-size: 2rem; }
+      .valuation-cta { margin-top: 2rem; padding-top: 2rem; }
     }
 
     @media (max-width: 480px) {
       nav { padding: 1rem 1.25rem; }
       .nav-logo { font-size: 1rem; }
       .nav-cta { font-size: 0.78rem; }
-      .section-light, .section-cream, .section-dark { padding: 2rem 1.25rem; }
+      .section-light, .section-cream, .section-dark { padding: 2rem 1rem; }
       .assessment-hero > div { padding-top: 5.5rem !important; padding-bottom: 2rem !important; padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
       h1 { font-size: 2rem; line-height: 1.15; }
       .hero-sub { font-size: 0.95rem; }
-      .quiz-pillar { margin-bottom: 1.5rem; }
+      .quiz-pillar { padding-top: 1rem; }
+      .pillar-heading { margin-bottom: 0.5rem; }
       .answer-btn { padding: 0.6rem 0.9rem; font-size: 0.78rem; }
       .pillar-heading { font-size: 1.2rem; }
       #score-display { font-size: 3.5rem; }
-      #val-current, #val-optimized { font-size: 2.5rem; }
-      #val-gap { font-size: 2.5rem; }
+      #val-current, #val-optimized { font-size: 2.2rem; }
+      #val-gap { font-size: 2.2rem; }
+      .valuation-gap-box { padding: 1.25rem; }
       input[type="text"], input[type="email"], input[type="number"], textarea {
         font-size: 16px;
         width: 100%;
@@ -434,9 +451,15 @@
   <section id="valuation-results" class="section-light" style="display:none;">
     <div class="section-inner">
       <div class="section-label">Your Valuation Gap</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem;">
+      <div class="valuation-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem;">
 
-        <div>
+        <div class="valuation-gap-box" style="background:var(--cream);padding:2.5rem;border:1px solid var(--rule);">
+          <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Potential Value Created</div>
+          <div id="val-gap" style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:1rem;"></div>
+          <p id="val-gap-copy" style="font-size:1rem;color:#4a4540;line-height:1.75;"></p>
+        </div>
+
+        <div class="valuation-numbers">
           <div style="margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--rule);">
             <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Your Business Today</div>
             <div id="val-current" style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--ink);line-height:1;"></div>
@@ -449,15 +472,9 @@
           </div>
         </div>
 
-        <div style="background:var(--cream);padding:2.5rem;border:1px solid var(--rule);">
-          <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Potential Value Created</div>
-          <div id="val-gap" style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:1rem;"></div>
-          <p id="val-gap-copy" style="font-size:1rem;color:#4a4540;line-height:1.75;"></p>
-        </div>
-
       </div>
 
-      <div style="margin-top:5rem;padding-top:3rem;border-top:1px solid var(--rule);text-align:center;">
+      <div class="valuation-cta" style="margin-top:5rem;padding-top:3rem;border-top:1px solid var(--rule);text-align:center;">
         <div class="section-label" style="justify-content:center;">Ready to Close the Gap?</div>
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;margin:1rem auto 1.5rem;max-width:600px;">
           Let's build the operations that make your business <em style="font-style:italic;color:var(--gold);">worth more</em>.
