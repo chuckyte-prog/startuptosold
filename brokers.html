@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Business Brokers — Startup to Sold</title>
+  <meta name="description" content="Chuck Temple works with business brokers to fix the operational reasons deals fall apart and get listings back to market." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="book-cover.png" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0e0e0e;
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --gold: #b8924a;
+      --gold-light: #d4aa6a;
+      --muted: #6b6560;
+      --rule: #d4cfc8;
+      --section-bg: #1a1714;
+      --dark-text: #e8e2d8;
+      --dark-muted: #8a8078;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-cta:hover { color: var(--ink); border-color: var(--ink); }
+    .nav-cta.muted { color: var(--muted); border-color: var(--rule); }
+    .nav-cta.muted:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* SECTIONS */
+    .section-dark {
+      background: var(--section-bg);
+      color: var(--dark-text);
+      padding: 7rem 3rem;
+    }
+
+    .section-light {
+      padding: 7rem 3rem;
+      background: var(--warm-white);
+    }
+
+    .section-cream {
+      background: var(--cream);
+      padding: 7rem 3rem;
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-inner-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* HERO */
+    .broker-hero {
+      background: var(--section-bg);
+      color: var(--dark-text);
+      padding: 11rem 3rem 8rem;
+    }
+
+    .broker-hero .section-inner {
+      max-width: 760px;
+    }
+
+    .broker-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--dark-text);
+      margin-bottom: 1.5rem;
+    }
+
+    .broker-hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .broker-hero .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #a09890;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* PROSE SECTIONS */
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .section-dark h2 { color: var(--dark-text); }
+    .section-light h2, .section-cream h2 { color: var(--ink); }
+
+    .section-dark h2 em { font-style: italic; color: var(--gold-light); }
+    .section-light h2 em, .section-cream h2 em { font-style: italic; color: var(--gold); }
+
+    .prose {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.9;
+      max-width: 65ch;
+    }
+
+    .section-dark .prose { font-weight: 300; color: #a09890; }
+    .section-light .prose, .section-cream .prose { color: #3a3530; }
+
+    .prose p + p { margin-top: 1.75rem; }
+
+    /* OPTIONS GRID */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .option-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem;
+    }
+
+    .option-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      opacity: 0.5;
+    }
+
+    .option-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--dark-text);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .option-body {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #a09890;
+      line-height: 1.8;
+    }
+
+    /* FIT LIST */
+    .fit-list {
+      list-style: none;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .fit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1.05rem;
+      color: #3a3530;
+      line-height: 1.7;
+    }
+
+    .fit-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .fit-note {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* CONTACT */
+    .contact-block {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.05rem;
+      color: #3a3530;
+    }
+
+    .contact-row-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      width: 4rem;
+      flex-shrink: 0;
+    }
+
+    .contact-row a {
+      color: #3a3530;
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-row a:hover { color: var(--gold); border-color: var(--gold); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.25rem;
+      min-height: 52px;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 2.5rem;
+    }
+
+    .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(245, 240, 232, 0.4);
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.25);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+
+      .broker-hero { padding: 9rem 1.5rem 6rem; }
+
+      .section-dark,
+      .section-light,
+      .section-cream { padding: 5rem 1.5rem; }
+
+      .options-grid { grid-template-columns: 1fr; }
+
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.25rem; gap: 0.5rem; }
+      .nav-logo { font-size: 1rem; white-space: nowrap; }
+      .nav-cta { font-size: 0.75rem; letter-spacing: 0.04em; white-space: nowrap; }
+
+      .broker-hero { padding: 8rem 1.25rem 5rem; }
+      .broker-hero h1 { font-size: 2.2rem; }
+
+      .section-dark,
+      .section-light,
+      .section-cream { padding: 4rem 1.25rem; }
+
+      h2 { font-size: 1.8rem; }
+
+      .option-card { padding: 1.75rem 1.25rem; }
+
+      footer > div { flex-direction: column; gap: 0.4rem; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold</a>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="/brokers" class="nav-cta muted">For Brokers</a>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="broker-hero">
+    <div class="section-inner">
+      <div class="section-label">For Business Brokers</div>
+      <h1>You have deals sitting in a drawer that will never close. <em>Let's fix that.</em></h1>
+      <p class="hero-sub">I work with business owners to fix what killed the deal — and get them back to market.</p>
+    </div>
+  </section>
+
+  <!-- THE DEALS THAT DIED -->
+  <section class="section-cream">
+    <div class="section-inner">
+      <div class="section-label">The Deals That Died</div>
+      <div class="prose">
+        <p>You know the ones. The business had real potential but due diligence fell apart. The owner was too involved in the day-to-day. The books were a mess. No systems, no documented processes, nothing a buyer could depend on once the founder walked out.</p>
+        <p>The listing expired. You moved on. But that owner still wants to sell.</p>
+        <p>70% of businesses listed for sale never close. Most of those owners haven't gone away — they've just stalled. I go in, fix the operational reasons the deal fell apart, and get the business ready to go back to market. With you as the broker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE LISTINGS THAT ARE STUCK -->
+  <section class="section-light">
+    <div class="section-inner">
+      <div class="section-label">The Listings That Are Stuck</div>
+      <div class="prose">
+        <p>Same problem, earlier stage. You have a listing that's been sitting too long. Buyers are interested but nervous. Due diligence keeps surfacing the same issues. The owner is still too central to everything.</p>
+        <p>I can come in now — before the deal dies — and fix what's holding it back.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="section-cream">
+    <div class="section-inner">
+      <div class="section-label">What I Do</div>
+      <div class="prose">
+        <p>I'm Chuck Temple. I come in for 3 to 6 months and do the hands-on operational work: documenting processes, restructuring roles, building systems so the business runs without the owner. When I'm done, buyers see a business that stands on its own.</p>
+        <p>I've done this firsthand. I built and sold my own company — 27 employees, 4 locations, $2.5M ARR — and wrote a book about it called <em>Startup to Sold</em> (Inc. Magazine Imprints, 2023). The buyer looked at 50+ companies and chose mine because the business actually worked without me.</p>
+        <p>Brokers already know what's wrong. The gap is someone credible who can fix it. That's what I do.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK TOGETHER -->
+  <section class="section-dark">
+    <div class="section-inner-wide">
+      <div class="section-label">How We Work Together</div>
+      <h2>Two options, your choice.</h2>
+      <div class="options-grid">
+        <div class="option-card">
+          <div class="option-number">01</div>
+          <div class="option-title">Referral Fee</div>
+          <div class="option-body">You refer an owner to me. If they sign an engagement, I pay you 10% of the engagement fee at close. No ongoing involvement required.</div>
+        </div>
+        <div class="option-card">
+          <div class="option-number">02</div>
+          <div class="option-title">Seller Discount</div>
+          <div class="option-body">I discount my engagement fee 10% for your referred client and you let them know you arranged it. You re-engage a relationship you thought was dead and position yourself as the broker who helped them get across the finish line.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO TO REFER -->
+  <section class="section-light">
+    <div class="section-inner">
+      <div class="section-label">Who to Refer</div>
+      <h2>The right fit is an owner who:</h2>
+      <ul class="fit-list">
+        <li>Has a business generating $500K or more in revenue</li>
+        <li>Genuinely wants to sell — not just open to it</li>
+        <li>Has the resources and willingness to invest in fixing it</li>
+      </ul>
+      <p class="fit-note">Not sure if someone fits? Send me a note. I'll do a quick 15-minute assessment before you make the introduction.</p>
+    </div>
+  </section>
+
+  <!-- GET IN TOUCH -->
+  <section class="section-cream">
+    <div class="section-inner">
+      <div class="section-label">Get in Touch</div>
+      <h2>Chuck Temple</h2>
+      <div class="contact-block">
+        <div class="contact-row">
+          <span class="contact-row-label">Email</span>
+          <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Phone</span>
+          <a href="tel:8585238881">858-523-8881</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Web</span>
+          <a href="https://startuptosold.com/brokers">startuptosold.com/brokers</a>
+        </div>
+      </div>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a 15-Minute Call</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Startup to Sold</span>
+    <span class="footer-copy">&copy; 2025 Chuck Temple</span>
+  </footer>
+
+</body>
+</html>
