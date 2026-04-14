@@ -610,7 +610,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1.5rem; }
+      nav { padding: 0 1.5rem; grid-template-columns: 1fr auto; }
       .nav-links { display: none; }
       .nav-phone { display: none; }
       .nav-hamburger { display: flex; }
@@ -841,7 +841,7 @@
           src="https://web-production-1d80d.up.railway.app"
           width="100%"
           height="520"
-          style="border: none; display: block; outline: none;"
+          style="border: none; display: block; outline: none; max-width: 100%; overflow: hidden;"
           title="Live Pickleball Court Availability Demo"
           loading="lazy"
         ></iframe>
