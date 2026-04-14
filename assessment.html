@@ -17,30 +17,30 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink: #0e0e0e;
-      --cream: #f5f0e8;
-      --warm-white: #faf8f4;
-      --gold: #b8924a;
-      --gold-light: #d4aa6a;
-      --muted: #6b6560;
-      --rule: #d4cfc8;
-      --section-bg: #1a1714;
-      --dark-text: #e8e2d8;
-      --dark-muted: #8a8078;
+      --ink: #1c1c1e;
+      --orange: #e85d26;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --off-white: #f5f4f1;
+      --rule: #e2e0db;
+      --muted: #6b6b72;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--warm-white);
-      color: var(--ink);
-      font-size: 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      font-size: 18px;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
     }
@@ -48,143 +48,110 @@
     /* NAV */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 1.25rem 3rem;
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      background: rgba(250, 248, 244, 0.92);
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(15,22,35,0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--dark-rule);
     }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-cta {
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-      border-bottom: 2px solid var(--gold);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .nav-cta:hover { color: var(--ink); border-color: var(--ink); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
 
     /* BUTTONS */
     .btn-primary {
-      background: var(--ink);
-      color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 1.1rem 2.25rem;
-      transition: background 0.2s, transform 0.15s;
-      min-height: 52px;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
       display: inline-flex;
       align-items: center;
     }
-
-    .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
-
-    .btn-secondary {
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #4a4540;
-      text-decoration: none;
-      border-bottom: 2px solid #4a4540;
-      padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
     /* HEADINGS */
     h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.6rem, 5vw, 4rem);
-      font-weight: 300;
-      line-height: 1.12;
-      letter-spacing: -0.01em;
-      color: var(--ink);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--dark-text);
       margin-bottom: 1.5rem;
     }
-
-    h1 em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--gold);
-    }
+    h1 em { color: var(--orange); font-style: normal; }
 
     .hero-sub {
-      font-size: 1.15rem;
-      font-weight: 400;
-      color: #4a4540;
+      font-size: 1.05rem;
+      color: var(--dark-muted);
       line-height: 1.75;
       margin-bottom: 2.5rem;
-      max-width: 440px;
+      max-width: 480px;
     }
 
-    /* SECTION LABEL */
+    /* SECTION EYEBROW */
     .section-label {
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
+    .section-label::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); }
 
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 1.5rem;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    /* ASSESSMENT-SPECIFIC SECTIONS */
-    .assessment-hero { background: var(--warm-white); }
-    .section-light { padding: 7rem 3rem; background: var(--warm-white); }
-    .section-cream { background: var(--cream); padding: 7rem 3rem; }
-    .section-dark { background: var(--section-bg); color: var(--dark-text); padding: 7rem 3rem; }
-    .section-inner { max-width: 1200px; margin: 0 auto; }
+    /* SECTIONS */
+    .assessment-hero { background: var(--dark-bg); border-bottom: 1px solid var(--dark-rule); }
+    .section-light { padding: 5rem 3rem; background: var(--off-white); border-bottom: 1px solid var(--rule); }
+    .section-cream { background: var(--dark-surface); padding: 5rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-dark { background: var(--dark-bg); color: var(--dark-text); padding: 5rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
 
     /* QUIZ */
     .quiz-pillar { margin-bottom: 3.5rem; }
-    .pillar-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
-    .pillar-number { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
-    .question { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--rule); }
-    .question-text { font-size: 1rem; font-weight: 400; color: #4a4540; line-height: 1.65; }
-    .answer-group { display: flex; gap: 0.5rem; }
-    .answer-btn { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.65rem 1.25rem; border: 1px solid var(--rule); background: transparent; color: var(--muted); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .pillar-heading { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+    .pillar-number { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.4rem; }
+    .question { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--rule); }
+    .question-text { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+    .answer-group { display: flex; gap: 0.4rem; }
+    .answer-btn { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.1rem; border: 1px solid var(--rule); background: transparent; color: var(--muted); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
     .answer-btn:hover { border-color: var(--ink); color: var(--ink); }
-    .answer-btn.selected-yes { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-    .answer-btn.selected-no { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .answer-btn.selected-yes { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .answer-btn.selected-no { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+    /* FOOTER */
+    footer { background: var(--dark-bg); border-top: 1px solid var(--dark-rule); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-size: 0.95rem; font-weight: 800; color: var(--dark-text); text-decoration: none; letter-spacing: -0.02em; }
+    .footer-dot { color: var(--orange); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.78rem; font-weight: 600; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact { display: flex; gap: 1.5rem; }
+    .footer-contact a { font-size: 0.82rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-contact a:hover { color: var(--dark-text); }
 
     @media (max-width: 768px) {
-      nav { padding: 1.25rem 1.5rem; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
       .section-inner { padding-left: 0; padding-right: 0; }
       .section-light, .section-cream, .section-dark { padding: 2.5rem 1.25rem; }
       .assessment-hero > div { padding-top: 6rem !important; padding-bottom: 2.5rem !important; padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
@@ -205,28 +172,20 @@
       .valuation-numbers > div:first-child { margin-bottom: 1rem; padding-bottom: 1rem; }
       #val-current, #val-optimized { font-size: 2rem; }
       .valuation-cta { margin-top: 2rem; padding-top: 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links, .footer-contact { justify-content: center; flex-wrap: wrap; gap: 1rem; }
     }
 
     @media (max-width: 480px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-logo { font-size: 1rem; }
-      .nav-cta { font-size: 0.78rem; }
+      nav { padding: 0 1.25rem; }
       .section-light, .section-cream, .section-dark { padding: 2rem 1rem; }
       .assessment-hero > div { padding-top: 5.5rem !important; padding-bottom: 2rem !important; padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
-      h1 { font-size: 2rem; line-height: 1.15; }
-      .hero-sub { font-size: 0.95rem; }
+      h1 { font-size: 2rem; }
       .quiz-pillar { padding-top: 1rem; }
-      .pillar-heading { margin-bottom: 0.5rem; }
-      .answer-btn { padding: 0.6rem 0.9rem; font-size: 0.78rem; }
-      .pillar-heading { font-size: 1.2rem; }
+      .answer-btn { padding: 0.6rem 0.9rem; }
       #score-display { font-size: 3.5rem; }
-      #val-current, #val-optimized { font-size: 2.2rem; }
-      #val-gap { font-size: 2.2rem; }
-      .valuation-gap-box { padding: 1.25rem; }
-      input[type="text"], input[type="email"], input[type="number"], textarea {
-        font-size: 16px;
-        width: 100%;
-      }
+      #val-current, #val-optimized, #val-gap { font-size: 2.2rem; }
+      input[type="text"], input[type="email"], input[type="number"], textarea { font-size: 16px; width: 100%; }
       #lead-form button[type="submit"] { font-size: 0.82rem; padding: 1rem 1.5rem; }
     }
   </style>
@@ -234,10 +193,15 @@
 <body>
 
   <nav>
-    <a href="/" class="nav-logo">Startup to Sold</a>
-    <div style="display:flex;gap:2rem;align-items:center;">
-      <a href="/brokers" class="nav-cta" style="color:var(--muted);border-color:var(--rule);">For Brokers</a>
-      <a href="https://calendly.com/chuck-startuptosold" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
     </div>
   </nav>
 
@@ -388,9 +352,9 @@
       <div class="section-label">Your Results</div>
       <div class="results-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem;">
         <div>
-          <div id="score-display" style="font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:300;line-height:1;color:var(--ink);margin-bottom:0.5rem;"></div>
-          <div id="score-label" style="font-size:0.82rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;"></div>
-          <p id="score-copy" style="font-size:1rem;color:#4a4540;line-height:1.75;max-width:400px;"></p>
+          <div id="score-display" style="font-size:6rem;font-weight:800;letter-spacing:-0.04em;line-height:1;color:var(--dark-text);margin-bottom:0.5rem;"></div>
+          <div id="score-label" style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;"></div>
+          <p id="score-copy" style="font-size:1rem;color:var(--dark-muted);line-height:1.75;max-width:400px;"></p>
         </div>
         <div id="pillar-breakdown"></div>
       </div>
@@ -399,11 +363,11 @@
 
   <section id="valuation-gate" class="section-dark" style="display:none;">
     <div class="section-inner">
-      <div class="section-label" style="color:var(--gold);">What This Means in Dollars</div>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;color:var(--dark-text);max-width:600px;margin-bottom:1rem;">
-        Enter your SDE to see <em style="font-style:italic;color:var(--gold-light);">your valuation gap</em>
+      <div class="section-label">What This Means in Dollars</div>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.03em;line-height:1.15;color:var(--dark-text);max-width:600px;margin-bottom:1rem;">
+        Enter your SDE to see <em style="color:var(--orange);font-style:normal;">your valuation gap</em>
       </h2>
-      <p style="font-size:1rem;font-weight:300;color:var(--dark-muted);max-width:480px;margin-bottom:3rem;line-height:1.8;">
+      <p style="font-size:1rem;color:var(--dark-muted);max-width:480px;margin-bottom:3rem;line-height:1.8;">
         SDE (Seller's Discretionary Earnings) is your business profit plus your owner salary and any personal expenses run through the business. Enter your best estimate.
       </p>
 
@@ -442,7 +406,7 @@
             style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:var(--dark-text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:0.9rem 1rem;resize:vertical;"></textarea>
         </div>
 
-        <button type="submit" style="background:var(--gold);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:1.1rem 2.5rem;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s;width:100%;">
+        <button type="submit" style="background:var(--orange);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2.5rem;border:none;cursor:pointer;transition:opacity 0.2s,transform 0.15s;width:100%;">
           Show My Valuation
         </button>
       </form>
@@ -454,22 +418,22 @@
       <div class="section-label">Your Valuation Gap</div>
       <div class="valuation-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem;">
 
-        <div class="valuation-gap-box" style="background:var(--cream);padding:2.5rem;border:1px solid var(--rule);">
-          <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Potential Value Created</div>
-          <div id="val-gap" style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:1rem;"></div>
-          <p id="val-gap-copy" style="font-size:1rem;color:#4a4540;line-height:1.75;"></p>
+        <div class="valuation-gap-box" style="background:var(--dark-surface);padding:2.5rem;border:1px solid var(--dark-rule);">
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;">Potential Value Created</div>
+          <div id="val-gap" style="font-size:4rem;font-weight:800;letter-spacing:-0.04em;color:var(--orange);line-height:1;margin-bottom:1rem;"></div>
+          <p id="val-gap-copy" style="font-size:1rem;color:var(--dark-muted);line-height:1.75;"></p>
         </div>
 
         <div class="valuation-numbers">
-          <div style="margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--rule);">
-            <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Your Business Today</div>
-            <div id="val-current" style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--ink);line-height:1;"></div>
-            <div id="val-current-note" style="font-size:0.9rem;color:var(--muted);margin-top:0.4rem;"></div>
+          <div style="margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--dark-rule);">
+            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--dark-muted);margin-bottom:0.5rem;">Your Business Today</div>
+            <div id="val-current" style="font-size:3.5rem;font-weight:800;letter-spacing:-0.04em;color:var(--dark-text);line-height:1;"></div>
+            <div id="val-current-note" style="font-size:0.88rem;color:var(--dark-muted);margin-top:0.4rem;"></div>
           </div>
           <div>
-            <div style="font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Optimized Exit Value</div>
-            <div id="val-optimized" style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--ink);line-height:1;"></div>
-            <div id="val-optimized-note" style="font-size:0.9rem;color:var(--muted);margin-top:0.4rem;"></div>
+            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;">Optimized Exit Value</div>
+            <div id="val-optimized" style="font-size:3.5rem;font-weight:800;letter-spacing:-0.04em;color:var(--dark-text);line-height:1;"></div>
+            <div id="val-optimized-note" style="font-size:0.88rem;color:var(--dark-muted);margin-top:0.4rem;"></div>
           </div>
         </div>
 
@@ -477,18 +441,28 @@
 
       <div class="valuation-cta" style="margin-top:5rem;padding-top:3rem;border-top:1px solid var(--rule);text-align:center;">
         <div class="section-label" style="justify-content:center;">Ready to Close the Gap?</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;margin:1rem auto 1.5rem;max-width:600px;">
-          Let's build the operations that make your business <em style="font-style:italic;color:var(--gold);">worth more</em>.
+        <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.03em;line-height:1.15;margin:1rem auto 1.5rem;max-width:600px;color:var(--ink);">
+          Let's build the operations that make your business <em style="color:var(--orange);font-style:normal;">worth more</em>.
         </h2>
-        <a href="https://calendly.com/chuck-startuptosold" target="_blank" rel="noopener"
-          style="display:inline-flex;align-items:center;background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:1.1rem 2.25rem;transition:background 0.2s,transform 0.15s;"
-          onmouseover="this.style.background='var(--gold)';this.style.transform='translateY(-1px)'"
-          onmouseout="this.style.background='var(--ink)';this.style.transform=''">
-          Book a Free 30-Minute Call
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">
+          Book a Free Strategy Session
         </a>
       </div>
     </div>
   </section>
+
+  <footer>
+    <a href="/" class="footer-logo">Startup to Sold Consulting<span class="footer-dot">.</span></a>
+    <div class="footer-links">
+      <a href="/brokers.html">Brokers</a>
+      <a href="/assessment.html">Assessment</a>
+      <a href="/book.html">The Book</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+      <a href="tel:8585238881">858-523-8881</a>
+    </div>
+  </footer>
 
   <script>
     function selectAnswer(btn) {
@@ -537,17 +511,17 @@
         label = 'Turnkey Asset';
         multiple = 4.0;
         copy = 'Your business runs largely without you. Buyers see a managed asset, not a job. You are in the top tier for exit multiples, typically 3.5x to 4.5x SDE. If you are not already talking to buyers, now is the time.';
-        scoreColor = '#4a7a5a';
+        scoreColor = '#4a9a6a';
       } else if (pctScore >= 34) {
         label = 'Operational Hybrid';
         multiple = 2.85;
         copy = 'Your business has real systems in place but still depends on you in key areas. Strategic buyers will offer 2.5x to 3.2x SDE. Targeted improvements to your weakest pillars could meaningfully close the gap.';
-        scoreColor = '#b8924a';
+        scoreColor = '#e85d26';
       } else {
         label = 'High Dependency';
         multiple = 1.85;
         copy = 'Your business is closely tied to you as the owner. Buyers price this risk at 1.5x to 2.2x SDE. The good news: this is fixable. The gap between where you are and what this business could be worth is the opportunity.';
-        scoreColor = '#8a4a35';
+        scoreColor = '#c0392b';
       }
 
       const scoreEl = document.getElementById('score-display');
@@ -562,7 +536,7 @@
       PILLARS.forEach(pillar => {
         const pillarScore = pillar.questions.reduce((acc, q) => acc + (scores[q] || 0), 0);
         const pillarPct = Math.round((pillarScore / 3) * 100);
-        const barColor = pillarPct >= 67 ? '#4a7a5a' : pillarPct >= 34 ? 'var(--gold)' : '#8a4a35';
+        const barColor = pillarPct >= 67 ? '#4a9a6a' : pillarPct >= 34 ? 'var(--orange)' : '#c0392b';
         const pctLabel = pillarPct + '%';
         breakdownEl.innerHTML += `
           <div style="margin-bottom:1.75rem;">
