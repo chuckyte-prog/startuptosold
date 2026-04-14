@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Communication Automation -- Startup to Sold Consulting</title>
+  <meta name="description" content="Keep customers in the loop without lifting a finger. We automate FAQ responses, job status updates, and re-engagement campaigns for Bay Area service businesses." />
+  <link rel="canonical" href="https://startuptosold.com/automations/customer-communication" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --orange: #e85d26; --dark-bg: #0f1623; --dark-surface: #162032; --dark-text: #f2f2f5; --dark-muted: #8e8e99; --dark-rule: rgba(255,255,255,0.08); }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 3rem; height: 64px; background: rgba(15,22,35,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--dark-rule); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--dark-text); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,22,35,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 700; color: var(--dark-text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { color: var(--orange) !important; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--orange); }
+
+    .hero { background: var(--dark-bg); padding: 9rem 3rem 6rem; border-bottom: 1px solid var(--dark-rule); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.2s; }
+    .btn-primary:hover { background: #c44a1a; }
+    .hero-stats { display: flex; flex-direction: column; border-left: 1px solid var(--dark-rule); padding-left: 2.5rem; }
+    .hero-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--dark-rule); }
+    .hero-stat:last-child { border-bottom: none; }
+    .hero-stat-number { font-size: 2rem; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
+    .hero-stat-label { font-size: 0.8rem; color: var(--dark-muted); line-height: 1.4; }
+
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-phases { background: var(--dark-surface); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-phases h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-phases h2 em { color: var(--orange); font-style: normal; }
+    .section-phases .section-lead { font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 3.5rem; line-height: 1.75; }
+    .phases-strip { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; }
+    .phase-box { background: var(--dark-bg); border: 1px solid var(--dark-rule); padding: 2.25rem 1.75rem; transition: border-color 0.2s; }
+    .phase-box:hover { border-color: rgba(232,93,38,0.3); }
+    .phase-number { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .phase-title { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .phase-desc { font-size: 0.88rem; color: var(--dark-muted); line-height: 1.7; }
+    .phase-arrow { display: flex; align-items: center; justify-content: center; padding: 0 1rem; color: var(--orange); }
+    .phase-arrow svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    .section-services { background: var(--dark-bg); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-services h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-services h2 em { color: var(--orange); font-style: normal; }
+    .section-services .section-lead { font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 3rem; line-height: 1.75; }
+    .services-list { display: flex; flex-direction: column; border: 1px solid var(--dark-rule); }
+    .service-item { padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--dark-rule); display: grid; grid-template-columns: 16px 1fr; gap: 0.75rem; align-items: start; }
+    .service-item:last-child { border-bottom: none; }
+    .service-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-top: 0.45rem; flex-shrink: 0; }
+    .service-content-title { font-size: 0.95rem; font-weight: 700; color: var(--dark-text); margin-bottom: 0.25rem; }
+    .service-content-desc { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+
+    .section-who { background: var(--dark-surface); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-who h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-who h2 em { color: var(--orange); font-style: normal; }
+    .who-body { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; max-width: 720px; margin-bottom: 2.5rem; }
+    .who-criteria { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--dark-rule); }
+    .who-criterion { padding: 1.5rem 2rem; border-right: 1px solid var(--dark-rule); display: flex; align-items: flex-start; gap: 1rem; }
+    .who-criterion:last-child { border-right: none; }
+    .who-criterion-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 0.5rem; }
+    .who-criterion-text { font-size: 0.9rem; color: var(--dark-muted); line-height: 1.6; }
+
+    .section-faq { background: var(--dark-bg); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-faq h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 3rem; }
+    .section-faq h2 em { color: var(--orange); font-style: normal; }
+    .faq-list { border: 1px solid var(--dark-rule); }
+    .faq-item { border-bottom: 1px solid var(--dark-rule); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 1.75rem 2rem; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--dark-text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 2rem; transition: color 0.2s; }
+    .faq-question:hover { color: var(--orange); }
+    .faq-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--orange); transition: transform 0.25s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { display: none; padding: 0 2rem 1.75rem; font-size: 0.95rem; color: var(--dark-muted); line-height: 1.8; }
+    .faq-item.open .faq-answer { display: block; }
+
+    .section-cta { background: var(--dark-surface); padding: 6rem 3rem; text-align: center; }
+    .section-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p { font-size: 1rem; color: var(--dark-muted); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    footer { background: var(--dark-surface); border-top: 1px solid var(--dark-rule); padding: 4rem 3rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .footer-tagline { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+    .footer-col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact a { display: block; font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid var(--dark-rule); padding-top: 1.5rem; font-size: 0.8rem; color: var(--dark-muted); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; } .nav-links { display: none; } .nav-phone { display: none; } .nav-hamburger { display: flex; } .mobile-menu { display: flex; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 0; margin-top: 0; }
+      .hero-stat { padding: 1rem 0; }
+      .section-phases, .section-services, .section-who, .section-faq, .section-cta { padding: 4rem 1.5rem; }
+      .phases-strip { grid-template-columns: 1fr; }
+      .phase-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+      .who-criteria { grid-template-columns: 1fr; }
+      .who-criterion { border-right: none; border-bottom: 1px solid var(--dark-rule); }
+      .who-criterion:last-child { border-bottom: none; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .cta-secondary { margin-top: 1.25rem; font-size: 0.88rem; color: var(--dark-muted); }
+    .cta-secondary a { color: var(--dark-muted); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s, border-color 0.2s; }
+    .cta-secondary a:hover { color: var(--orange); border-color: var(--orange); }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/automations.html" class="active">AI Automations</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#services">Services</a><a href="/automations.html">AI Automations</a><a href="/#how-it-works">How It Works</a><a href="/#about">About</a><a href="/#contact">Contact</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div style="margin-bottom:2rem;"><a href="../automations.html" class="back-link">&larr; Back to AI Automations</a></div>
+        <div class="hero-eyebrow">Customer Communication</div>
+        <h1>Keep Customers in the Loop -- <em>Without Lifting a Finger.</em></h1>
+        <p class="hero-sub">Customers who feel informed don't call to check in. We automate the updates, follow-ups, and re-engagement campaigns that keep your customers happy and coming back.</p>
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+      <p class="cta-secondary">Or reach us at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">68%</div>
+          <div class="hero-stat-label">Of customers leave because they felt ignored -- not because of price or quality</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">5x</div>
+          <div class="hero-stat-label">Cheaper to retain an existing customer than acquire a new one</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">0</div>
+          <div class="hero-stat-label">Manual sends required once the sequences are live</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-phases">
+    <div class="section-inner">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Three phases. <em>Customers who never feel forgotten.</em></h2>
+      <p class="section-lead">We audit your current customer touchpoints, build the right communication sequences for your business, and keep them running and relevant month after month.</p>
+      <div class="phases-strip">
+        <div class="phase-box">
+          <div class="phase-number">Phase 01</div>
+          <div class="phase-title">Assessment &amp; Build</div>
+          <p class="phase-desc">We map your customer journey -- from first contact to job close to re-engagement -- and identify where communication breaks down. Then we build the sequences to fill those gaps.</p>
+        </div>
+        <div class="phase-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </div>
+        <div class="phase-box">
+          <div class="phase-number">Phase 02</div>
+          <div class="phase-title">Hand-off</div>
+          <p class="phase-desc">We train you on what triggers each message, how to update content, and how to handle the exceptions when a customer responds and needs a human touch.</p>
+        </div>
+        <div class="phase-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </div>
+        <div class="phase-box">
+          <div class="phase-number">Phase 03</div>
+          <div class="phase-title">Maintenance</div>
+          <p class="phase-desc">Monthly check-ins to review open rates, response rates, and re-engagement results. We update messaging seasonally and as your services change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-services">
+    <div class="section-inner">
+      <div class="section-eyebrow">What We Build</div>
+      <h2>Every automation in <em>this category.</em></h2>
+      <p class="section-lead">These are the specific customer communication automations we build. Most clients start with the FAQ responder and job status updates -- both are high-visibility, low-effort wins.</p>
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">AI FAQ Responder</div>
+            <div class="service-content-desc">Handles common inbound questions automatically -- hours, pricing, service area, booking links. Works over website chat, SMS, or Facebook Messenger. Includes a graceful hand-off to a human when the AI doesn't know the answer.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Automated Job Status Updates</div>
+            <div class="service-content-desc">When a job status changes in your field software (Jobber, ServiceTitan, Housecall Pro), the customer gets a text automatically -- "Your technician is on the way," "Your job is complete," etc. No manual send, no customer calling to check in.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Post-Job Satisfaction Check-In</div>
+            <div class="service-content-desc">A short satisfaction check-in goes out automatically after job completion. Happy customers get nudged toward a review. Unhappy customers get a direct response path before they go to Google to complain.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Re-Engagement Campaigns for Past Customers</div>
+            <div class="service-content-desc">Seasonal reminders, annual service prompts, and win-back campaigns for customers who haven't returned in 6-12 months. Your best new customer is usually an old one you haven't talked to lately.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-who">
+    <div class="section-inner">
+      <div class="section-eyebrow">Who It's For</div>
+      <h2>Right for your business <em>if...</em></h2>
+      <p class="who-body">Field service businesses -- HVAC, plumbing, construction, home services -- and any company with repeat customers worth re-engaging. If your customers would benefit from knowing what's happening with their job, or if you have a customer list you haven't emailed in six months, this is for you.</p>
+      <div class="who-criteria">
+        <div class="who-criterion">
+          <div class="who-criterion-dot"></div>
+          <div class="who-criterion-text">You have repeat customers you haven't reached out to in months</div>
+        </div>
+        <div class="who-criterion">
+          <div class="who-criterion-dot"></div>
+          <div class="who-criterion-text">Customers call your office to ask for job status updates</div>
+        </div>
+        <div class="who-criterion">
+          <div class="who-criterion-dot"></div>
+          <div class="who-criterion-text">You get the same inbound questions over and over</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-faq">
+    <div class="section-inner" style="max-width:760px;">
+      <div class="section-eyebrow">Questions</div>
+      <h2>What to know <em>before we talk.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">Do job status updates require specific field software?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+          </button>
+          <div class="faq-answer">Yes -- job status updates need a trigger from your field software when the status changes. This works well with Jobber, ServiceTitan, and Housecall Pro. If you're not on one of these, we'll assess whether your current tools have API access during the assessment.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What channel does the FAQ responder work on?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+          </button>
+          <div class="faq-answer">We build it for whichever channel your customers actually use -- website chat, SMS, or Facebook Messenger are the most common. We also set up a clear hand-off so the AI knows when to escalate to a human.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can re-engagement campaigns be seasonal?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+          </button>
+          <div class="faq-answer">Yes. We build them on a schedule -- spring tune-up reminders, annual service prompts, winter prep campaigns. You review and approve all messaging before it goes out.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What does it cost?
+            <svg class="faq-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
+          </button>
+          <div class="faq-answer">Every engagement starts with an AI Assessment ($3,500-$5,000). Re-engagement campaigns and post-job follow-ups are simpler builds. The FAQ responder and job status updates have more setup depending on your tools and channels.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-cta">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="justify-content:center;">Get Started</div>
+      <h2>Ready to keep customers in the loop <em>automatically?</em></h2>
+      <p>Book a free strategy session. We'll look at your customer communication gaps and tell you exactly what it would take to fill them.</p>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+      <p class="cta-secondary">Or reach us at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Startup to Sold Consulting<span style="color:var(--orange);">.</span></div><p class="footer-tagline">Hands-on operations partner for Bay Area businesses.</p></div>
+        <div><div class="footer-col-label">Navigation</div><ul class="footer-links"><li><a href="/automations.html">AI Automations</a></li><li><a href="/brokers.html">Brokers</a></li><li><a href="/assessment.html">Assessment</a></li><li><a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a></li></ul></div>
+        <div><div class="footer-col-label">Contact</div><div class="footer-contact"><a href="tel:8585238881">858-523-8881</a><a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></div></div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Startup to Sold Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
