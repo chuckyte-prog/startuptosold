@@ -1620,6 +1620,8 @@
         const res = await fetch('https://formspree.io/f/xaqplpgv', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
         if (res.ok) {
           this.style.display = 'none';
+          document.querySelector('.form-modal h2').style.display = 'none';
+          document.querySelector('.form-modal > p').style.display = 'none';
           document.getElementById('form-success').style.display = 'block';
         } else {
           btn.textContent = 'Send Message';
