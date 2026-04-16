@@ -600,33 +600,31 @@
     }
 
     .pain-points {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--dark-rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--dark-rule);
     }
 
     .pain-point {
-      background: var(--dark-bg);
-      padding: 1.5rem 1.75rem;
-      font-size: 1rem;
+      background: transparent;
+      padding: 1.25rem 0;
+      font-size: 1.0625rem;
       color: rgba(242, 242, 245, 0.75);
-      line-height: 1.65;
+      line-height: 1.6;
       font-weight: 500;
-      border-left: 3px solid transparent;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      border-bottom: 1px solid var(--dark-rule);
+      transition: color 0.2s;
       position: relative;
     }
     .pain-point::before {
       content: '—';
       color: var(--orange);
-      margin-right: 0.6rem;
+      margin-right: 0.65rem;
       font-weight: 700;
     }
     .pain-point:hover {
-      border-left-color: var(--orange);
       color: var(--dark-text);
-      background: rgba(255,255,255,0.03);
     }
 
     /* ─── SOLUTION SECTION ────────────────────────────────────── */
@@ -712,9 +710,6 @@
     .capability-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    .capability-card:first-child {
-      border-top-color: var(--orange);
     }
 
     .capability-card h3 {
@@ -1193,7 +1188,7 @@
       }
       .section-midcta { padding: 3rem 1.5rem; }
 
-      .pain-points { grid-template-columns: 1fr; }
+      .pain-points { gap: 0; }
       .process-grid { grid-template-columns: 1fr; }
       .process-step { border-right: none; border-bottom: 1px solid var(--rule); }
       .process-step:last-child { border-bottom: none; }
@@ -1287,7 +1282,7 @@
         <p class="hero-sub">From a founder with two seven-figure exits — I build the systems, automate the busywork, and stay until it works.</p>
         <div class="hero-ctas">
           <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
-          <a href="#" class="hero-cta-secondary open-form">Or send me a message &#x2192;</a>
+          <a href="/business-valuation-calculator.html" class="hero-cta-secondary">Free Business Valuation Calculator &#x2192;</a>
         </div>
       </div>
       <div class="hero-photo-wrap">
@@ -1363,7 +1358,7 @@
         <div class="pain-point reveal reveal-delay-2">Systems your team follows without calling you.</div>
         <div class="pain-point reveal reveal-delay-2">Someone who stays until it's actually fixed.</div>
         <div class="pain-point reveal reveal-delay-3">AI automation that actually gets used, because your team helped build it.</div>
-        <div class="pain-point reveal reveal-delay-3" style="grid-column: 1 / -1;">A business worth more when it's time to sell.</div>
+        <div class="pain-point reveal reveal-delay-3">A business worth more when it's time to sell.</div>
       </div>
     </div>
   </section>
@@ -1403,19 +1398,19 @@
       <div class="capabilities-grid">
         <a href="/operations.html" class="capability-card reveal reveal-delay-1">
           <h3>Operations &amp; Systems</h3>
-          <p>SOPs, scheduling, workflow design. Runs clean whether you're there or not.</p>
+          <p>Documented processes, shared scoreboards, and the six-stage playbook that takes a business from founder-dependent to hand-offable. This is the core of the practice.</p>
         </a>
         <a href="/hiring.html" class="capability-card reveal reveal-delay-2">
           <h3>Hiring &amp; Training</h3>
-          <p>Finding good people, keeping them, onboarding without you.</p>
+          <p>Training systems strong enough that average new hires produce above-average results — the E-Myth principle, installed in your business.</p>
         </a>
         <a href="/ai-automations.html" class="capability-card reveal reveal-delay-2">
           <h3>AI &amp; Automations</h3>
-          <p>AI-powered workflows built into how your business already runs. Less manual work, faster follow-up, and hours back every week.</p>
+          <p>Modern automation built into how your business already runs. Ten specific categories I build for local service businesses — from lead capture to reporting.</p>
         </a>
         <a href="/exit-readiness.html" class="capability-card reveal reveal-delay-3">
           <h3>Exit Readiness</h3>
-          <p>Systems that make your business worth more when it's time to sell.</p>
+          <p>Six months to a sellable business. Everything under one roof, framed around what a buyer actually pays more for.</p>
         </a>
       </div>
     </div>
@@ -1427,25 +1422,11 @@
       <h2 class="reveal">Who I work with.</h2>
       <p class="section-lead reveal reveal-delay-1">Service businesses, professional firms, founder-led companies — any industry where the owner is the bottleneck.</p>
       <div class="industries-grid reveal reveal-delay-2">
-        <div class="industry-item">Construction &amp; Contracting</div>
-        <div class="industry-item">HVAC</div>
-        <div class="industry-item">Plumbing</div>
-        <div class="industry-item">Electrical</div>
-        <div class="industry-item">Landscaping</div>
-        <div class="industry-item">Pest Control</div>
         <div class="industry-item">Home Services</div>
-        <div class="industry-item">Law Firms</div>
-        <div class="industry-item">Accounting Firms</div>
-        <div class="industry-item">Engineering</div>
-        <div class="industry-item">Architecture</div>
-        <div class="industry-item">Dental Practices</div>
-        <div class="industry-item">Medical Practices</div>
-        <div class="industry-item">Veterinary</div>
-        <div class="industry-item">Physical Therapy</div>
-        <div class="industry-item">Chiropractic</div>
-        <div class="industry-item">Marketing Agencies</div>
-        <div class="industry-item">Creative Agencies</div>
-        <div class="industry-item">Multi-Unit Restaurants</div>
+        <div class="industry-item">Construction &amp; Trades</div>
+        <div class="industry-item">Professional Firms</div>
+        <div class="industry-item">Medical &amp; Dental Practices</div>
+        <div class="industry-item">Multi-Unit Service Businesses</div>
         <div class="industry-item">Founder-Led Companies</div>
       </div>
       <p class="industries-note reveal reveal-delay-3">If your business has 8 to 50 employees and you're the bottleneck — regardless of industry — we should talk.</p>
@@ -1466,7 +1447,9 @@
   <!-- GUARANTEE -->
   <section class="section-guarantee">
     <div class="guarantee-inner">
-      <h2 class="reveal">Love your business again. Guaranteed.</h2>
+      <div class="section-eyebrow-orange reveal" style="justify-content:center;display:inline-flex;">The Guarantee</div>
+      <h2 class="reveal">If the diagnostic doesn't find at&nbsp;least&nbsp;$25,000 of operational waste, you don't pay for it.</h2>
+      <p class="reveal reveal-delay-1" style="color:rgba(242,242,245,0.7);max-width:680px;margin:1.5rem auto 0;font-size:1rem;line-height:1.75;">Every engagement starts with a paid diagnostic. If I can't show you at least $25K of annual waste, lost revenue, or owner time I'd get back in the first six months — I refund the diagnostic in full. That's not a sales gimmick. It's the floor.</p>
     </div>
   </section>
 
@@ -1475,15 +1458,13 @@
     <div class="section-inner">
       <div class="about-layout">
         <div class="about-left">
-          <h2 class="reveal">I figure it out.</h2>
+          <h2 class="reveal">Chuck Temple, MBA</h2>
           <div class="about-body reveal reveal-delay-1">
-            <p>I'm not going to tell you I have all the answers. What I can tell you is that I don't quit until I find them.</p>
-            <p>I'm the author of <em>Startup to Sold</em> (Inc. Magazine Imprints, 2023) — the book on building a business worth buying. I taught Go-to-Market Strategy at UC Berkeley Extension. I have an MBA from UC Davis. None of that is why any of this worked.</p>
-            <p>I built DVD Your Memories with no playbook — figured out hiring, operations, quality control, all of it from scratch. It became one of the largest and most highly rated media transfer companies in the country. 27 employees. 4.8 stars across 600+ Yelp reviews. I sold it.</p>
-            <p>I started the Electric Scooter Guide with zero experience in affiliate sites, content, or being on camera. Built a community of millions, became one of the top influencers in the market, and sold that too.</p>
-            <p>As COO of Happy Moose Juice, I built their production and delivery infrastructure from the ground up and helped triple revenue.</p>
-            <p>Three completely different businesses. Same approach every time — show up, figure it out, get it done.</p>
-            <p>That's exactly how I'll work on yours.</p>
+            <p>My first business started in my friend's bedroom with a $1,500 slide scanner I put on a credit card I couldn't really afford. Over the next seven years, DVD Your Memories grew into one of the largest and highest-rated media transfer companies in the country, with four locations and a team of 27 people who genuinely cared about the work.</p>
+            <p>After that, I built the Electric Scooter Guide from nothing into the top media company in the electric scooter industry. At one point, we accounted for more than half of some manufacturers' US sales. I learned how to be on camera (not a natural talent), and sold it.</p>
+            <p>As COO of Happy Moose Juice, I built their first ERP system and delivery infrastructure from scratch, and later helped triple their revenue through a personal connection in the industry.</p>
+            <p>Along the way, I wrote a book about everything I learned about business — the whole story of DVD Your Memories from startup to sold. Inc. Magazine published it in 2023. I taught business at UC Berkeley Extension for both master's students and undergrads. I got my MBA from UC Davis, where I also won the Big Bang Business Competition.</p>
+            <p>Running a small business is one of the hardest things in the world. The hiring, the systems, the scaling, the days where nothing goes right. I know what that feels like because I lived it for years, across completely different industries. Every business has a next challenge. Finding it, understanding it, and pushing through it — that's the work I love doing.</p>
           </div>
         </div>
         <div class="about-right reveal reveal-delay-2">
@@ -1566,7 +1547,7 @@
       <a href="/" class="footer-logo">Startup to Sold Consulting<span class="footer-dot">.</span></a>
       <div class="footer-links">
         <a href="/brokers.html">Brokers</a>
-        <a href="/assessment.html">Assessment</a>
+        <a href="/business-valuation-calculator.html">Valuation Calculator</a>
         <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a>
       </div>
       <div class="footer-contact">

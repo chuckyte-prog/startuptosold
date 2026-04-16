@@ -3,32 +3,912 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hiring & Training — Startup to Sold Consulting</title>
-  <meta name="description" content="Find good people, keep them, and onboard without you. Fractional COO hiring and training systems for Bay Area businesses." />
-  <meta property="og:title" content="Hiring & Training — Startup to Sold Consulting" />
-  <meta property="og:description" content="Find good people, keep them, and onboard without you. Fractional COO hiring and training systems for Bay Area businesses." />
+  <title>Hiring &amp; Training — Startup to Sold Consulting</title>
+  <meta name="description" content="Build training systems strong enough that average new hires produce above-average results — the E-Myth principle, installed in your business." />
+  <meta property="og:title" content="Hiring &amp; Training — Startup to Sold Consulting" />
+  <meta property="og:description" content="Build training systems strong enough that average new hires produce above-average results — the E-Myth principle, installed in your business." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://startuptosold.com/hiring.html" />
   <meta property="og:image" content="https://startuptosold.com/og-image.svg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/hiring" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --ink: #1c1c1e; --orange: #e85d26; --dark-bg: #0f1623; --dark-text: #f2f2f5; --dark-muted: #8e8e99; --white: #ffffff; --muted: #4a4a4f; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 20px; line-height: 1.75; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; }
-    .back { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); text-decoration: none; margin-bottom: 3rem; display: inline-block; }
-    h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
-    p { color: var(--dark-muted); max-width: 480px; margin: 0 auto 2rem; }
-    .cta { display: inline-block; background: var(--orange); color: white; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; }
+
+    :root {
+      --ink: #1c1c1e;
+      --orange: #e85d26;
+      --blue: #1a3a5c;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --off-white: #f5f4f1;
+      --rule: #e2e0db;
+      --muted: #6b6b72;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(15,22,35,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--dark-rule);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--dark-text);
+      text-decoration: none;
+    }
+    .nav-dot { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      justify-content: center;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark-text); }
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .nav-phone {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    /* ── SECTIONS ── */
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-inner-narrow {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--dark-bg);
+      padding: 9rem 3rem 6rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--dark-text);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--dark-rule);
+      padding-left: 3rem;
+    }
+    .hero-stat {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .hero-stat:last-child { border-bottom: none; }
+    .hero-stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .hero-stat-label {
+      font-size: 0.82rem;
+      color: var(--dark-muted);
+      line-height: 1.4;
+    }
+
+    /* ── PROBLEM ── */
+    .section-problem {
+      background: var(--dark-surface);
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .section-problem h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+    .section-problem h2 em { color: var(--orange); font-style: normal; }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .problem-body {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      line-height: 1.85;
+    }
+    .problem-body p + p { margin-top: 1.5rem; }
+    .stats-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--dark-rule);
+      padding-left: 3rem;
+    }
+    .dark-stat {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .dark-stat:last-child { border-bottom: none; }
+    .dark-stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .dark-stat-label {
+      font-size: 0.9rem;
+      color: var(--dark-muted);
+      line-height: 1.5;
+    }
+
+    /* ── WHAT I DO ── */
+    .section-services {
+      background: var(--off-white);
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-services .section-eyebrow { color: var(--orange); }
+    .section-services .section-eyebrow::before { background: var(--orange); }
+    .section-services h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .section-services h2 em { color: var(--orange); font-style: normal; }
+    .section-services .section-lead {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+    .service-item {
+      padding: 2.5rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .service-item:nth-child(2n) { border-right: none; }
+    .service-item:nth-last-child(-n+2) { border-bottom: none; }
+    .service-number {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .service-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .service-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── PROCESS ── */
+    .section-process {
+      background: var(--dark-bg);
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .section-process h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .section-process h2 em { color: var(--orange); font-style: normal; }
+    .section-process .section-lead {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      max-width: 520px;
+      margin-bottom: 3.5rem;
+      line-height: 1.75;
+    }
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 2px solid var(--dark-rule);
+      padding-left: 2.5rem;
+    }
+    .process-step {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+      position: relative;
+    }
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: -2.65rem;
+      top: 2.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+    .process-step:last-child { border-bottom: none; }
+    .step-month {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding-top: 0.2rem;
+    }
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+    }
+
+    /* ── ABOUT ── */
+    .section-about {
+      background: var(--off-white);
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .about-eyebrow::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background: var(--orange);
+    }
+    .about-layout h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .about-layout h2 em { color: var(--orange); font-style: normal; }
+    .about-body {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .about-body p + p { margin-top: 1.25rem; }
+    .about-credentials {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .credential {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .credential::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    .book-card {
+      background: var(--dark-bg);
+      padding: 2rem;
+      border: 1px solid var(--dark-rule);
+    }
+    .book-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+    .book-card img {
+      width: 100%;
+      max-width: 220px;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .book-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+    .book-subtitle {
+      font-size: 0.82rem;
+      color: var(--dark-muted);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .book-publisher {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+    .book-description {
+      font-size: 0.85rem;
+      color: var(--dark-muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .book-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      text-decoration: none;
+      border-bottom: 1px solid var(--orange);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .book-link:hover { opacity: 0.75; }
+
+    /* ── INTERVIEWS ── */
+    .section-interviews {
+      background: var(--dark-surface);
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .section-interviews h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .section-interviews h2 em { color: var(--orange); font-style: normal; }
+    .section-interviews .section-lead {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      margin-bottom: 3rem;
+    }
+    .interview-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--dark-rule);
+    }
+    .interview-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 2.5rem;
+      border-bottom: 1px solid var(--dark-rule);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .interview-row:last-child { border-bottom: none; }
+    .interview-row:hover { background: rgba(255,255,255,0.03); }
+    .interview-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--dark-rule);
+      letter-spacing: -0.03em;
+    }
+    .interview-show {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.25rem;
+    }
+    .interview-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.01em;
+    }
+    .interview-desc {
+      font-size: 0.88rem;
+      color: var(--dark-muted);
+      line-height: 1.5;
+    }
+    .interview-cta {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      white-space: nowrap;
+    }
+
+    /* ── CTA ── */
+    .section-cta {
+      background: var(--dark-bg);
+      padding: 6rem 3rem;
+      text-align: center;
+    }
+    .section-cta h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-cta p {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: opacity 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      color: var(--dark-text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: 1px solid var(--dark-rule);
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--dark-text); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-bg);
+      border-top: 1px solid var(--dark-rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .footer-dot { color: var(--orange); }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--dark-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .footer-contact a {
+      font-size: 0.82rem;
+      color: var(--dark-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact a:hover { color: var(--dark-text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .section-problem, .section-services, .section-process,
+      .section-about, .section-interviews, .section-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 2rem; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .hero-stat { border-bottom: none; padding: 0.75rem 1.5rem 0.75rem 0; border-right: 1px solid var(--dark-rule); }
+      .hero-stat:last-child { border-right: none; }
+      .problem-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .stats-col { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none !important; }
+      .service-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+      .service-item:last-child { border-bottom: none; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .interview-row { grid-template-columns: 1fr auto; gap: 1rem; }
+      .interview-num { display: none; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links, .footer-contact { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 0 1.25rem; }
+      .hero h1 { font-size: 2rem; }
+      .process-step { grid-template-columns: 1fr; gap: 0.5rem; }
+      .interview-row { padding: 1.5rem; }
+      .interview-cta { display: none; }
+    }
   </style>
 </head>
 <body>
-  <a href="/" class="back">← Back to startuptosold.com</a>
-  <h1>Hiring & Training</h1>
-  <p>Finding good people, keeping them, onboarding without you.</p>
-  <a href="tel:8585238881" class="cta">Call 858-523-8881</a>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">The 60-Day Training System Install</div>
+        <h1>Hire for <em>the system</em>, not for the savior.</h1>
+        <p class="hero-sub">In 60 days, I install the training infrastructure that turns average new hires into above-average performers. Role scorecards, a real curriculum, SOPs, and the values system that protects the business from day one. You keep hiring. I build the machine that makes the hires work.</p>
+        <div class="hero-ctas">
+          <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+          <a href="#how-it-works" class="btn-ghost">See how it works</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">27</div>
+          <div class="hero-stat-label">Employees hired, trained, and managed at DVD Your Memories</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">4</div>
+          <div class="hero-stat-label">Locations standing up from one training curriculum</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">4.8★</div>
+          <div class="hero-stat-label">Average Yelp rating across 600+ reviews — on systems, not heroes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section-problem">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Problem</div>
+      <h2>Every new hire takes longer to ramp than the <em>last one.</em></h2>
+      <div class="problem-grid">
+        <div class="problem-body">
+          <p>It's not that the people are getting worse. It's that the business hasn't documented what the good ones figured out on their own. So every new hire relearns the same lessons, the owner or the top performer becomes the de facto training program, and nothing scales.</p>
+          <p>You keep looking for "A-players" because your system only works with A-players. Your best people can't take a vacation without things slipping. Training is whoever is next to the new hire that week. Nobody writes anything down because "that's how we've always done it."</p>
+          <p>You can't promote from within because nobody knows how to train a replacement. And you can't hire ahead of demand because every new body is a drain on the people who already know what they're doing.</p>
+        </div>
+        <div class="stats-col">
+          <div class="dark-stat">
+            <div class="dark-stat-number">3–6 mo</div>
+            <div class="dark-stat-label">average ramp time without a documented training system</div>
+          </div>
+          <div class="dark-stat">
+            <div class="dark-stat-number">3x</div>
+            <div class="dark-stat-label">faster new-hire productivity with a real curriculum</div>
+          </div>
+          <div class="dark-stat">
+            <div class="dark-stat-number">40%</div>
+            <div class="dark-stat-label">of a manager's week spent answering questions SOPs would eliminate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="section-services">
+    <div class="section-inner">
+      <div class="section-eyebrow">What I Install</div>
+      <h2>Four deliverables. <em>Yours to keep.</em></h2>
+      <p class="section-lead">Michael Gerber called it the franchise prototype — the idea that a business should run the same way whether it's you behind the counter or someone you hired last month. That means documented roles, scripted training, clear measurement, and real rules — not heroics.</p>
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-number">01</div>
+          <div class="service-title">Role Scorecards</div>
+          <p class="service-desc">One-page scorecards for every seat in the business: mission, outcomes, competencies, weekly metrics. The document every hire reads before their first day. Most small businesses don't have this — which is why the first week of every new hire is someone else guessing what to give them.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">02</div>
+          <div class="service-title">Training Curriculum</div>
+          <p class="service-desc">A written, sequenced path from hired to independently productive for every role. Usually 30, 60, and 90-day milestones with shadowing windows, SOP reviews, and measurable checkpoints. The test: could someone else use this to onboard the next hire without you in the room?</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">03</div>
+          <div class="service-title">SOP Library</div>
+          <p class="service-desc">The five to fifteen processes your business actually runs on, written down so a new hire can follow them without interrupting a senior team member. Documented the way your team actually works — not the way the software vendor wishes they worked.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-number">04</div>
+          <div class="service-title">Values as Vaccinations</div>
+          <p class="service-desc">Five behavioral rules — drawn from the failure modes you've personally seen — that every new hire learns on day one. Not aspirational values. Rules that protect the business from the mistakes you've already lived through.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section-process" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Build the business so ordinary people produce <em>extraordinary results.</em></h2>
+      <p class="section-lead">The system does the heavy lifting, not the individual. A structured 60-day engagement with real deliverables and a clear end state.</p>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-month">Step 1</div>
+          <div>
+            <div class="step-title">Role Clarity</div>
+            <p class="step-desc">Every seat in the business gets a written scorecard: what the role is responsible for, what good looks like, what the weekly metrics are, who the role answers to. Most small businesses don't have this, which is why the first week of every new hire is someone else guessing what to give them.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-month">Step 2</div>
+          <div>
+            <div class="step-title">The Training Curriculum</div>
+            <p class="step-desc">A structured, repeatable path from "hired" to "independently productive" for every role. Usually a mix of written SOPs, shadowing windows, and measurable milestones. The test: could someone else use this to onboard the next hire without you in the room?</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-month">Step 3</div>
+          <div>
+            <div class="step-title">The Scorecard System</div>
+            <p class="step-desc">A weekly rhythm where every hire sees the same three-to-five metrics about their own performance. Self-correction replaces manager correction. The best employees push themselves; the weak ones show up in the data before they show up in a customer complaint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-about">
+    <div class="section-inner">
+      <div class="about-layout">
+        <div>
+          <div class="about-eyebrow">Why Me</div>
+          <h2>I hired, trained, and managed <em>27 people</em> across 4 locations.</h2>
+          <div class="about-body">
+            <p>DVD Your Memories was a multi-location consumer services business before it was anything else. That meant hiring real people, training them to do careful hands-on work, and keeping consistency across four locations in two states. We ended up with a 4.8-star Yelp average across 600+ reviews — not because we hired superheroes, but because the system made ordinary people produce consistently good work.</p>
+            <p>Every hire went through the same curriculum. Every location ran from the same Store Opener manual. Every week every manager saw the same scorecard. The buyer who acquired the business told me they chose it because it actually worked without me — and the reason it worked without me was the training infrastructure, not anything I was doing in the room.</p>
+            <p>That's what I install for clients: not a philosophy of hiring, a working training machine.</p>
+          </div>
+          <div class="about-credentials">
+            <div class="credential">27 employees, 4 locations, 2 states</div>
+            <div class="credential">Multiple businesses built and sold</div>
+            <div class="credential">Author: Startup to Sold (Inc. Magazine Imprints, 2023)</div>
+            <div class="credential">MBA, UC Davis</div>
+            <div class="credential">Taught Go-to-Market Strategy, UC Berkeley Extension</div>
+          </div>
+        </div>
+        <div class="book-card">
+          <div class="book-label">The Book</div>
+          <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">
+            <img src="book-3d.png" alt="Startup to Sold book cover" />
+          </a>
+          <div class="book-title">Startup to Sold</div>
+          <div class="book-subtitle">How I Built My Side Hustle into a Multi-Million Dollar Company</div>
+          <div class="book-publisher">Inc. Magazine Imprints — 2023</div>
+          <p class="book-description">The full story of building DVD Your Memories from a college side project into a multi-location, multi-million dollar company and then selling it.</p>
+          <a href="https://www.amazon.com/dp/1639090142" class="book-link" target="_blank" rel="noopener">Get the book on Amazon</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="section-inner-narrow">
+      <h2>Ready to hire without bracing for the learning curve?</h2>
+      <p>I take on three clients at a time. If your next hire is coming and the system isn't ready, let's talk now.</p>
+      <div class="cta-buttons">
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+        <a href="/business-valuation-calculator.html" class="btn-ghost">What's Your Business Worth?</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/" class="footer-logo">Startup to Sold Consulting<span class="footer-dot">.</span></a>
+    <div class="footer-links">
+      <a href="/brokers.html">Brokers</a>
+      <a href="/business-valuation-calculator.html">Valuation Calculator</a>
+      <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+      <a href="tel:8585238881">858-523-8881</a>
+    </div>
+  </footer>
+
 </body>
 </html>
