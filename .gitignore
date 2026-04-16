@@ -1,3 +1,7 @@
+node_modules/
+package.json
+package-lock.json
+
 # Local docs — not for public repo
 docs/assets/
 docs/brand/
