@@ -805,6 +805,35 @@
       flex-direction: column;
       gap: 1.5rem;
     }
+    .about-headshot {
+      position: relative;
+      overflow: hidden;
+    }
+    .about-headshot img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 4/5;
+    }
+    .about-headshot-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(transparent, rgba(15, 22, 35, 0.85));
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .about-media-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
     .about-book {
       display: block;
       text-decoration: none;
@@ -818,52 +847,38 @@
     .about-book-cta {
       display: block;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 0.6rem 0;
+      padding: 0.5rem 0;
       transition: color 0.2s;
     }
     .about-book:hover .about-book-cta { color: var(--orange); }
-    .about-dvd-logo {
-      padding: 0.75rem 1rem;
-      background: var(--off-white);
-      border: 1px solid var(--rule);
-    }
-    .about-dvd-logo img {
-      height: 32px;
-      width: auto;
-      display: block;
-    }
-    .about-stats {
+    .about-media-stats {
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      background: var(--rule);
+      gap: 0;
+      border: 1px solid var(--rule);
     }
-    .about-stat {
+    .about-media-stat {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--rule);
       background: var(--off-white);
-      padding: 1.25rem 1.5rem;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1.25rem;
-      align-items: center;
-      transition: background 0.2s;
     }
-    .about-stat:hover { background: var(--white); }
-    .about-stat-number {
-      font-size: 2rem;
+    .about-media-stat:last-child { border-bottom: none; }
+    .about-media-stat-number {
+      font-size: 1rem;
       font-weight: 800;
       color: var(--ink);
-      letter-spacing: -0.03em;
-      line-height: 1;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
-    .about-stat-label {
-      font-size: 0.9rem;
+    .about-media-stat-label {
+      font-size: 0.7rem;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.3;
     }
     .about-icon-links {
       display: flex;
@@ -1195,7 +1210,9 @@
       .capabilities-grid { grid-template-columns: 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .about-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .about-book img { max-width: 180px; margin: 0 auto; }
+      .about-headshot img { aspect-ratio: 3/2; object-position: top; }
+      .about-media-row { grid-template-columns: 140px 1fr; }
+      .about-book img { max-width: 100%; }
       .form-row { grid-template-columns: 1fr; }
       .form-modal { padding: 2rem 1.5rem; }
 
@@ -1468,29 +1485,32 @@
           </div>
         </div>
         <div class="about-right reveal reveal-delay-2">
-          <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener" class="about-book">
-            <img src="book-cover.png" alt="Startup to Sold by Chuck Temple" />
-            <div class="about-book-cta">Get the book &#x2192;</div>
-          </a>
-          <div class="about-stats">
-            <div class="about-dvd-logo">
-              <img src="corrected-logo.png" alt="DVD Your Memories" />
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-number">50% YoY</div>
-              <div class="about-stat-label">Revenue growth, 6 years straight</div>
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-number">4</div>
-              <div class="about-stat-label">Locations scaled from one</div>
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-number">27</div>
-              <div class="about-stat-label">Employees hired and managed</div>
-            </div>
-            <div class="about-stat">
-              <div class="about-stat-number">4.8&#x2605;</div>
-              <div class="about-stat-label">Average rating, 600+ reviews</div>
+          <div class="about-headshot">
+            <img src="chuck-headshot.jpg" alt="Chuck Temple" />
+            <div class="about-headshot-caption">Founder &middot; Operator &middot; Author</div>
+          </div>
+          <div class="about-media-row">
+            <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener" class="about-book">
+              <img src="book-cover.png" alt="Startup to Sold by Chuck Temple" />
+              <div class="about-book-cta">Get the book &#x2192;</div>
+            </a>
+            <div class="about-media-stats">
+              <div class="about-media-stat">
+                <div class="about-media-stat-number">50% YoY</div>
+                <div class="about-media-stat-label">Revenue growth, 6 years</div>
+              </div>
+              <div class="about-media-stat">
+                <div class="about-media-stat-number">4 locations</div>
+                <div class="about-media-stat-label">Scaled from one</div>
+              </div>
+              <div class="about-media-stat">
+                <div class="about-media-stat-number">27 employees</div>
+                <div class="about-media-stat-label">Hired and managed</div>
+              </div>
+              <div class="about-media-stat">
+                <div class="about-media-stat-number">4.8&#x2605;</div>
+                <div class="about-media-stat-label">600+ reviews</div>
+              </div>
             </div>
           </div>
           <div class="about-icon-links">
@@ -1537,7 +1557,7 @@
         <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
         <a href="#" class="btn-ghost open-form">Send a message &#x2192;</a>
       </div>
-      <p class="cta-tagline reveal reveal-delay-3">No pitch. No pressure. Just a conversation.</p>
+      <p class="cta-tagline reveal reveal-delay-3">I take on three clients at a time. If this sounds like what you need, let's talk before the next slot opens up.</p>
     </div>
   </section>
 
