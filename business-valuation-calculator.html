@@ -270,6 +270,7 @@
       select, input[type="number"], input[type="text"] { font-size: 16px; }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -1008,6 +1009,7 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const scoredValues = Object.values(scores).filter(v => v !== 'na');
       const rawTotal = scoredValues.reduce((a, b) => a + b, 0);
       const rawMax = scoredValues.length;
+      window._rawMax = rawMax;
       document.getElementById('overall-score').textContent = rawTotal + ' / ' + rawMax;
 
       const breakdownEl = document.getElementById('pillar-breakdown');
@@ -1242,8 +1244,11 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
     }
 
     // ===== PDF DOWNLOAD =====
-    function downloadPDF() {
-      const w = window.open('', '_blank');
+    function _isMobile() {
+      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+    }
+
+    function _getReportData() {
       const subcategory = window._inputSubcategory;
       const val = window._currentValuation;
       const score = window._finalScore;
@@ -1264,7 +1269,198 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const fmt = n => '$' + (Math.round(n / 1000) * 1000).toLocaleString('en-US');
       const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-      // Grab summary HTML from the page
+      const summaryEl = document.getElementById('summary-content');
+      const summaryText = summaryEl ? summaryEl.innerText : '';
+
+      return { subcategory, val, score, scores, sde, currentVal, optimizedVal, gap, currentMult, rawTotal, pillarResults, fmt, date, summaryText };
+    }
+
+    function _downloadPDFMobile() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+      const d = _getReportData();
+      const margin = 50;
+      const pw = doc.internal.pageSize.getWidth() - margin * 2;
+      let y = margin;
+
+      function checkPage(needed) {
+        if (y + needed > doc.internal.pageSize.getHeight() - margin) {
+          doc.addPage();
+          y = margin;
+        }
+      }
+
+      // Header
+      doc.setFontSize(22);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Business Valuation Report', margin, y);
+      y += 24;
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(107, 107, 114);
+      doc.text('Prepared by Startup to Sold Consulting', margin, y);
+      y += 16;
+      doc.setFontSize(9);
+      doc.text(d.date + '  |  ' + d.subcategory + '  |  SDE: ' + d.fmt(d.sde), margin, y);
+      y += 8;
+      doc.setDrawColor(232, 93, 38);
+      doc.setLineWidth(2.5);
+      doc.line(margin, y, margin + pw, y);
+      y += 28;
+
+      // Valuation section
+      doc.setTextColor(232, 93, 38);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('VALUATION', margin, y);
+      y += 20;
+
+      // Current valuation box
+      doc.setFillColor(248, 247, 245);
+      doc.roundedRect(margin, y, pw / 2 - 8, 60, 3, 3, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(107, 107, 114);
+      doc.text('YOUR ESTIMATED VALUATION', margin + 12, y + 16);
+      doc.setFontSize(22);
+      doc.setTextColor(28, 28, 30);
+      doc.setFont('helvetica', 'bold');
+      doc.text(d.fmt(d.currentVal), margin + 12, y + 38);
+      doc.setFontSize(9);
+      doc.setTextColor(107, 107, 114);
+      doc.setFont('helvetica', 'normal');
+      doc.text(d.currentMult.toFixed(1) + 'x SDE', margin + 12, y + 52);
+
+      // Optimized valuation box
+      const x2 = margin + pw / 2 + 8;
+      doc.setFillColor(248, 247, 245);
+      doc.roundedRect(x2, y, pw / 2 - 8, 60, 3, 3, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(107, 107, 114);
+      doc.text('WITH OPTIMIZED OPERATIONS', x2 + 12, y + 16);
+      doc.setFontSize(22);
+      doc.setTextColor(28, 28, 30);
+      doc.setFont('helvetica', 'bold');
+      doc.text(d.fmt(d.optimizedVal), x2 + 12, y + 38);
+      doc.setFontSize(9);
+      doc.setTextColor(107, 107, 114);
+      doc.setFont('helvetica', 'normal');
+      doc.text(d.val.sdeMultHigh.toFixed(1) + 'x SDE', x2 + 12, y + 52);
+      y += 72;
+
+      // Gap box
+      doc.setDrawColor(232, 93, 38);
+      doc.setLineWidth(2);
+      doc.setFillColor(254, 243, 238);
+      doc.roundedRect(margin, y, pw, 44, 3, 3, 'FD');
+      doc.setFontSize(8);
+      doc.setTextColor(232, 93, 38);
+      doc.setFont('helvetica', 'bold');
+      doc.text('VALUE LEFT ON THE TABLE', margin + 14, y + 16);
+      doc.setFontSize(18);
+      doc.text(d.fmt(d.gap), margin + 14, y + 34);
+      y += 60;
+
+      // Exit Readiness
+      checkPage(120);
+      doc.setDrawColor(226, 224, 219);
+      doc.setLineWidth(0.5);
+      doc.line(margin, y, margin + pw, y);
+      y += 18;
+      doc.setTextColor(232, 93, 38);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('EXIT READINESS SCORE', margin, y);
+      y += 20;
+      doc.setFontSize(11);
+      doc.setTextColor(28, 28, 30);
+      doc.text('Overall: ' + d.rawTotal + ' / ' + window._rawMax, margin, y);
+      y += 20;
+
+      d.pillarResults.forEach(p => {
+        checkPage(36);
+        const isNA = p.pct === -1;
+        const color = isNA ? [142, 142, 153] : p.pct >= 100 ? [74, 154, 106] : p.pct >= 50 ? [232, 93, 38] : [192, 57, 43];
+        const scoreText = isNA ? 'N/A' : p.score + ' / 2';
+
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(28, 28, 30);
+        doc.text(p.name, margin, y);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...color);
+        doc.text(scoreText, margin + pw, y, { align: 'right' });
+        y += 10;
+
+        // Bar track
+        doc.setFillColor(226, 224, 219);
+        doc.roundedRect(margin, y, pw, 5, 2, 2, 'F');
+        if (!isNA && p.pct > 0) {
+          doc.setFillColor(...color);
+          doc.roundedRect(margin, y, pw * Math.min(p.pct, 100) / 100, 5, 2, 2, 'F');
+        }
+        y += 16;
+      });
+
+      // Analysis / Summary
+      checkPage(60);
+      y += 4;
+      doc.setDrawColor(226, 224, 219);
+      doc.setLineWidth(0.5);
+      doc.line(margin, y, margin + pw, y);
+      y += 18;
+      doc.setTextColor(232, 93, 38);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('ANALYSIS', margin, y);
+      y += 18;
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(28, 28, 30);
+      const summaryLines = doc.splitTextToSize(d.summaryText, pw);
+      summaryLines.forEach(line => {
+        checkPage(14);
+        doc.text(line, margin, y);
+        y += 14;
+      });
+
+      // CTA box
+      y += 12;
+      checkPage(70);
+      doc.setFillColor(15, 22, 35);
+      doc.roundedRect(margin, y, pw, 60, 3, 3, 'F');
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('Ready to close the gap?', margin + pw / 2, y + 22, { align: 'center' });
+      doc.setFontSize(10);
+      doc.setTextColor(232, 93, 38);
+      doc.text('Book a Free Strategy Session', margin + pw / 2, y + 38, { align: 'center' });
+      doc.setFontSize(9);
+      doc.setTextColor(142, 142, 153);
+      doc.text('Chuck Temple  |  chuck@startuptosold.com  |  858-523-8881', margin + pw / 2, y + 52, { align: 'center' });
+      y += 72;
+
+      // Disclaimer
+      checkPage(50);
+      doc.setDrawColor(226, 224, 219);
+      doc.setLineWidth(0.5);
+      doc.line(margin, y, margin + pw, y);
+      y += 12;
+      doc.setFontSize(7);
+      doc.setTextColor(142, 142, 153);
+      const discLines = doc.splitTextToSize('This report is for informational purposes only and does not constitute a formal business appraisal. Valuations are based on industry benchmarks from public sources including NYU Stern (Damodaran), Equidam, Pepperdine Private Capital Markets Report, and BEA Regional Price Parities. A professional valuation may differ based on factors not captured here.', pw);
+      discLines.forEach(line => {
+        doc.text(line, margin, y);
+        y += 10;
+      });
+
+      doc.save('Business-Valuation-Report.pdf');
+    }
+
+    function _downloadPDFDesktop() {
+      const d = _getReportData();
+
       const summaryHTML = document.getElementById('summary-content').innerHTML
         .replace(/var\(--ink\)/g, '#1c1c1e')
         .replace(/var\(--orange\)/g, '#e85d26')
@@ -1308,25 +1504,22 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       let html = '<!DOCTYPE html><html><head><title>Business Valuation Report - Startup to Sold</title>';
       html += '<style>' + css + '</style></head><body>';
 
-      // Header
       html += '<div class="header">';
       html += '<h1>Business Valuation Report</h1>';
       html += '<div class="subtitle">Prepared by Startup to Sold Consulting</div>';
-      html += '<div class="meta"><span>' + date + '</span><span>' + subcategory + ' | SDE: ' + fmt(sde) + '</span></div>';
+      html += '<div class="meta"><span>' + d.date + '</span><span>' + d.subcategory + ' | SDE: ' + d.fmt(d.sde) + '</span></div>';
       html += '</div>';
 
-      // Valuation
       html += '<h2>Valuation</h2>';
       html += '<div class="val-grid">';
-      html += '<div class="val-card"><div class="label">Your Estimated Valuation</div><div class="value">' + fmt(currentVal) + '</div><div class="note">' + currentMult.toFixed(1) + 'x SDE</div></div>';
-      html += '<div class="val-card"><div class="label">With Optimized Operations</div><div class="value">' + fmt(optimizedVal) + '</div><div class="note">' + val.sdeMultHigh.toFixed(1) + 'x SDE</div></div>';
+      html += '<div class="val-card"><div class="label">Your Estimated Valuation</div><div class="value">' + d.fmt(d.currentVal) + '</div><div class="note">' + d.currentMult.toFixed(1) + 'x SDE</div></div>';
+      html += '<div class="val-card"><div class="label">With Optimized Operations</div><div class="value">' + d.fmt(d.optimizedVal) + '</div><div class="note">' + d.val.sdeMultHigh.toFixed(1) + 'x SDE</div></div>';
       html += '</div>';
-      html += '<div class="gap-box"><div class="label">Value Left on the Table</div><div class="value">' + fmt(gap) + '</div></div>';
+      html += '<div class="gap-box"><div class="label">Value Left on the Table</div><div class="value">' + d.fmt(d.gap) + '</div></div>';
 
-      // Exit Readiness
       html += '<h2>Exit Readiness Score</h2>';
-      html += '<div class="overall-score">Overall: ' + rawTotal + ' / ' + rawMax + '</div>';
-      pillarResults.forEach(p => {
+      html += '<div class="overall-score">Overall: ' + d.rawTotal + ' / ' + window._rawMax + '</div>';
+      d.pillarResults.forEach(p => {
         const isNA = p.pct === -1;
         const color = isNA ? '#8e8e99' : p.pct >= 100 ? '#4a9a6a' : p.pct >= 50 ? '#e85d26' : '#c0392b';
         const scoreText = isNA ? 'N/A' : p.score + ' / 2';
@@ -1335,25 +1528,31 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         html += '<div class="bar-track"><div class="bar-fill" style="width:' + barWidth + '%;background:' + color + '"></div></div>';
       });
 
-      // Summary
       html += '<h2>Analysis</h2>';
       html += '<div class="summary">' + summaryHTML + '</div>';
 
-      // CTA
       html += '<div class="cta-box">';
       html += '<h3>Ready to close the gap?</h3>';
       html += '<p><a href="https://calendly.com/chuck-startuptosold/30min">Book a Free Strategy Session</a></p>';
       html += '<p>Chuck Temple | chuck@startuptosold.com | 858-523-8881</p>';
       html += '</div>';
 
-      // Disclaimer
       html += '<div class="disclaimer">This report is for informational purposes only and does not constitute a formal business appraisal. Valuations are based on industry benchmarks from public sources including NYU Stern (Damodaran), Equidam, Pepperdine Private Capital Markets Report, and BEA Regional Price Parities. A professional valuation may differ based on factors not captured here.</div>';
 
       html += '</body></html>';
 
+      const w = window.open('', '_blank');
       w.document.write(html);
       w.document.close();
       setTimeout(() => w.print(), 500);
+    }
+
+    function downloadPDF() {
+      if (_isMobile()) {
+        _downloadPDFMobile();
+      } else {
+        _downloadPDFDesktop();
+      }
     }
 
     // ===== INIT =====
