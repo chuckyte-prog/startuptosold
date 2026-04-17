@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valuation Calculator Methodology — Startup to Sold</title>
+  <meta name="description" content="How the Startup to Sold Business Valuation Calculator works: data sources, scoring model, five-pillar assessment framework, and the research behind every number." />
+  <meta property="og:title" content="Valuation Calculator Methodology — Startup to Sold" />
+  <meta property="og:description" content="How the Startup to Sold Business Valuation Calculator works: data sources, scoring model, five-pillar assessment framework, and the research behind every number." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://startuptosold.com/business-valuation-calculator-methodology.html" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/business-valuation-calculator-methodology" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1c1c1e;
+      --orange: #e85d26;
+      --blue: #1a3a5c;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --off-white: #f5f4f1;
+      --rule: #e2e0db;
+      --muted: #6b6b72;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(15,22,35,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--dark-bg);
+      padding: 9rem 3rem 5rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .hero-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--dark-text);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+      max-width: 620px;
+    }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc {
+      background: var(--dark-surface);
+      padding: 3rem 3rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .toc-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .toc-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toc-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .toc li {
+      counter-increment: toc;
+    }
+    .toc li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-right: 1rem;
+    }
+    .toc a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark-text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc a:hover { color: var(--orange); }
+
+    /* ── ARTICLE SECTIONS ── */
+    .article-section {
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .article-section.alt {
+      background: var(--dark-surface);
+    }
+    .article-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    .article-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--dark-text);
+      margin-bottom: 1.5rem;
+    }
+    .article-section h2 em { color: var(--orange); font-style: normal; }
+    .article-section h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .article-section h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .article-body {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      line-height: 1.85;
+    }
+    .article-body p + p { margin-top: 1.25rem; }
+    .article-body strong { color: var(--dark-text); font-weight: 700; }
+    .article-body a {
+      color: var(--orange);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .article-body a:hover { border-bottom-color: var(--orange); }
+
+    /* ── TABLES ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+    .data-table th {
+      text-align: left;
+      font-weight: 700;
+      color: var(--dark-text);
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--dark-rule);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--dark-rule);
+      color: var(--dark-muted);
+      line-height: 1.6;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .highlight { color: var(--orange); font-weight: 700; }
+
+    /* ── FORMULA BLOCKS ── */
+    .formula-block {
+      background: rgba(232,93,38,0.06);
+      border-left: 3px solid var(--orange);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      font-family: 'Plus Jakarta Sans', monospace;
+      font-size: 0.9rem;
+      color: var(--dark-text);
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+
+    /* ── CALLOUT BLOCKS ── */
+    .callout {
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-rule);
+      padding: 1.5rem 2rem;
+      margin: 1.5rem 0;
+    }
+    .alt .callout {
+      background: var(--dark-bg);
+    }
+    .callout-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .callout p {
+      font-size: 0.92rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+    }
+
+    /* ── FEATURE LIST ── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1.5rem 0;
+    }
+    .feature-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+      font-size: 0.95rem;
+      color: var(--dark-muted);
+      line-height: 1.6;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list .feat-label {
+      color: var(--dark-text);
+      font-weight: 700;
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+    .compare-table th {
+      text-align: left;
+      font-weight: 700;
+      color: var(--dark-text);
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--dark-rule);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .compare-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--dark-rule);
+      color: var(--dark-muted);
+      line-height: 1.5;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .ours { color: var(--orange); font-weight: 600; }
+
+    /* ── PILLAR CARDS ── */
+    .pillar-card {
+      border: 1px solid var(--dark-rule);
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .pillar-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .pillar-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      letter-spacing: -0.01em;
+    }
+    .pillar-weights {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .pillar-weight {
+      text-align: center;
+    }
+    .pillar-weight-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .pillar-weight-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+    }
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+    }
+    .pillar-card p + p { margin-top: 0.75rem; }
+    .pillar-questions {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--dark-rule);
+    }
+    .pillar-questions-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .pillar-questions ol {
+      list-style: none;
+      counter-reset: pq;
+    }
+    .pillar-questions li {
+      counter-increment: pq;
+      font-size: 0.92rem;
+      color: var(--dark-muted);
+      line-height: 1.6;
+      padding: 0.35rem 0;
+    }
+    .pillar-questions li::before {
+      content: "Q" counter(pq) " ";
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-right: 0.25rem;
+    }
+
+    /* ── SOURCE LIST ── */
+    .source-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1.5rem 0;
+    }
+    .source-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .source-list li:last-child { border-bottom: none; }
+    .source-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 0.15rem;
+    }
+    .source-name a {
+      color: var(--orange);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .source-name a:hover { border-bottom-color: var(--orange); }
+    .source-desc {
+      font-size: 0.85rem;
+      color: var(--dark-muted);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    .section-cta {
+      background: var(--dark-bg);
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+    .section-cta h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p {
+      font-size: 1rem;
+      color: var(--dark-muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: opacity 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-bg);
+      border-top: 1px solid var(--dark-rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo { font-size: 0.95rem; font-weight: 800; color: var(--dark-text); text-decoration: none; letter-spacing: -0.02em; }
+    .footer-dot { color: var(--orange); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.78rem; font-weight: 600; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact { display: flex; gap: 1.5rem; align-items: center; }
+    .footer-contact a { font-size: 0.82rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-contact a:hover { color: var(--dark-text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .toc, .article-section, .section-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .feature-list li { flex-direction: column; gap: 0.25rem; }
+      .feature-list .feat-label { min-width: auto; }
+      .pillar-card-header { flex-direction: column; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links, .footer-contact { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 0 1.25rem; }
+      .hero h1 { font-size: 2rem; }
+      .data-table, .compare-table { font-size: 0.8rem; }
+      .data-table th, .data-table td,
+      .compare-table th, .compare-table td { padding: 0.5rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Methodology</div>
+      <h1>How the <em>valuation calculator</em> actually works.</h1>
+      <p class="hero-sub">Every number in the calculator comes from somewhere. This page explains where. The data sources, the scoring model, the weighting system, and the research behind every decision we made building it.</p>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section class="toc">
+    <div class="toc-inner">
+      <div class="toc-label">On This Page</div>
+      <ol>
+        <li><a href="#why">Why We Built This</a></li>
+        <li><a href="#features">What the Calculator Does</a></li>
+        <li><a href="#sources">Data Sources &amp; Citations</a></li>
+        <li><a href="#model">How the Valuation Model Works</a></li>
+        <li><a href="#pillars">The Five-Pillar Exit Readiness Assessment</a></li>
+        <li><a href="#scoring">Scoring Mechanics</a></li>
+        <li><a href="#validation">Input Validation &amp; Edge Cases</a></li>
+        <li><a href="#referral">The Referral Model</a></li>
+        <li><a href="#excluded">What We Deliberately Excluded</a></li>
+        <li><a href="#all-sources">Full Source List</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 1. WHY WE BUILT THIS -->
+  <section class="article-section" id="why">
+    <div class="article-inner">
+      <div class="section-eyebrow">01</div>
+      <h2>Why we <em>built</em> this.</h2>
+      <div class="article-body">
+        <p>Most free business valuation tools give you one number with no explanation of how they got there. You type in your revenue, maybe your industry, and out comes a range. No methodology. No sources. No way to know if the number is based on real transaction data or someone's guess.</p>
+        <p>I wanted something different. When a business owner uses this tool, they should be able to trace every number back to a real data source. They should understand not just <strong>what</strong> their business is worth, but <strong>why</strong> it's worth that, and <strong>what specifically</strong> would change the number.</p>
+        <p>This page is the full documentation. Every data source is cited with a link. Every weight is explained with the research that supports it. Every formula is shown. If you want to audit how your number was calculated, this is where you do it.</p>
+        <p>The valuation model is independently constructed. No single source was copied or used as the primary basis. We synthesized data from five public academic and market sources, each cited below, and built our own model from the overlap.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. WHAT THE CALCULATOR DOES -->
+  <section class="article-section alt" id="features">
+    <div class="article-inner">
+      <div class="section-eyebrow">02</div>
+      <h2>What the <em>calculator</em> does.</h2>
+      <div class="article-body">
+        <p>You enter your business details, answer ten questions, and get a full picture of where your business stands for a potential sale. Here's everything the tool produces:</p>
+      </div>
+
+      <ul class="feature-list">
+        <li>
+          <span class="feat-label">Valuation range</span>
+          <span>An industry-specific range based on your revenue, SDE (seller's discretionary earnings), business type, and geographic location. Covers 104 business types across 20 industries, with geographic adjustments for 35 major metro areas and all 50 states.</span>
+        </li>
+        <li>
+          <span class="feat-label">Current valuation</span>
+          <span>Where you sit on that range right now, based on your assessment answers. This marker moves in real time as you answer each question, so you can see exactly which answers move your value.</span>
+        </li>
+        <li>
+          <span class="feat-label">Optimized exit value</span>
+          <span>What your business could be worth if key areas improved. This is the top of your range, representing the best realistic outcome for your industry and size.</span>
+        </li>
+        <li>
+          <span class="feat-label">The gap</span>
+          <span>The dollar difference between your current valuation and your optimized value. This is the money you're leaving on the table, and the number that makes the case for exit preparation.</span>
+        </li>
+        <li>
+          <span class="feat-label">Exit readiness score</span>
+          <span>An overall score out of 10, plus a per-pillar breakdown showing your score on each of the five exit readiness dimensions. Each pillar is expandable with details on why it matters for both valuation and deal closure.</span>
+        </li>
+        <li>
+          <span class="feat-label">Likelihood of selling</span>
+          <span>Based on the Exit Planning Institute's finding that 80% of businesses that go to market fail to sell. Your score is weighted by the factors that actually kill deals, not just the ones that affect price.</span>
+        </li>
+        <li>
+          <span class="feat-label">Time to sell</span>
+          <span>An industry-specific estimate of how long it would take to sell your business, adjusted by your exit readiness score.</span>
+        </li>
+        <li>
+          <span class="feat-label">SBA bankability</span>
+          <span>Whether a buyer could get an SBA loan to purchase your business at the current valuation. This is a debt service coverage ratio (DSCR) check based on SBA 7(a) lending requirements.</span>
+        </li>
+        <li>
+          <span class="feat-label">Narrative summary</span>
+          <span>A written analysis identifying your biggest area for improvement, your strongest area, and specific next steps. Honest about what we do and what we refer to other professionals.</span>
+        </li>
+        <li>
+          <span class="feat-label">PDF report</span>
+          <span>A downloadable report with your full results, pillar breakdown, narrative analysis, and source disclaimer. Free, one click, no email required.</span>
+        </li>
+      </ul>
+
+      <h3>How this compares to other free tools</h3>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Most Free Tools</th>
+            <th>This Tool</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Industry specificity</td>
+            <td>"Small business" generic</td>
+            <td class="ours">104 specific business types</td>
+          </tr>
+          <tr>
+            <td>Geographic adjustment</td>
+            <td>None</td>
+            <td class="ours">35 metros + 50 states</td>
+          </tr>
+          <tr>
+            <td>What affects the range</td>
+            <td>Just a number</td>
+            <td class="ours">10-question assessment moves your position live</td>
+          </tr>
+          <tr>
+            <td>Scoring transparency</td>
+            <td>Black box</td>
+            <td class="ours">Weights documented, sources cited</td>
+          </tr>
+          <tr>
+            <td>Likelihood of selling</td>
+            <td>Not mentioned</td>
+            <td class="ours">Separate weighted calculation</td>
+          </tr>
+          <tr>
+            <td>SBA bankability</td>
+            <td>Not mentioned</td>
+            <td class="ours">DSCR check with explanation</td>
+          </tr>
+          <tr>
+            <td>Time to sell</td>
+            <td>Not mentioned</td>
+            <td class="ours">Industry-specific, readiness-adjusted</td>
+          </tr>
+          <tr>
+            <td>PDF report</td>
+            <td>Usually paywalled</td>
+            <td class="ours">Free, one click</td>
+          </tr>
+          <tr>
+            <td>Referral network</td>
+            <td>No</td>
+            <td class="ours">Built-in partner system</td>
+          </tr>
+          <tr>
+            <td>Methodology disclosed</td>
+            <td>Rarely</td>
+            <td class="ours">This page</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3. DATA SOURCES -->
+  <section class="article-section" id="sources">
+    <div class="article-inner">
+      <div class="section-eyebrow">03</div>
+      <h2>Data sources &amp; <em>citations.</em></h2>
+      <div class="article-body">
+        <p>The valuation model draws from five primary data sources and one secondary reference. Each source is publicly available and independently verifiable. No proprietary databases were copied or used as a derivative work.</p>
+      </div>
+
+      <h3>Damodaran EV/EBITDA by Sector (NYU Stern)</h3>
+      <div class="article-body">
+        <p>Professor Aswath Damodaran at NYU's Stern School of Business publishes annual EV/EBITDA multiples by industry sector, based on public company financials. This is one of the most widely cited valuation datasets in finance.</p>
+        <p><strong>How we use it:</strong> As an upper bound reference. Public company multiples are significantly higher than small business multiples because of liquidity, scale, and diversification premiums. We discount Damodaran's multiples by 40-60% depending on the industry to arrive at a small business range. This discount rate is consistent with the academic literature on the "small firm effect" and the private company discount.</p>
+        <p><strong>Source:</strong> <a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/vebitda.html" target="_blank" rel="noopener">pages.stern.nyu.edu/~adamodar</a> (updated annually)</p>
+      </div>
+
+      <h3>Equidam Industry Multiples</h3>
+      <div class="article-body">
+        <p>Equidam publishes EBITDA multiples by granular industry classification, covering hundreds of TRBC industry categories globally. Updated weekly.</p>
+        <p><strong>How we use it:</strong> As a cross-reference for industry-specific multiples. Where Damodaran provides broad sector data, Equidam gives us more granular subcategory breakdowns. We use the overlap between the two to set more accurate ranges for specific business types.</p>
+        <p><strong>Source:</strong> <a href="https://www.equidam.com/ebitda-multiples-trbc-industries/" target="_blank" rel="noopener">equidam.com/ebitda-multiples-trbc-industries</a> (updated weekly)</p>
+      </div>
+
+      <h3>Pepperdine Private Capital Markets Report</h3>
+      <div class="article-body">
+        <p>The annual Pepperdine Graziadio Business School report surveys private market transactions and capital availability across the private company spectrum. It's one of the few academic sources that specifically covers Main Street and lower middle market deal sizes.</p>
+        <p><strong>How we use it:</strong> As the private market benchmark. Where Damodaran and Equidam are based on public companies, Pepperdine gives us data on what private businesses actually trade for. This is critical for calibrating the discount we apply to public multiples. The report also informs our understanding of deal failure rates and financing gaps.</p>
+        <p><strong>Source:</strong> <a href="https://digitalcommons.pepperdine.edu/gsbm_pcm_pcmr/" target="_blank" rel="noopener">digitalcommons.pepperdine.edu/gsbm_pcm_pcmr</a> (annual)</p>
+      </div>
+
+      <h3>BEA Regional Price Parities</h3>
+      <div class="article-body">
+        <p>The Bureau of Economic Analysis publishes Regional Price Parities (RPPs) that measure geographic differences in the price of goods and services across U.S. metropolitan areas and states.</p>
+        <p><strong>How we use it:</strong> As the basis for geographic valuation adjustments. A business in San Francisco operates in a higher-cost market than the same business in Tulsa, and that's reflected in both revenue levels and buyer willingness to pay. We convert BEA's "real value of $100" into a modifier using the formula: <strong>modifier = 100 / real value</strong>. Only the ~35 metros where cost-of-living is a reliable proxy for valuation geography are included.</p>
+        <p><strong>Source:</strong> <a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area" target="_blank" rel="noopener">bea.gov/data/prices-inflation/regional-price-parities</a></p>
+      </div>
+
+      <h3>Exit Planning Institute</h3>
+      <div class="article-body">
+        <p>The Exit Planning Institute conducts research on business exit outcomes, owner readiness, and the factors that determine whether businesses successfully sell.</p>
+        <p><strong>How we use it:</strong> Two ways. First, their finding that <strong>80% of businesses that go to market fail to sell</strong> is the baseline for our "likelihood of selling" calculation. Second, their research on Structural Capital (systems, processes, documentation) versus Human Capital (people, leadership, owner role) informed the separation of our Owner Dependency and Systems & Documentation pillars.</p>
+        <p><strong>Source:</strong> <a href="https://exit-planning-institute.org/research/" target="_blank" rel="noopener">exit-planning-institute.org/research</a></p>
+      </div>
+
+      <h3>SBA 7(a) Loan Program Requirements</h3>
+      <div class="article-body">
+        <p>The U.S. Small Business Administration's Standard Operating Procedure (SOP 50 10 8) defines the underwriting requirements for SBA-backed business acquisition loans. Most small business acquisitions are financed through SBA 7(a) loans.</p>
+        <p><strong>How we use it:</strong> To calculate SBA bankability. The SBA requires a minimum 1.25x Debt Service Coverage Ratio (DSCR). We use this threshold to determine whether a buyer could realistically finance the purchase of the business at its current valuation.</p>
+        <p><strong>Source:</strong> <a href="https://www.sba.gov/funding-programs/loans/7a-loans" target="_blank" rel="noopener">sba.gov/funding-programs/loans/7a-loans</a></p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">A note on BizBuySell</div>
+        <p>BizBuySell publishes quarterly insight reports on small business transaction data. Their data is owned by CoStar Group, and their Terms of Use prohibit creating derivative works from their published data. We reference BizBuySell reports for internal calibration only, to verify that our independently constructed model produces results in the right ballpark. <strong>No BizBuySell data is copied into, embedded in, or used as a direct input to the calculator.</strong> Our model is built entirely from the five public sources listed above.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. HOW THE VALUATION MODEL WORKS -->
+  <section class="article-section alt" id="model">
+    <div class="article-inner">
+      <div class="section-eyebrow">04</div>
+      <h2>How the <em>valuation model</em> works.</h2>
+
+      <h3>Industry Multiples</h3>
+      <div class="article-body">
+        <p>Every valuation starts with the industry. Different business types trade at different multiples of earnings, and the spread can be enormous. A SaaS company might trade at 4-6x SDE, while a restaurant might trade at 1.5-2.5x.</p>
+        <p>The calculator covers <strong>104 specific business types</strong> organized into <strong>20 industry categories</strong>. Users select their industry category first, then their specific business type. Each business type has its own set of multiples, derived from the data sources described above.</p>
+      </div>
+
+      <h4>How we set multiples for each business type</h4>
+      <div class="article-body">
+        <p>For each of the 104 business types, we follow the same process:</p>
+        <p><strong>1. Start with public company data.</strong> We pull the relevant sector multiple from Damodaran (broad sector) and Equidam (granular subcategory).</p>
+        <p><strong>2. Apply the private company discount.</strong> Public companies trade at higher multiples because of liquidity, diversification, and scale. We discount by 40-60% depending on the industry, consistent with the academic literature on private company valuation.</p>
+        <p><strong>3. Cross-reference with Pepperdine.</strong> Pepperdine's private capital markets data tells us what private businesses in similar size ranges actually trade for. We use this to validate our discounted range.</p>
+        <p><strong>4. Set a range, not a point.</strong> Every business type has both a low and high multiple for SDE and revenue. The low end represents a business with operational challenges. The high end represents a well-run, transferable operation. Your assessment answers determine where you land on this range.</p>
+      </div>
+
+      <h3>Two Valuation Methods: SDE and Revenue</h3>
+      <div class="article-body">
+        <p>The calculator uses two parallel valuation methods:</p>
+        <p><strong>SDE (Seller's Discretionary Earnings) multiples</strong> are the standard for small businesses where the owner is actively involved. SDE represents the total financial benefit to a single owner-operator: net profit plus owner salary, perks, and one-time expenses. Most businesses under $5M in value are priced on SDE.</p>
+        <p><strong>Revenue multiples</strong> serve as a secondary check. Some industries (particularly those with thin margins or high growth) are more commonly valued on revenue. The calculator computes both and uses the SDE-based valuation as the primary output, with the revenue multiple available for context.</p>
+      </div>
+
+      <h3>Geographic Adjustments</h3>
+      <div class="article-body">
+        <p>A plumbing company in San Jose isn't worth the same as the same company in rural Mississippi. Geography affects both revenue levels and what buyers are willing to pay.</p>
+        <p>We use the Bureau of Economic Analysis (BEA) Regional Price Parities to calculate geographic modifiers. The formula:</p>
+      </div>
+      <div class="formula-block">
+        Geographic Modifier = 100 / (Real Value of $100 in that metro)<br><br>
+        Example: If $100 buys $96.81 of goods in San Jose,<br>
+        Modifier = 100 / 96.81 = 1.033 (3.3% premium)
+      </div>
+      <div class="article-body">
+        <p>The calculator includes modifiers for <strong>approximately 35 major metro areas</strong> across the U.S. These are the metros where cost-of-living is large enough to meaningfully affect business valuations. Metros with RPPs close to the national average are excluded because the modifier wouldn't change the result.</p>
+        <p>If a user selects a state but not a metro area, the tool falls back to a state-level modifier derived from the same BEA dataset.</p>
+      </div>
+
+      <h3>The Manager Salary Adjustment</h3>
+      <div class="article-body">
+        <p>One critical number in small business valuation is the cost of replacing the owner. SDE includes the owner's salary, but a buyer who isn't going to run the business day-to-day needs to hire a manager. That manager's salary comes directly out of the cash flow.</p>
+        <p>Each of the 104 business types has a <strong>manager salary percentage</strong>, representing what percentage of SDE a replacement manager would typically cost. This ranges from roughly 15% for simple operations to 40%+ for complex professional services. The manager salary percentage is used in the SBA bankability calculation, where it directly affects the debt service coverage ratio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. THE FIVE-PILLAR ASSESSMENT -->
+  <section class="article-section" id="pillars">
+    <div class="article-inner">
+      <div class="section-eyebrow">05</div>
+      <h2>The five-pillar <em>exit readiness</em> assessment.</h2>
+      <div class="article-body">
+        <p>A valuation number alone doesn't tell you much. Two businesses with the same revenue, SDE, and industry can be worth dramatically different amounts depending on how they're run. The assessment is what separates a generic estimate from a useful one.</p>
+        <p>The framework is based on <strong>Greenberg's M&A framework</strong> for exit value factors, validated and refined through a meta-analysis of broker training materials, SBA lending requirements, buyer due diligence frameworks, and private equity evaluation criteria. The meta-analysis covered sources including SE Advisors, Calder Group, IBBA Market Pulse Reports, WTW retention studies, Morgan & Westfield, Wall Street Prep, and others (full list in the <a href="#all-sources">source section</a>).</p>
+      </div>
+
+      <h3>Why two separate weights</h3>
+      <div class="article-body">
+        <p>Each pillar carries two independent weights: one for <strong>valuation impact</strong> (how much it moves the price) and one for <strong>sale likelihood impact</strong> (how much it affects whether a deal actually closes). These are not the same thing.</p>
+        <p>Owner Dependency is the #1 valuation factor because a founder-dependent business at $500K SDE might get 1.5x, while the same business with a manager in place gets 3.5x. But it's #2 for deal closure, because buyers will still buy owner-dependent businesses (just at steep discounts with earnouts).</p>
+        <p>Financial Clarity is #2 for valuation but #1 for deal closure. Clean books are table stakes. Messy books make the business unfundable because SBA lenders can't underwrite the loan, and the deal just dies.</p>
+        <p>This distinction matters. A tool that treats "value" and "sellability" as the same thing will give you bad advice about what to fix first.</p>
+      </div>
+
+      <h3>The five pillars</h3>
+
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-name">1. Owner Dependency</div>
+          <div class="pillar-weights">
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">2.0x</div>
+              <div class="pillar-weight-label">Valuation</div>
+            </div>
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.75x</div>
+              <div class="pillar-weight-label">Sale Likelihood</div>
+            </div>
+          </div>
+        </div>
+        <p>The single biggest swing factor for small business valuation. Founder-dependent businesses receive valuations 30-50% below market comparables (SE Advisors). In lower middle market deals, independent businesses get 7-8x EBITDA versus 3-4x for founder-dependent ones. For sub-$1M deals, owner dependency reduces multiples by 0.25x-0.75x, which is proportionally massive on a 2-3x base.</p>
+        <p>Strategic buyers often walk away entirely from founder-dependent businesses, narrowing the buyer pool. When they do buy, deal structures include extended earnouts (2-3 years), reduced upfront cash, increased escrow, and binding employment agreements.</p>
+        <p>Ranked #2 for sale likelihood because buyers will still buy these businesses. They just pay less and structure the deal to transfer the risk back to the seller.</p>
+        <div class="pillar-questions">
+          <div class="pillar-questions-label">Assessment Questions</div>
+          <ol>
+            <li>Could your business run for a full week without you being reachable?</li>
+            <li>If you got sick tomorrow, would customers notice within 48 hours?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-name">2. Systems &amp; Documentation</div>
+          <div class="pillar-weights">
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.5x</div>
+              <div class="pillar-weight-label">Valuation</div>
+            </div>
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.0x</div>
+              <div class="pillar-weight-label">Sale Likelihood</div>
+            </div>
+          </div>
+        </div>
+        <p>SOPs are the mechanism that makes owner independence real. Documented processes increase sale price by 20-40% in lower middle market transactions (Exit Planning Institute). A business can have low owner dependency but poor documentation (a strong GM runs things but nothing is written down), which shifts the risk to key employee dependency.</p>
+        <p>The Exit Planning Institute separates "Structural Capital" (systems, processes, documentation) from "Human Capital" (people, leadership, owner role). These are distinct risk factors for buyers, which is why we keep them as separate pillars rather than combining them.</p>
+        <p>Ranked lowest for sale likelihood because many Main Street buyers (especially owner-operators) expect to rebuild systems. Lack of SOPs makes transitions harder but is rarely a deal-killer on its own.</p>
+        <div class="pillar-questions">
+          <div class="pillar-questions-label">Assessment Questions</div>
+          <ol>
+            <li>Are your core processes written down so someone else could follow them?</li>
+            <li>Could someone step into your role and know what to do without you explaining it?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-name">3. Financial Clarity</div>
+          <div class="pillar-weights">
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.75x</div>
+              <div class="pillar-weight-label">Valuation</div>
+            </div>
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">2.0x</div>
+              <div class="pillar-weight-label">Sale Likelihood</div>
+            </div>
+          </div>
+        </div>
+        <p>This kills more deals than anything else. More than half of M&A deals that go to market don't close, and financing failure and due diligence discoveries are the top two reasons. Both are financial clarity issues. SBA lenders cannot underwrite loans without clean, verifiable financials. Messy books mean no SBA loan, which means the buyer can't fund the deal.</p>
+        <p>Pepperdine reports that 31% of broker engagements end without a transaction, with valuation gap (26%) and unreasonable demands (14%) as the top reasons. Both stem from financial ambiguity.</p>
+        <p>Ranked #2 for valuation because clean books are table stakes rather than a premium driver. But messy books effectively drop the multiple to zero because the business becomes unfundable.</p>
+        <div class="pillar-questions">
+          <div class="pillar-questions-label">Assessment Questions</div>
+          <ol>
+            <li>Are your business and personal finances completely separated?</li>
+            <li>Could someone review your books and understand your profitability without asking you questions?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-name">4. Business Resilience</div>
+          <div class="pillar-weights">
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.0x</div>
+              <div class="pillar-weight-label">Valuation</div>
+            </div>
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.25x</div>
+              <div class="pillar-weight-label">Sale Likelihood</div>
+            </div>
+          </div>
+        </div>
+        <p>This pillar measures the business's ability to withstand both external and internal shocks. For Main Street deals (sub-$1M), defensibility matters less as a named concept than it does for PE buyers. Main Street owner-operators think in terms of "Can I keep the customers?" and "Will a competitor steal my revenue?" rather than "Does this have a structural moat?"</p>
+        <p>The first question captures external defensibility: competitive advantages that take years to build. The second captures internal resilience: key person risk. Nearly half of top performers leave within the first year post-close (WTW 2024 M&A Retention Study), with replacement costs of 50-200% of annual salary per key employee.</p>
+        <p>Originally named "Defensibility &amp; Moat," this pillar was renamed and reweighted after a meta-analysis showed the original framing was overweighted for Main Street deals. The valuation weight was reduced from 1.25x to 1.0x.</p>
+        <div class="pillar-questions">
+          <div class="pillar-questions-label">Assessment Questions</div>
+          <ol>
+            <li>Does your business have a competitive advantage that would take years to build, like licenses, long-term contracts, proprietary methods, or deep customer relationships?</li>
+            <li>If your most important non-owner employee left tomorrow, would the business continue running smoothly?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-name">5. Revenue Risk &amp; Quality</div>
+          <div class="pillar-weights">
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.5x</div>
+              <div class="pillar-weight-label">Valuation</div>
+            </div>
+            <div class="pillar-weight">
+              <div class="pillar-weight-value">1.5x</div>
+              <div class="pillar-weight-label">Sale Likelihood</div>
+            </div>
+          </div>
+        </div>
+        <p>Revenue risk covers two dimensions: concentration and quality. Customer concentration above 30% creates "financing friction" because SBA lenders stress-test what happens if the major account leaves. Above that threshold, PE firms and SBA lenders may pass entirely, with valuation discounts of 15-35%.</p>
+        <p>Revenue quality (recurring vs. project-based) is one of the strongest predictors of both valuation multiples and deal closure. Companies with recurring revenue trade at 2-8x higher multiples than transactional businesses (ClearlyAcquired, BisValue). Businesses with stable recurring revenue are 30-50% more likely to sell successfully.</p>
+        <p>The recurring revenue question uses a percentage slider (0-100%) instead of a yes/no, because the relationship between recurring revenue and valuation is continuous, not binary. Broker consensus thresholds: below 20% recurring gets no meaningful premium; 30%+ starts moving the needle; 40%+ qualifies for mid-to-upper range multiples; 60%+ is premium territory.</p>
+        <p>Originally named "Revenue Risk" with a valuation weight of 1.0x (lowest). Reweighted to 1.5x after the meta-analysis showed it was significantly underweighted relative to broker and lender data.</p>
+        <div class="pillar-questions">
+          <div class="pillar-questions-label">Assessment Questions</div>
+          <ol>
+            <li>Does your revenue come from a broad enough base that no single customer or account makes up more than 30%?</li>
+            <li>What percentage of your revenue comes from recurring sources? (Slider: 0-100%)</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>Weight summary</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Pillar</th>
+            <th>Valuation Weight</th>
+            <th>Sale Likelihood Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Owner Dependency</td>
+            <td class="highlight">2.0x</td>
+            <td>1.75x</td>
+          </tr>
+          <tr>
+            <td>Financial Clarity</td>
+            <td>1.75x</td>
+            <td class="highlight">2.0x</td>
+          </tr>
+          <tr>
+            <td>Systems &amp; Documentation</td>
+            <td>1.5x</td>
+            <td>1.0x</td>
+          </tr>
+          <tr>
+            <td>Revenue Risk &amp; Quality</td>
+            <td>1.5x</td>
+            <td>1.5x</td>
+          </tr>
+          <tr>
+            <td>Business Resilience</td>
+            <td>1.0x</td>
+            <td>1.25x</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. SCORING MECHANICS -->
+  <section class="article-section alt" id="scoring">
+    <div class="article-inner">
+      <div class="section-eyebrow">06</div>
+      <h2>Scoring <em>mechanics.</em></h2>
+
+      <h3>Valuation Range Position</h3>
+      <div class="article-body">
+        <p>Your position on the valuation range is determined by your weighted assessment score. Here's the formula:</p>
+      </div>
+      <div class="formula-block">
+        For each Yes answer: score += 1 × pillar valuation weight<br>
+        For each No answer: score += 0<br>
+        For each N/A answer: excluded from calculation<br>
+        For the recurring revenue slider: score += (slider% / 100) × pillar valuation weight<br><br>
+        Weighted Score % = total weighted score / max possible weighted score<br><br>
+        Your Valuation = SDE Low + (range × weighted score %)
+      </div>
+      <div class="article-body">
+        <p>N/A answers are excluded entirely. They don't count for or against you. This means someone who answers 8 questions gets scored on those 8, not penalized for the 2 they skipped.</p>
+        <p>The range itself comes from your industry's SDE multiples (low and high), adjusted by your geographic modifier. So a pest control company in Austin with 6 Yes answers will land at a different dollar figure than the same answers for a dental practice in New York, because the base ranges and geographic adjustments are different.</p>
+      </div>
+
+      <h3>Real-Time Range Movement</h3>
+      <div class="article-body">
+        <p>As you answer each question, the calculator immediately recalculates your position and moves the marker on the valuation bar. This isn't animation for effect. It's a live recalculation that shows you the relative impact of each answer.</p>
+        <p>Because the pillars have different weights, you'll notice some answers move the marker more than others. An Owner Dependency question (2.0x weight) moves the marker more than a Business Resilience question (1.0x weight). This visual feedback is intentional. It helps business owners intuitively understand which factors matter most for their valuation.</p>
+      </div>
+
+      <h3>Likelihood of Selling</h3>
+      <div class="article-body">
+        <p>The likelihood calculation uses the same approach as valuation range positioning, but with the <strong>sale likelihood weights</strong> instead. This produces a different ranking, because the factors that affect price are different from the factors that kill deals.</p>
+        <p>The baseline is the Exit Planning Institute's finding that 80% of businesses that go to market fail to sell. Your assessment score adjusts this baseline. A perfect score doesn't guarantee a sale, but it significantly improves the odds.</p>
+      </div>
+
+      <h3>Time to Sell</h3>
+      <div class="article-body">
+        <p>Each of the 104 business types has a time-to-sell range (in months) based on industry norms. The calculator adjusts this range based on your sale-weighted assessment score:</p>
+      </div>
+      <div class="formula-block">
+        Modifier = 1.4 at 0% sale score → 0.8 at 100% sale score<br><br>
+        Time to Sell = base industry range × modifier
+      </div>
+      <div class="article-body">
+        <p>A business with a poor exit readiness score takes about 40% longer to sell than the industry average. A business with a strong score sells about 20% faster. The modifier uses the sale-weighted score, not the valuation-weighted score, because the factors that slow down a sale are different from the factors that reduce the price.</p>
+      </div>
+
+      <h3>SBA Bankability</h3>
+      <div class="article-body">
+        <p>Most small business acquisitions are financed through SBA 7(a) loans. The SBA requires lenders to verify a minimum Debt Service Coverage Ratio (DSCR) of 1.25x. The calculator checks whether the business meets this threshold:</p>
+      </div>
+      <div class="formula-block">
+        Manager Salary = SDE × manager salary percentage (industry-specific)<br>
+        Adjusted Cash Flow = SDE - Manager Salary<br><br>
+        Loan Amount = 90% of current valuation<br>
+        Annual Debt Service = loan payment on 10-year term at 10.5% interest<br><br>
+        DSCR = Adjusted Cash Flow / Annual Debt Service<br><br>
+        Bankable if DSCR ≥ 1.25
+      </div>
+      <div class="article-body">
+        <p>The 90% loan-to-value ratio reflects SBA 7(a) standards (typically 10% buyer equity injection required). The 10.5% rate reflects current SBA lending rates. The manager salary deduction accounts for the fact that a buyer who won't run the business needs to hire management, which reduces the cash flow available for debt service.</p>
+        <p>If a business isn't bankable, it doesn't mean it can't sell. It means buyers would need alternative financing (seller financing, conventional loans, investor capital), which narrows the buyer pool and often reduces the final price.</p>
+      </div>
+
+      <h3>Exit Readiness Score</h3>
+      <div class="article-body">
+        <p>The overall exit readiness score is the raw (unweighted) sum of all assessment answers, presented as X out of 10. Each pillar shows its own score out of 2. This is the unweighted score, not the weighted one, because showing weighted percentages to users is confusing and doesn't help them understand what to work on.</p>
+        <p>The weighted scores do their work behind the scenes: they position you on the valuation range and calculate your likelihood of selling. The raw scores are what you see in the results, because they're actionable. "You scored 0/2 on Financial Clarity" is clear. "Your weighted Financial Clarity contribution was 0 out of a possible 3.5 normalized to 47.2%" is not.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. INPUT VALIDATION -->
+  <section class="article-section" id="validation">
+    <div class="article-inner">
+      <div class="section-eyebrow">07</div>
+      <h2>Input validation &amp; <em>edge cases.</em></h2>
+      <div class="article-body">
+        <p>The calculator catches several input scenarios that would produce misleading results:</p>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Response</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SDE greater than Revenue</td>
+            <td class="highlight">Hard stop</td>
+            <td>Mathematically impossible. SDE cannot exceed revenue. The tool explains the error and asks the user to check their numbers.</td>
+          </tr>
+          <tr>
+            <td>SDE greater than 80% of Revenue</td>
+            <td class="highlight">Warning</td>
+            <td>Unusual but not impossible. Some solo consultants or very low-overhead businesses operate above 80% margins. The tool flags it and lets the user proceed.</td>
+          </tr>
+          <tr>
+            <td>Revenue under $100,000</td>
+            <td class="highlight">Warning</td>
+            <td>The valuation model is calibrated for businesses with meaningful revenue. Below $100K, the multiples become less reliable because transaction data is sparse at that scale.</td>
+          </tr>
+          <tr>
+            <td>Missing required fields</td>
+            <td class="highlight">Hard stop</td>
+            <td>Industry, revenue, SDE, and state are all required. The tool can't produce a meaningful estimate without them.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="article-body" style="margin-top: 1.5rem;">
+        <p>Number inputs format with commas as you type (e.g., "1,500,000" instead of "1500000") to reduce data entry errors. The tool parses the formatted number correctly regardless of how the user types it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. THE REFERRAL MODEL -->
+  <section class="article-section alt" id="referral">
+    <div class="article-inner">
+      <div class="section-eyebrow">08</div>
+      <h2>The <em>referral</em> model.</h2>
+      <div class="article-body">
+        <p>I believe in being honest about what I do and don't do. The calculator is built around five pillars, but I only work on two of them.</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Pillar</th>
+            <th>Who Does This</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Owner Dependency</td>
+            <td class="highlight">Chuck Temple</td>
+            <td>Building the systems that let a business run without the owner is exactly what I do as a Fractional COO.</td>
+          </tr>
+          <tr>
+            <td>Systems &amp; Documentation</td>
+            <td class="highlight">Chuck Temple</td>
+            <td>SOPs, training curricula, and process documentation are core deliverables of every engagement.</td>
+          </tr>
+          <tr>
+            <td>Financial Clarity</td>
+            <td>CPA / Bookkeeper (referral)</td>
+            <td>Cleaning up financials, separating personal and business accounts, and preparing books for due diligence is accounting work. A good CPA does this better than I would.</td>
+          </tr>
+          <tr>
+            <td>Business Resilience</td>
+            <td>Strategic Advisor (referral)</td>
+            <td>Competitive positioning, key employee retention strategies, and long-term defensibility planning require a different kind of strategic expertise.</td>
+          </tr>
+          <tr>
+            <td>Revenue Risk &amp; Quality</td>
+            <td>Marketing Strategist (referral)</td>
+            <td>Diversifying revenue, reducing customer concentration, and building recurring revenue streams are marketing and business development challenges.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="article-body" style="margin-top: 1.5rem;">
+        <p>When your weakest pillar falls outside my area, the calculator recommends the right type of professional and (when available) connects you directly with a vetted partner. This isn't an upsell. A business owner whose biggest problem is messy financials needs a CPA, not a Fractional COO.</p>
+        <p>The referral system tracks which recommendations are made and whether users follow through (via GA4 analytics), so we can measure whether the tool is actually connecting people with the help they need.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. WHAT WE EXCLUDED -->
+  <section class="article-section" id="excluded">
+    <div class="article-inner">
+      <div class="section-eyebrow">09</div>
+      <h2>What we <em>deliberately</em> excluded.</h2>
+
+      <h3>Removed Data Sources</h3>
+      <div class="article-body">
+        <p><strong>First Page Sage</strong> was initially included as a source for industry multiples. We removed it because their methodology is unverifiable. They reference "unnamed databases" and their primary business is SEO services, not valuation research. Every number in this tool should be traceable to a verifiable, reputable source. First Page Sage didn't meet that bar.</p>
+      </div>
+
+      <h3>Factors Considered but Not Added</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Why It Was Excluded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lease / real estate</td>
+            <td>Called "one of the two biggest deal killers" by Morgan &amp; Westfield, but it's binary: either the lease transfers or it doesn't. Better as a warning flag than a scored question. Too industry-specific to weight generically.</td>
+          </tr>
+          <tr>
+            <td>Growth trajectory</td>
+            <td>Important (15-20% growth adds a 20-30% premium), but already reflected in the financial inputs. SDE captures current earnings, and the valuation multiples already account for typical industry growth rates.</td>
+          </tr>
+          <tr>
+            <td>Legal / regulatory risk</td>
+            <td>Too industry-specific to score generically. Licenses that don't transfer can kill deals, but this varies enormously by business type. A generic question would be misleading.</td>
+          </tr>
+          <tr>
+            <td>Brand / reputation</td>
+            <td>For local services, this is real (Google reviews matter). But it's adequately captured under the Business Resilience pillar, which already measures competitive advantages including reputation and customer relationships.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Original Assessment Questions We Changed</h3>
+      <div class="article-body">
+        <p>The assessment went through a meta-analysis that validated most of the original design but identified two questions that needed replacing:</p>
+        <p><strong>Original Q8:</strong> "Would a well-funded competitor with AI tools struggle to replicate what you do?" This question had no basis in any buyer due diligence framework, broker training material, or lender evaluation criteria. No buyer was asking this question. No broker was advising on it. It was replaced with a key employee resilience question, which fills the biggest gap in the original assessment.</p>
+        <p><strong>Original Q10:</strong> "Would your business be fine if Google, Amazon, Instagram, or any single platform changed its rules tomorrow?" This was valid but overlapped with Q9 (customer concentration). Platform dependence is a subset of concentration risk. Meanwhile, recurring vs. project-based revenue (a 2-8x multiple swing factor) wasn't captured anywhere. It was replaced with a recurring revenue percentage slider.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FULL SOURCE LIST -->
+  <section class="article-section alt" id="all-sources">
+    <div class="article-inner">
+      <div class="section-eyebrow">10</div>
+      <h2>Full <em>source</em> list.</h2>
+      <div class="article-body">
+        <p>Every source referenced in the valuation model, assessment framework, and this methodology document.</p>
+      </div>
+
+      <h3>Primary Data Sources (used in the calculator)</h3>
+      <ul class="source-list">
+        <li>
+          <div class="source-name"><a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/vebitda.html" target="_blank" rel="noopener">Damodaran EV/EBITDA by Sector</a></div>
+          <div class="source-desc">NYU Stern School of Business. EV/EBITDA multiples by industry sector based on public company data. Updated annually.</div>
+        </li>
+        <li>
+          <div class="source-name"><a href="https://www.equidam.com/ebitda-multiples-trbc-industries/" target="_blank" rel="noopener">Equidam EBITDA Multiples by Industry</a></div>
+          <div class="source-desc">Granular EBITDA multiples by TRBC industry classification. Global public company data. Updated weekly.</div>
+        </li>
+        <li>
+          <div class="source-name"><a href="https://digitalcommons.pepperdine.edu/gsbm_pcm_pcmr/" target="_blank" rel="noopener">Pepperdine Private Capital Markets Report</a></div>
+          <div class="source-desc">Pepperdine Graziadio Business School. Annual report on private market transactions, capital availability, and multiples across the private company spectrum.</div>
+        </li>
+        <li>
+          <div class="source-name"><a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area" target="_blank" rel="noopener">BEA Regional Price Parities</a></div>
+          <div class="source-desc">Bureau of Economic Analysis, U.S. Department of Commerce. Metro-level and state-level price data used for geographic valuation adjustments.</div>
+        </li>
+        <li>
+          <div class="source-name"><a href="https://exit-planning-institute.org/research/" target="_blank" rel="noopener">Exit Planning Institute</a></div>
+          <div class="source-desc">Research on business exit outcomes, owner readiness, and the 80% failure rate statistic. Also informs pillar separation (Structural Capital vs. Human Capital).</div>
+        </li>
+        <li>
+          <div class="source-name"><a href="https://www.sba.gov/funding-programs/loans/7a-loans" target="_blank" rel="noopener">SBA 7(a) Loan Program</a></div>
+          <div class="source-desc">U.S. Small Business Administration. Lending requirements, DSCR thresholds, and underwriting standards for business acquisition financing.</div>
+        </li>
+      </ul>
+
+      <h3>Meta-Analysis Sources (assessment framework validation)</h3>
+      <ul class="source-list">
+        <li>
+          <div class="source-name">SE Advisors</div>
+          <div class="source-desc">Founder Dependency: Hidden Valuation Killer. Research on how owner dependency compresses multiples by 30-50%.</div>
+        </li>
+        <li>
+          <div class="source-name">Calder Group</div>
+          <div class="source-desc">Effects of Owner Dependence on Business Valuation. Lower middle market comparison: 7-8x EBITDA (independent) vs. 3-4x (founder-dependent).</div>
+        </li>
+        <li>
+          <div class="source-name">IBBA Market Pulse Reports (2025)</div>
+          <div class="source-desc">International Business Brokers Association. Quarterly transaction data on Main Street and lower middle market deals.</div>
+        </li>
+        <li>
+          <div class="source-name">WTW 2024 M&amp;A Retention Study</div>
+          <div class="source-desc">Finding that nearly half of top performers leave within the first year post-close. Basis for the key employee question.</div>
+        </li>
+        <li>
+          <div class="source-name">Morgan &amp; Westfield</div>
+          <div class="source-desc">Reducing Concentrations of Risk; Transferring the Lease. Lease risk and concentration risk frameworks.</div>
+        </li>
+        <li>
+          <div class="source-name">Wall Street Prep</div>
+          <div class="source-desc">Customer Concentration Risk analysis. Concentration as one of the most scrutinized M&amp;A due diligence factors.</div>
+        </li>
+        <li>
+          <div class="source-name">Phoenix Strategy Group</div>
+          <div class="source-desc">Key Person Risk Impact on Valuation. Research on management team risk and retention strategies.</div>
+        </li>
+        <li>
+          <div class="source-name">ClearlyAcquired</div>
+          <div class="source-desc">How Recurring Revenue Impacts Business Valuation. Data on 2-8x multiple premium for recurring revenue businesses.</div>
+        </li>
+        <li>
+          <div class="source-name">BisValue</div>
+          <div class="source-desc">Recurring vs. Project Revenue Valuation. Research on recurring revenue premiums and deal closure rates.</div>
+        </li>
+        <li>
+          <div class="source-name">Mineola Search Partners</div>
+          <div class="source-desc">How to Price, Structure, and Diligence Around Customer Concentration. Search fund perspective on concentration thresholds.</div>
+        </li>
+        <li>
+          <div class="source-name">IBG Business</div>
+          <div class="source-desc">Common Business Sale Deal Killers. Comprehensive list of factors that prevent deals from closing.</div>
+        </li>
+        <li>
+          <div class="source-name">Quist Valuation</div>
+          <div class="source-desc">2026 Trends in Buyer Risk &amp; Transferability. Current trends in how buyers evaluate operational risk.</div>
+        </li>
+        <li>
+          <div class="source-name">Value Builder System</div>
+          <div class="source-desc">8 Drivers of Company Value. Research on 70,000+ businesses showing 71-78% valuation premium for low owner-dependency.</div>
+        </li>
+        <li>
+          <div class="source-name">Breakwater M&amp;A</div>
+          <div class="source-desc">HVAC valuation tiers by recurring revenue percentage. Industry-specific recurring revenue premium data.</div>
+        </li>
+        <li>
+          <div class="source-name">Crestmont Capital</div>
+          <div class="source-desc">SBA approval rates for recurring-revenue vs. project-based businesses (72-78% vs. 60-65%).</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <h2>Try the <em>calculator.</em></h2>
+    <p>Enter your business details, answer ten questions, and see where you stand. Takes about two minutes.</p>
+    <a href="/business-valuation-calculator.html" class="btn-primary">Open the Valuation Calculator</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">Startup to Sold<span class="footer-dot">.</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/operations">Operations</a>
+      <a href="/hiring">Hiring</a>
+      <a href="/exit-readiness">Exit Readiness</a>
+      <a href="/ai-automations">AI Automations</a>
+      <a href="/business-valuation-calculator">Valuation Calculator</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+      <a href="tel:8585238881">858-523-8881</a>
+    </div>
+  </footer>
+
+</body>
+</html>

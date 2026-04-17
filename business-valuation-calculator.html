@@ -40,6 +40,7 @@
       --rule: #e2e0db;
       --muted: #6b6b72;
       --green: #4a9a6a;
+      --amber: #e8a626;
       --red: #c0392b;
     }
 
@@ -187,6 +188,18 @@
     .answer-na { font-size: 0.65rem !important; padding: 0.6rem 0.8rem !important; }
     .question.unanswered { background: rgba(200,57,43,0.06); border-radius: 4px; margin: 0 -0.5rem; padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
     .assessment-error { color: var(--red); font-size: 0.9rem; text-align: center; margin-top: 1.5rem; display: none; }
+
+    /* SLIDER (Q10) */
+    .question-slider { grid-template-columns: 1fr !important; }
+    .slider-group { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .slider-labels { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; }
+    .slider-value { text-align: center; font-size: 0.88rem; font-weight: 700; color: var(--muted); min-height: 1.5em; }
+    .slider-value.active { color: var(--ink); }
+    .slider-na { align-self: center; margin-top: 0.25rem; }
+    .revenue-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--rule); outline: none; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; }
+    .revenue-slider.touched { opacity: 1; }
+    .revenue-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--orange); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; }
+    .revenue-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--orange); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; }
 
     /* RANGE BAR */
     .range-container { max-width: 700px; margin: 2.5rem 0; }
@@ -385,7 +398,7 @@
   <section class="section-light" id="assessment" style="display:none;">
     <div class="section-inner">
       <div class="section-label">Exit Readiness Assessment</div>
-      <p style="font-size:1rem;color:var(--muted);max-width:560px;margin-bottom:3.5rem;line-height:1.75;">Answer Yes or No for each question. Yes is always the good answer. Watch your position on the range move as you answer.</p>
+      <p style="font-size:1rem;color:var(--muted);max-width:560px;margin-bottom:3.5rem;line-height:1.75;">Answer each question below. Watch your position on the range move as you answer.</p>
 
       <!-- Pillar 1: Owner Dependency (weight: 2.0x) -->
       <div class="quiz-pillar">
@@ -453,11 +466,11 @@
         </div>
       </div>
 
-      <!-- Pillar 4: Defensibility & Moat (weight: 1.25x) -->
+      <!-- Pillar 4: Business Resilience (weight: 1.0x) -->
       <div class="quiz-pillar">
         <div class="pillar-number">Pillar 04</div>
-        <div class="pillar-heading">Defensibility &amp; Moat</div>
-        <div class="question" data-question="7" data-pillar="defensibility">
+        <div class="pillar-heading">Business Resilience</div>
+        <div class="question" data-question="7" data-pillar="resilience">
           <p class="question-text">Does your business have a competitive advantage that would take years to build -- like licenses, long-term contracts, proprietary methods, or deep customer relationships?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
@@ -465,8 +478,8 @@
             <button class="answer-btn answer-na" data-value="na" onclick="selectAnswer(this)">N/A</button>
           </div>
         </div>
-        <div class="question" data-question="8" data-pillar="defensibility">
-          <p class="question-text">Would a well-funded competitor with AI tools struggle to replicate what you do?</p>
+        <div class="question" data-question="8" data-pillar="resilience">
+          <p class="question-text">If your most important non-owner employee left tomorrow, would the business continue running smoothly?</p>
           <div class="answer-group">
             <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
             <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
@@ -475,10 +488,10 @@
         </div>
       </div>
 
-      <!-- Pillar 5: Revenue Risk (weight: 1.0x) -->
+      <!-- Pillar 5: Revenue Risk & Quality (weight: 1.5x) -->
       <div class="quiz-pillar">
         <div class="pillar-number">Pillar 05</div>
-        <div class="pillar-heading">Revenue Risk</div>
+        <div class="pillar-heading">Revenue Risk &amp; Quality</div>
         <div class="question" data-question="9" data-pillar="revenue_risk">
           <p class="question-text">Does your revenue come from a broad enough base that no single customer or account makes up more than 30%?</p>
           <div class="answer-group">
@@ -487,12 +500,16 @@
             <button class="answer-btn answer-na" data-value="na" onclick="selectAnswer(this)">N/A</button>
           </div>
         </div>
-        <div class="question" data-question="10" data-pillar="revenue_risk">
-          <p class="question-text">Would your business be fine if Google, Amazon, Instagram, or any single platform changed its rules tomorrow?</p>
-          <div class="answer-group">
-            <button class="answer-btn" data-value="1" onclick="selectAnswer(this)">Yes</button>
-            <button class="answer-btn" data-value="0" onclick="selectAnswer(this)">No</button>
-            <button class="answer-btn answer-na" data-value="na" onclick="selectAnswer(this)">N/A</button>
+        <div class="question question-slider" data-question="10" data-pillar="revenue_risk">
+          <p class="question-text">What percentage of your revenue comes from recurring sources (contracts, subscriptions, maintenance agreements, repeat customers on a regular schedule)?</p>
+          <div class="slider-group">
+            <div class="slider-labels">
+              <span>All one-time / project-based</span>
+              <span>All recurring / contracted</span>
+            </div>
+            <input type="range" id="q10-slider" class="revenue-slider" min="0" max="100" step="5" oninput="onSliderInput(this)" />
+            <div class="slider-value" id="q10-value">Drag to estimate</div>
+            <button class="answer-btn answer-na slider-na" data-value="na" onclick="selectSliderNA(this)">N/A</button>
           </div>
         </div>
       </div>
@@ -502,8 +519,8 @@
         <button class="btn-primary" onclick="checkUnanswered()" id="see-results-btn">See My Results</button>
       </div>
 
-      <p style="font-size:0.72rem;color:var(--muted);max-width:560px;margin-top:2rem;line-height:1.6;">Valuation and likelihood of sale use separate weighted scoring. Valuation weights: Owner Dependency (2.0x), Financial Clarity (1.75x), Systems (1.5x), Defensibility (1.25x), Revenue Risk (1.0x). Likelihood weights: Financial Clarity (2.0x), Owner Dependency (1.75x), Revenue Risk (1.5x), Defensibility (1.25x), Systems (1.0x).</p>
-      <p style="font-size:0.72rem;color:var(--muted);max-width:560px;margin-top:0.75rem;line-height:1.6;">Sources: <a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/vebitda.html" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Damodaran EV/EBITDA by Sector (NYU Stern)</a>, <a href="https://www.equidam.com/ebitda-multiples-trbc-industries/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Equidam Industry Multiples</a>, <a href="https://digitalcommons.pepperdine.edu/gsbm_pcm_pcmr/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Pepperdine Private Capital Markets Report</a>, <a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">BEA Regional Price Parities</a>, <a href="https://exit-planning-institute.org/research/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Exit Planning Institute</a>.</p>
+      <p style="font-size:0.72rem;color:var(--muted);max-width:560px;margin-top:2rem;line-height:1.6;">Valuation and likelihood of sale use separate weighted scoring. Valuation weights: Owner Dependency (2.0x), Financial Clarity (1.75x), Systems (1.5x), Revenue Risk &amp; Quality (1.5x), Business Resilience (1.0x). Likelihood weights: Financial Clarity (2.0x), Owner Dependency (1.75x), Revenue Risk &amp; Quality (1.5x), Business Resilience (1.25x), Systems (1.0x).</p>
+      <p style="font-size:0.72rem;color:var(--muted);max-width:560px;margin-top:0.75rem;line-height:1.6;">Sources: <a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/vebitda.html" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Damodaran EV/EBITDA by Sector (NYU Stern)</a>, <a href="https://www.equidam.com/ebitda-multiples-trbc-industries/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Equidam Industry Multiples</a>, <a href="https://digitalcommons.pepperdine.edu/gsbm_pcm_pcmr/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Pepperdine Private Capital Markets Report</a>, <a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">BEA Regional Price Parities</a>, <a href="https://exit-planning-institute.org/research/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:underline;">Exit Planning Institute</a>. <a href="/business-valuation-calculator-methodology.html" style="color:var(--orange);text-decoration:underline;font-weight:600;">See our full methodology</a></p>
     </div>
   </section>
 
@@ -602,7 +619,7 @@
     <div class="footer-links">
       <a href="/brokers.html">Brokers</a>
       <a href="/business-valuation-calculator.html">Valuation Calculator</a>
-      <a href="/business-valuation-calculator.html">Valuation</a>
+      <a href="/business-valuation-calculator-methodology.html">How We Built This</a>
     </div>
     <div class="footer-contact">
       <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
@@ -628,7 +645,7 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         calendly: 'https://calendly.com/partner/30min',
         email: 'partner@example.com'
       },
-      'Defensibility & Moat': {
+      'Business Resilience': {
         enabled: false,
         name: 'Partner Name',
         company: 'Strategy Firm',
@@ -636,7 +653,7 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         calendly: 'https://calendly.com/partner/30min',
         email: 'partner@example.com'
       },
-      'Revenue Risk': {
+      'Revenue Risk & Quality': {
         enabled: false,
         name: 'Partner Name',
         company: 'Marketing Agency',
@@ -849,8 +866,8 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       { name: 'Owner Dependency', questions: [1, 2], valWeight: 2.0, saleWeight: 1.75 },
       { name: 'Systems & Documentation', questions: [3, 4], valWeight: 1.5, saleWeight: 1.0 },
       { name: 'Financial Clarity', questions: [5, 6], valWeight: 1.75, saleWeight: 2.0 },
-      { name: 'Defensibility & Moat', questions: [7, 8], valWeight: 1.25, saleWeight: 1.25 },
-      { name: 'Revenue Risk', questions: [9, 10], valWeight: 1.0, saleWeight: 1.5 },
+      { name: 'Business Resilience', questions: [7, 8], valWeight: 1.0, saleWeight: 1.25 },
+      { name: 'Revenue Risk & Quality', questions: [9, 10], valWeight: 1.5, saleWeight: 1.5 },
     ];
 
     function selectAnswer(btn) {
@@ -863,6 +880,32 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       btn.classList.add(label === 'Yes' ? 'selected-yes' : label === 'No' ? 'selected-no' : 'selected-na');
       btn.dataset.selected = 'true';
       // Remove unanswered highlight
+      btn.closest('.question').classList.remove('unanswered');
+      updateRangePosition();
+    }
+
+    function onSliderInput(slider) {
+      slider.classList.add('touched');
+      slider.dataset.answered = 'true';
+      const valueEl = document.getElementById('q10-value');
+      valueEl.textContent = slider.value + '% recurring';
+      valueEl.classList.add('active');
+      // Clear N/A if it was selected
+      const naBtn = slider.closest('.slider-group').querySelector('.slider-na');
+      if (naBtn) { naBtn.classList.remove('selected-na'); delete naBtn.dataset.selected; }
+      slider.closest('.question').classList.remove('unanswered');
+      updateRangePosition();
+    }
+
+    function selectSliderNA(btn) {
+      btn.classList.add('selected-na');
+      btn.dataset.selected = 'true';
+      const slider = document.getElementById('q10-slider');
+      slider.classList.remove('touched');
+      delete slider.dataset.answered;
+      const valueEl = document.getElementById('q10-value');
+      valueEl.textContent = 'N/A';
+      valueEl.classList.remove('active');
       btn.closest('.question').classList.remove('unanswered');
       updateRangePosition();
     }
@@ -883,6 +926,25 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
 
       questions.forEach(q => {
         const qNum = parseInt(q.dataset.question);
+
+        // Q10 is a slider, not Yes/No buttons
+        if (qNum === 10) {
+          const slider = document.getElementById('q10-slider');
+          const naBtn = q.querySelector('.slider-na[data-selected="true"]');
+          if (naBtn) {
+            answered++;
+            scores[qNum] = 'na';
+          } else if (slider && slider.dataset.answered) {
+            answered++;
+            const val = parseInt(slider.value) / 100; // 0.0 to 1.0
+            const weights = getWeightsForQuestion(qNum);
+            valWeightedScore += val * weights.val;
+            maxValWeighted += weights.val;
+            scores[qNum] = val;
+          }
+          return;
+        }
+
         const selected = q.querySelector('.answer-btn[data-selected="true"]');
         if (selected) {
           answered++;
@@ -930,8 +992,16 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const questions = document.querySelectorAll('#assessment .question');
       let unanswered = 0;
       questions.forEach(q => {
-        const selected = q.querySelector('.answer-btn[data-selected="true"]');
-        if (!selected) {
+        const qNum = parseInt(q.dataset.question);
+        let isAnswered = false;
+        if (qNum === 10) {
+          const slider = document.getElementById('q10-slider');
+          const naBtn = q.querySelector('.slider-na[data-selected="true"]');
+          isAnswered = (slider && slider.dataset.answered) || naBtn;
+        } else {
+          isAnswered = q.querySelector('.answer-btn[data-selected="true"]');
+        }
+        if (!isAnswered) {
           q.classList.add('unanswered');
           unanswered++;
         }
@@ -991,17 +1061,17 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
           saleImpact: 'Highest',
           saleDesc: 'This kills more deals than anything else. If a buyer or lender can\'t verify the numbers, due diligence collapses. The deal just dies.'
         },
-        'Defensibility & Moat': {
-          valImpact: 'Medium (rising fast)',
-          valDesc: 'Affects the ceiling of your multiple. Deep contracts and switching costs command premium multiples. A business that could be replicated by AI or a funded competitor in 90 days has a hard cap.',
-          saleImpact: 'Medium',
-          saleDesc: 'Sophisticated buyers (PE firms) care a lot. Main street buyers (owner-operators) care less -- they\'re buying cash flow, not competitive position.'
-        },
-        'Revenue Risk': {
+        'Business Resilience': {
           valImpact: 'Medium',
-          valDesc: 'Concentration risk typically discounts multiples 10-25%. One customer at 40%+ of revenue or heavy platform dependence will cost you, but usually as a discount rather than a deal-breaker.',
+          valDesc: 'Covers two things buyers evaluate: competitive advantages that are hard to replicate (contracts, licenses, proprietary methods) and key employee risk. Nearly half of top performers leave within the first year after a sale, so buyers price this in.',
+          saleImpact: 'Medium',
+          saleDesc: 'Sophisticated buyers (PE firms) weigh competitive positioning heavily. For all buyers, key employee risk matters -- if one person leaving could hurt the business, that\'s a red flag in due diligence.'
+        },
+        'Revenue Risk & Quality': {
+          valImpact: 'High',
+          valDesc: 'Two factors: customer concentration (one customer at 30%+ of revenue discounts multiples 15-35%) and recurring revenue quality. Businesses with strong recurring contracts trade at significantly higher multiples than project-based businesses in the same industry.',
           saleImpact: 'Medium-High',
-          saleDesc: 'A buyer discovering that 60% of revenue comes from one account or platform will often walk. This is a due diligence surprise that craters buyer confidence.'
+          saleDesc: 'Concentration above 30% can cause buyers and SBA lenders to walk. Recurring revenue makes deals easier to finance -- lenders approve recurring-revenue businesses at 10-18% higher rates than project-based ones.'
         }
       };
 
@@ -1010,7 +1080,8 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const rawTotal = scoredValues.reduce((a, b) => a + b, 0);
       const rawMax = scoredValues.length;
       window._rawMax = rawMax;
-      document.getElementById('overall-score').textContent = rawTotal + ' / ' + rawMax;
+      const rawDisplay = rawTotal === Math.floor(rawTotal) ? rawTotal : rawTotal.toFixed(1);
+      document.getElementById('overall-score').textContent = rawDisplay + ' / ' + rawMax;
 
       const breakdownEl = document.getElementById('pillar-breakdown');
       breakdownEl.innerHTML = '';
@@ -1021,11 +1092,13 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         const pillarMax = answered.length;
         const pillarPct = pillarMax > 0 ? Math.round((pillarScore / pillarMax) * 100) : -1;
         const isNA = pillarMax === 0;
-        const barColor = isNA ? 'var(--dark-muted)' : pillarPct >= 100 ? 'var(--green)' : pillarPct >= 50 ? 'var(--orange)' : 'var(--red)';
+        const barColor = isNA ? 'var(--dark-muted)' : pillarPct >= 80 ? 'var(--green)' : pillarPct >= 40 ? 'var(--amber)' : 'var(--red)';
         pillarScores.push({ name: pillar.name, score: pillarScore, pct: pillarPct, max: pillarMax, valWeight: pillar.valWeight, saleWeight: pillar.saleWeight });
         const detail = PILLAR_DETAILS[pillar.name];
         const detailId = 'pillar-detail-' + idx;
-        const pctDisplay = isNA ? 'N/A' : pillarScore + ' / ' + pillarMax;
+        // For pillars with slider (fractional scores), show decimal; for binary pillars show integer
+        const hasSlider = pillar.questions.includes(10);
+        const pctDisplay = isNA ? 'N/A' : hasSlider ? pillarScore.toFixed(1) + ' / ' + pillarMax : pillarScore + ' / ' + pillarMax;
         const barWidth = isNA ? 0 : pillarPct;
         breakdownEl.innerHTML += '<div class="pillar-bar-group">' +
           '<div class="pillar-bar-header" onclick="document.getElementById(\'' + detailId + '\').classList.toggle(\'open\')">' +
@@ -1115,8 +1188,8 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const myPillars = ['Owner Dependency', 'Systems & Documentation'];
       const referralPillars = {
         'Financial Clarity': { role: 'CPA or bookkeeper', action: 'clean up your financials and separate personal from business expenses' },
-        'Defensibility & Moat': { role: 'strategic advisor or IP attorney', action: 'strengthen your competitive position through contracts, licensing, or proprietary methods' },
-        'Revenue Risk': { role: 'marketing strategist', action: 'diversify your customer base and reduce platform dependency' }
+        'Business Resilience': { role: 'strategic advisor or HR consultant', action: 'strengthen your competitive position and reduce key employee risk through retention agreements and cross-training' },
+        'Revenue Risk & Quality': { role: 'marketing strategist', action: 'diversify your customer base and build more recurring revenue streams' }
       };
 
       let ctaHTML = '';
@@ -1152,12 +1225,12 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const weakestPillar = sorted[0];
       const strongestPillar = sorted[sorted.length - 1];
 
-      const scoreLabel = (pct) => pct === 0 ? 'you scored 0 out of 2' : pct === 50 ? 'you scored 1 out of 2' : 'you scored 2 out of 2';
+      const scoreLabel = (pct) => pct >= 100 ? 'strong' : pct >= 50 ? 'moderate' : 'needs work';
       const isPerfect = weakestPillar.pct >= 100;
 
       if (isPerfect) {
         // Perfect score path
-        summaryLines.push('<p><strong style="color:var(--green);">Your business scored perfectly across all five exit readiness pillars.</strong> This puts you in rare company. Your operations run independently, your financials are clean, your revenue is diversified, and you have real competitive advantages. Buyers will see a business that\'s ready to transfer smoothly.</p>');
+        summaryLines.push('<p><strong style="color:var(--green);">Your business scored perfectly across all five exit readiness pillars.</strong> This puts you in rare company. Your operations run independently, your financials are clean, your revenue is diversified with strong recurring streams, your team is resilient, and you have real competitive advantages. Buyers will see a business that\'s ready to transfer smoothly.</p>');
         summaryLines.push('<p>Your estimated valuation of <strong style="color:var(--ink);">' + formatCurrency(currentVal) + '</strong> reflects the top of the range for your industry because you\'ve already done the work that most business owners haven\'t.</p>');
         summaryLines.push('<p>Your business is estimated to sell in <strong style="color:var(--ink);">' + estMonthsLow + '-' + estMonthsHigh + ' months</strong>. At this readiness level, you\'re likely to attract multiple offers and close faster than average.</p>');
 
@@ -1175,8 +1248,8 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
           if (weakestPillar.name === 'Owner Dependency') summaryLines.push(' Reducing your involvement in day-to-day operations is the single fastest way to increase what a buyer will pay.');
           if (weakestPillar.name === 'Financial Clarity') summaryLines.push(' Clean, transparent books aren\'t just nice to have. They\'re the #1 reason deals fall apart in due diligence.');
           if (weakestPillar.name === 'Systems & Documentation') summaryLines.push(' Written processes and SOPs are what make owner independence real. Without them, a buyer is paying for guesswork.');
-          if (weakestPillar.name === 'Defensibility & Moat') summaryLines.push(' Building deeper competitive advantages (contracts, proprietary methods, switching costs) raises the ceiling on your multiple.');
-          if (weakestPillar.name === 'Revenue Risk') summaryLines.push(' Diversifying your customer base and reducing platform dependency removes the discount buyers apply for concentration risk.');
+          if (weakestPillar.name === 'Business Resilience') summaryLines.push(' Strengthening competitive advantages and reducing key employee risk protects your business from shocks that buyers fear.');
+          if (weakestPillar.name === 'Revenue Risk & Quality') summaryLines.push(' Diversifying your customer base and building recurring revenue streams are the fastest ways to remove the discount buyers apply for revenue risk.');
           summaryLines.push('</p>');
         }
 
@@ -1211,7 +1284,7 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
             if (partner && partner.enabled) {
               referralDescriptions.push(p.name + ' (<strong style="color:var(--ink);">' + partner.name + '</strong> at ' + partner.company + ')');
             } else {
-              const generic = { 'Financial Clarity': 'a CPA or bookkeeper', 'Defensibility & Moat': 'a strategic advisor', 'Revenue Risk': 'a marketing strategist' };
+              const generic = { 'Financial Clarity': 'a CPA or bookkeeper', 'Business Resilience': 'a strategic advisor', 'Revenue Risk & Quality': 'a marketing strategist' };
               if (generic[p.name]) referralDescriptions.push(p.name + ' (' + generic[p.name] + ')');
             }
           });
@@ -1240,7 +1313,10 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         });
       });
 
-      setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      if (!window._resultsShown) {
+        window._resultsShown = true;
+        setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
     }
 
     // ===== PDF DOWNLOAD =====
@@ -1259,11 +1335,14 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const optimizedVal = val.sdeHigh;
       const gap = optimizedVal - currentVal;
       const currentMult = val.sdeMultLow + ((val.sdeMultHigh - val.sdeMultLow) * score);
-      const rawTotal = Object.values(scores).reduce((a, b) => a + b, 0);
+      const scoredValues = Object.values(scores).filter(v => v !== 'na' && v !== undefined);
+      const rawTotal = scoredValues.reduce((a, b) => a + b, 0);
 
       const pillarResults = PILLARS.map(p => {
-        const s = p.questions.reduce((a, q) => a + (scores[q] || 0), 0);
-        return { name: p.name, score: s, pct: Math.round((s / 2) * 100) };
+        const answered = p.questions.filter(q => scores[q] !== 'na' && scores[q] !== undefined);
+        const s = answered.reduce((a, q) => a + scores[q], 0);
+        const max = answered.length;
+        return { name: p.name, score: s, max: max, pct: max > 0 ? Math.round((s / max) * 100) : -1 };
       });
 
       const fmt = n => '$' + (Math.round(n / 1000) * 1000).toLocaleString('en-US');
@@ -1373,14 +1452,16 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       y += 20;
       doc.setFontSize(11);
       doc.setTextColor(28, 28, 30);
-      doc.text('Overall: ' + d.rawTotal + ' / ' + window._rawMax, margin, y);
+      const pdfRawDisplay = d.rawTotal === Math.floor(d.rawTotal) ? d.rawTotal : d.rawTotal.toFixed(1);
+      doc.text('Overall: ' + pdfRawDisplay + ' / ' + window._rawMax, margin, y);
       y += 20;
 
       d.pillarResults.forEach(p => {
         checkPage(36);
         const isNA = p.pct === -1;
-        const color = isNA ? [142, 142, 153] : p.pct >= 100 ? [74, 154, 106] : p.pct >= 50 ? [232, 93, 38] : [192, 57, 43];
-        const scoreText = isNA ? 'N/A' : p.score + ' / 2';
+        const color = isNA ? [142, 142, 153] : p.pct >= 80 ? [74, 154, 106] : p.pct >= 40 ? [232, 166, 38] : [192, 57, 43];
+        const hasDecimal = p.score !== Math.floor(p.score);
+        const scoreText = isNA ? 'N/A' : (hasDecimal ? p.score.toFixed(1) : p.score) + ' / ' + p.max;
 
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
@@ -1518,11 +1599,13 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       html += '<div class="gap-box"><div class="label">Value Left on the Table</div><div class="value">' + d.fmt(d.gap) + '</div></div>';
 
       html += '<h2>Exit Readiness Score</h2>';
-      html += '<div class="overall-score">Overall: ' + d.rawTotal + ' / ' + window._rawMax + '</div>';
+      const printRawDisplay = d.rawTotal === Math.floor(d.rawTotal) ? d.rawTotal : d.rawTotal.toFixed(1);
+      html += '<div class="overall-score">Overall: ' + printRawDisplay + ' / ' + window._rawMax + '</div>';
       d.pillarResults.forEach(p => {
         const isNA = p.pct === -1;
-        const color = isNA ? '#8e8e99' : p.pct >= 100 ? '#4a9a6a' : p.pct >= 50 ? '#e85d26' : '#c0392b';
-        const scoreText = isNA ? 'N/A' : p.score + ' / 2';
+        const color = isNA ? '#8e8e99' : p.pct >= 80 ? '#4a9a6a' : p.pct >= 40 ? '#e8a626' : '#c0392b';
+        const hasDecimal = p.score !== Math.floor(p.score);
+        const scoreText = isNA ? 'N/A' : (hasDecimal ? p.score.toFixed(1) : p.score) + ' / ' + p.max;
         const barWidth = isNA ? 0 : p.pct;
         html += '<div class="pillar-row"><span class="pillar-name">' + p.name + '</span><span class="pillar-score" style="color:' + color + '">' + scoreText + '</span></div>';
         html += '<div class="bar-track"><div class="bar-fill" style="width:' + barWidth + '%;background:' + color + '"></div></div>';
