@@ -973,17 +973,15 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       const currentVal = val.sdeLow + (range * pct);
       document.getElementById('current-estimate').textContent = formatCurrency(currentVal);
 
-      // Hide any previous error, hide button once all answered
+      // Hide any previous error
       const errEl = document.getElementById('assessment-error');
       if (errEl) errEl.style.display = 'none';
-      const seeBtn = document.getElementById('see-results-btn');
-      if (seeBtn && answered === 10) seeBtn.style.display = 'none';
 
+      // Store scores for when user clicks "See My Results"
       if (answered === 10) {
         window._finalScore = pct;
         window._finalWeightedScore = valWeightedScore;
         window._questionScores = scores;
-        showResults();
       }
     }
 
@@ -1015,6 +1013,9 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         // Scroll to first unanswered
         const first = document.querySelector('.question.unanswered');
         if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // All answered -- show results
+        showResults();
       }
     }
 
