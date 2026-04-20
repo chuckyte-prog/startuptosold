@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Valuation Calculator -- Startup to Sold Consulting</title>
+  <meta name="description" content="A free valuation calculator that combines industry data, metro-level market conditions, and a 10-question exit readiness assessment to show owners where they stand." />
+  <meta property="og:title" content="Business Valuation Calculator -- Startup to Sold Consulting" />
+  <meta property="og:description" content="A free valuation calculator that combines industry data, metro-level market conditions, and a 10-question exit readiness assessment to show owners where they stand." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/portfolio/valuation-calculator.html" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/portfolio/valuation-calculator" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #e85d26;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 3rem; height: 64px; background: rgba(15,22,35,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--dark-rule); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--dark-text); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,22,35,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 700; color: var(--dark-text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { color: var(--orange) !important; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--orange); }
+
+    .hero { background: var(--dark-bg); padding: 9rem 3rem 6rem; border-bottom: 1px solid var(--dark-rule); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.2s; }
+    .btn-primary:hover { background: #c44a1a; }
+    .hero-stats { display: flex; flex-direction: column; border-left: 1px solid var(--dark-rule); padding-left: 2.5rem; }
+    .hero-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--dark-rule); }
+    .hero-stat:last-child { border-bottom: none; }
+    .hero-stat-number { font-size: 2rem; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
+    .hero-stat-label { font-size: 0.8rem; color: var(--dark-muted); line-height: 1.4; }
+
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-phases { background: var(--dark-surface); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-phases h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-phases h2 em { color: var(--orange); font-style: normal; }
+    .section-phases .section-lead { font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 3.5rem; line-height: 1.75; }
+    .phases-strip { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; }
+    .phase-box { background: var(--dark-bg); border: 1px solid var(--dark-rule); padding: 2.25rem 1.75rem; transition: border-color 0.2s; }
+    .phase-box:hover { border-color: rgba(232,93,38,0.3); }
+    .phase-number { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .phase-title { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .phase-desc { font-size: 0.88rem; color: var(--dark-muted); line-height: 1.7; }
+    .phase-arrow { display: flex; align-items: center; justify-content: center; padding: 0 1rem; color: var(--orange); }
+    .phase-arrow svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    .section-services { background: var(--dark-bg); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-services h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-services h2 em { color: var(--orange); font-style: normal; }
+    .section-services .section-lead { font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 3rem; line-height: 1.75; }
+    .services-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--dark-rule); }
+    .service-item { padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--dark-rule); display: grid; grid-template-columns: 16px 1fr; gap: 0.75rem; align-items: start; }
+    .service-item:last-child { border-bottom: none; }
+    .service-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-top: 0.45rem; flex-shrink: 0; }
+    .service-content-title { font-size: 0.95rem; font-weight: 700; color: var(--dark-text); margin-bottom: 0.25rem; }
+    .service-content-desc { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+
+    .section-who { background: var(--dark-surface); padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-who h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-who h2 em { color: var(--orange); font-style: normal; }
+    .who-body { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; max-width: 720px; margin-bottom: 2.5rem; }
+
+    .section-cta { background: var(--dark-surface); padding: 6rem 3rem; text-align: center; }
+    .section-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p { font-size: 1rem; color: var(--dark-muted); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    footer { background: var(--dark-surface); border-top: 1px solid var(--dark-rule); padding: 4rem 3rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .footer-tagline { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+    .footer-col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact a { display: block; font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid var(--dark-rule); padding-top: 1.5rem; font-size: 0.8rem; color: var(--dark-muted); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 0; margin-top: 0; }
+      .hero-stat { padding: 1rem 0; }
+      .section-phases, .section-services, .section-who, .section-cta { padding: 4rem 1.5rem; }
+      .phases-strip { grid-template-columns: 1fr; }
+      .phase-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .cta-secondary { margin-top: 1.25rem; font-size: 0.88rem; color: var(--dark-muted); }
+    .cta-secondary a { color: var(--dark-muted); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s, border-color 0.2s; }
+    .cta-secondary a:hover { color: var(--orange); border-color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/ai-automations.html">AI Automations</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#services">Services</a>
+    <a href="/ai-automations.html">AI Automations</a>
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div style="margin-bottom:2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
+        <div class="hero-eyebrow">Lead Generation Tool</div>
+        <h1>Know Your Business's Worth <em>in 5 Minutes.</em></h1>
+        <p class="hero-sub">A free valuation calculator that combines industry data, metro-level market conditions, and a 10-question exit readiness assessment to show owners where they stand.</p>
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+      <p class="cta-secondary">Or reach me at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">~8 hrs</div>
+          <div class="hero-stat-label">Time to build</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">$0/mo</div>
+          <div class="hero-stat-label">Runs for free (static HTML, no backend)</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">5 pillars</div>
+          <div class="hero-stat-label">Exit readiness assessment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-phases">
+    <div class="section-inner">
+      <div class="section-eyebrow">What It Does</div>
+      <h2>Industry data meets <em>exit readiness.</em></h2>
+      <p class="section-lead">Most business owners have no idea what their company is worth until they pay $5K-$15K for a formal valuation. This gives them a starting point in minutes, not months.</p>
+      <div class="phases-strip">
+        <div class="phase-box">
+          <div class="phase-number">Phase 01</div>
+          <div class="phase-title">Enter Your Details</div>
+          <p class="phase-desc">Revenue, industry, and metro area. The tool pulls from embedded market data covering 30+ industries and 35 metros.</p>
+        </div>
+        <div class="phase-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
+          </svg>
+        </div>
+        <div class="phase-box">
+          <div class="phase-number">Phase 02</div>
+          <div class="phase-title">Answer 10 Questions</div>
+          <p class="phase-desc">Yes/no questions across five pillars: owner dependency, systems, financials, resilience, and revenue quality. Each one shifts your position on the range.</p>
+        </div>
+        <div class="phase-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/>
+          </svg>
+        </div>
+        <div class="phase-box">
+          <div class="phase-number">Phase 03</div>
+          <div class="phase-title">See Your Range</div>
+          <p class="phase-desc">Instant valuation range with a breakdown of what's pulling the number up or down. PDF export included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-services">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Result</div>
+      <h2>A warm conversation <em>starter.</em></h2>
+      <p class="section-lead">Owners get immediate value. I get a warm conversation about the specific gaps the tool identified.</p>
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Instant Valuation Range</div>
+            <div class="service-content-desc">Based on real industry multiples and metro-level market data, not a generic rule of thumb.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Exit Readiness Score</div>
+            <div class="service-content-desc">10 questions across 5 pillars show exactly where the business is strong and where it's vulnerable.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">Referral Partner System</div>
+            <div class="service-content-desc">When the tool identifies a gap outside my expertise (financials, marketing), it connects the owner to a vetted partner.</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div>
+            <div class="service-content-title">PDF Export</div>
+            <div class="service-content-desc">Full breakdown the owner can share with their accountant, spouse, or business partner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-who">
+    <div class="section-inner">
+      <div class="section-eyebrow">Live Demo</div>
+      <h2>Try it <em>yourself.</em></h2>
+      <p class="who-body">This is live on startuptosold.com right now. Pick an industry, enter your numbers, and see what the tool produces.</p>
+      <a href="/business-valuation-calculator.html" class="btn-primary" style="margin-top: 1rem;">Launch the Valuation Calculator &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section-cta">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="justify-content:center;">Get Started</div>
+      <h2>Want something like this <em>for your business?</em></h2>
+      <p>I build tools and automations that save time and generate leads. Let's talk about what would move the needle for you.</p>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+      <p class="cta-secondary">Or reach me at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Startup to Sold Consulting<span style="color:var(--orange);">.</span></div>
+          <p class="footer-tagline">Hands-on operations partner for Bay Area businesses.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links"><li><a href="/ai-automations.html">AI Automations</a></li><li><a href="/brokers.html">Brokers</a></li><li><a href="/business-valuation-calculator.html">Valuation Calculator</a></li><li><a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a></li></ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:8585238881">858-523-8881</a>
+            <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Startup to Sold Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+  </script>
+</body>
+</html>

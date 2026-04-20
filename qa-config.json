@@ -1,0 +1,15 @@
+{
+  "font_family": "Plus Jakarta Sans",
+  "ga_tracking_id": "G-1XV0PEXSQJ",
+  "favicon_path": "favicon.svg",
+  "colors": {
+    "--dark-bg": "#0f1623",
+    "--dark-surface": "#162032",
+    "--dark-text": "#f2f2f5",
+    "--dark-muted": "#8e8e99",
+    "--orange": "#e85d26"
+  },
+  "required_meta": ["viewport", "description", "og:title", "og:description", "og:type", "og:url"],
+  "ignore_dirs": ["node_modules", ".git", "docs", "legacy", "images", ".playwright-mcp", "tmp"],
+  "ignore_files": []
+}
