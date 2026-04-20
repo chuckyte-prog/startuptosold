@@ -189,7 +189,7 @@
         <div style="margin-bottom:2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
         <div class="hero-eyebrow">Automation</div>
         <h1>5 Minutes Per Check. 3 Courts. 5 Days a Week. <em>I Made It Disappear.</em></h1>
-        <p class="hero-sub">A pickleball coach was checking court availability by hand -- navigating a clunky city portal, logging in, clicking through calendars. Five minutes each time, three courts a day, five days a week. That's over 60 hours a year on one task. I built a tool that does it in one click, in an afternoon, for free.</p>
+        <p class="hero-sub">A pickleball coach was checking court availability by hand -- navigating clunky city portals, logging in, clicking through calendars. Five minutes per court, three courts a day, five days a week. That's over 60 hours a year on one task. Different courts in different cities? Start the whole process over on a different website. I had a proof of concept running the same afternoon.</p>
         <a href="/ai-automations.html#live-demo" class="btn-primary">Try the Live Demo</a>
       </div>
       <div class="hero-stats">
@@ -198,8 +198,8 @@
           <div class="hero-stat-label">Saved from one automation</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-number">1 afternoon</div>
-          <div class="hero-stat-label">From "this is annoying" to deployed</div>
+          <div class="hero-stat-number">$1,500+/yr</div>
+          <div class="hero-stat-label">In labor costs, on one task</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-number">$0/run</div>
@@ -216,18 +216,19 @@
       <h2>The same task. <em>Two very different experiences.</em></h2>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;">
         <div style="background: var(--dark-bg); border: 1px solid var(--dark-rule); padding: 2.5rem;">
-          <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1.5rem;">Before -- ~5 minutes per check</div>
+          <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1.5rem;">Before -- ~5 minutes per court, per check</div>
           <div style="font-size: 0.9rem; color: var(--dark-muted); line-height: 2;">
-            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">1. Google "Oakland recreation court booking"</div>
-            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">2. Find the right link in the city portal</div>
-            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">3. Log in (if you remember your password)</div>
-            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">4. Navigate to the right facility</div>
+            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">1. Find the right city's recreation website</div>
+            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">2. Navigate to court reservations (every city is different)</div>
+            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">3. Log in or create an account</div>
+            <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">4. Find the right facility and court type</div>
             <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">5. Click through the calendar date by date</div>
             <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">6. Scan each time slot for availability</div>
             <div style="padding: 0.4rem 0; border-bottom: 1px solid var(--dark-rule);">7. Write down the open times</div>
+            <div style="padding: 0.4rem 0;">8. Repeat for the next court -- or the next city's website</div>
           </div>
           <div style="margin-top: 1.5rem; padding: 1.25rem; border: 1px solid var(--dark-rule); background: rgba(232,93,38,0.05);">
-            <div style="font-size: 0.85rem; color: var(--dark-muted); line-height: 1.7;"><strong style="color: var(--orange);">The math:</strong> 5 min/check &times; 3 courts &times; 5 days/week &times; 50 weeks = <strong style="color: var(--dark-text);">62.5 hours/year</strong>. At $25/hr, that's <strong style="color: var(--dark-text);">$1,562/year</strong> on one task.</div>
+            <div style="font-size: 0.85rem; color: var(--dark-muted); line-height: 1.7;"><strong style="color: var(--orange);">The math:</strong> 5 min/check &times; 3 courts &times; 5 days/week &times; 50 weeks = <strong style="color: var(--dark-text);">62.5 hours/year</strong>. At $25/hr, that's <strong style="color: var(--dark-text);">$1,562/year</strong> on one task. Add more courts or cities and it multiplies fast.</div>
           </div>
         </div>
         <div style="background: var(--dark-bg); border: 1px solid rgba(232,93,38,0.3); padding: 2.5rem;">
@@ -247,6 +248,7 @@
       <h2>I had two options. <em>I picked the free one.</em></h2>
       <p class="section-lead">The obvious approach was to use AI vision -- point a model at the city's website and have it read the screen. That works, but it costs about $0.50 every time someone checks. For a tool people use multiple times a week, that adds up fast.</p>
       <p class="section-lead" style="margin-top: 1rem;">Instead, I found the city's public booking widget URL and wrote a script that reads the data directly. Same result. Zero cost per use. The tool pays for itself on day one because there's nothing to pay.</p>
+      <p class="section-lead" style="margin-top: 1rem;">I also made sure it was legal. The data is publicly accessible government facility information -- no login required, no terms of service violated, no credentials stored. I research this before I build, not after.</p>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 2.5rem; border: 1px solid var(--dark-rule);">
         <div style="padding: 2rem; border-right: 1px solid var(--dark-rule);">
           <div style="font-size: 1.5rem; font-weight: 800; color: var(--dark-muted); margin-bottom: 0.5rem; letter-spacing: -0.03em;">$0.50/run</div>
