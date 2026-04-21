@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Base -- Startup to Sold Consulting</title>
+  <meta name="description" content="Drop a book, transcript, or conversation into a folder. Get structured, cross-referenced, queryable intelligence back -- with cited answers months later." />
+  <meta property="og:title" content="Knowledge Base -- Startup to Sold Consulting" />
+  <meta property="og:description" content="Drop a book, transcript, or conversation into a folder. Get structured, cross-referenced, queryable intelligence back -- with cited answers months later." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/portfolio/knowledge-base.html" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/portfolio/knowledge-base" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #e85d26;
+      --orange-glow: rgba(232, 93, 38, 0.15);
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --mono: 'JetBrains Mono', monospace;
+      --terminal-green: #4af78e;
+      --terminal-dim: rgba(74, 247, 142, 0.6);
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+    /* Paper texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* Scroll reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-stagger { transition-delay: calc(var(--stagger, 0) * 0.1s); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-bg-pattern { animation: none !important; }
+      .before-item { transform: none !important; }
+      .receipt-row { opacity: 1 !important; transform: none !important; }
+      .typing-text::after { animation: none !important; }
+      .chat-pair { opacity: 1 !important; transform: none !important; }
+      .chat-output { opacity: 1 !important; max-height: none !important; }
+    }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 3rem; height: 64px; background: rgba(15,22,35,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--dark-rule); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--dark-text); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,22,35,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 700; color: var(--dark-text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { color: var(--orange) !important; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--orange); }
+
+    /* Hero */
+    .hero { background: var(--dark-bg); padding: 9rem 3rem 6rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-section-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, transparent, var(--dark-surface)); pointer-events: none; z-index: 2; }
+
+    /* Knowledge graph background pattern */
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Ccircle cx='100' cy='100' r='2.5' fill='%23e85d26'/%3E%3Ccircle cx='250' cy='80' r='2' fill='%23e85d26'/%3E%3Ccircle cx='400' cy='150' r='3' fill='%23e85d26'/%3E%3Ccircle cx='550' cy='90' r='2' fill='%23e85d26'/%3E%3Ccircle cx='700' cy='120' r='2.5' fill='%23e85d26'/%3E%3Ccircle cx='150' cy='250' r='2' fill='%23e85d26'/%3E%3Ccircle cx='320' cy='300' r='3' fill='%23e85d26'/%3E%3Ccircle cx='500' cy='280' r='2' fill='%23e85d26'/%3E%3Ccircle cx='650' cy='320' r='2.5' fill='%23e85d26'/%3E%3Ccircle cx='80' cy='400' r='2.5' fill='%23e85d26'/%3E%3Ccircle cx='200' cy='450' r='2' fill='%23e85d26'/%3E%3Ccircle cx='420' cy='420' r='3' fill='%23e85d26'/%3E%3Ccircle cx='600' cy='480' r='2' fill='%23e85d26'/%3E%3Ccircle cx='750' cy='450' r='2.5' fill='%23e85d26'/%3E%3Ccircle cx='350' cy='520' r='2' fill='%23e85d26'/%3E%3Cline x1='100' y1='100' x2='250' y2='80' stroke='%23e85d26' stroke-width='0.5' opacity='0.5'/%3E%3Cline x1='250' y1='80' x2='400' y2='150' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='400' y1='150' x2='550' y2='90' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='550' y1='90' x2='700' y2='120' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='100' y1='100' x2='150' y2='250' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='150' y1='250' x2='320' y2='300' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='320' y1='300' x2='500' y2='280' stroke='%23e85d26' stroke-width='0.5' opacity='0.5'/%3E%3Cline x1='500' y1='280' x2='650' y2='320' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='400' y1='150' x2='320' y2='300' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='650' y1='320' x2='750' y2='450' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='80' y1='400' x2='200' y2='450' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='200' y1='450' x2='420' y2='420' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='420' y1='420' x2='600' y2='480' stroke='%23e85d26' stroke-width='0.5' opacity='0.5'/%3E%3Cline x1='600' y1='480' x2='750' y2='450' stroke='%23e85d26' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='320' y1='300' x2='420' y2='420' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='250' y1='80' x2='150' y2='250' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='550' y1='90' x2='500' y2='280' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='350' y1='520' x2='420' y2='420' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3Cline x1='80' y1='400' x2='150' y2='250' stroke='%23e85d26' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+      background-size: cover;
+      animation: drift 30s ease-in-out infinite alternate;
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-20px, -10px) scale(1.02); }
+    }
+
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(232, 93, 38, 0.3); }
+    .btn-primary:hover { background: #c44a1a; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(232, 93, 38, 0.4); }
+    .hero-stats { display: flex; flex-direction: column; border-left: 1px solid var(--dark-rule); padding-left: 2.5rem; }
+    .hero-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--dark-rule); }
+    .hero-stat:last-child { border-bottom: none; }
+    .hero-stat-number { font-size: 2rem; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; font-variant-numeric: tabular-nums; }
+    .hero-stat-label { font-size: 0.8rem; color: var(--dark-muted); line-height: 1.4; }
+
+    /* Shared */
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-h2 em { color: var(--orange); font-style: normal; }
+
+    /* Before & After */
+    .section-transform { background: var(--dark-surface); padding: 6rem 3rem; position: relative; overflow: hidden; }
+    .section-transform::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to bottom, var(--dark-bg), transparent); pointer-events: none; z-index: 1; }
+    .section-transform::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--dark-bg), transparent); pointer-events: none; z-index: 1; }
+    .section-transform > .section-inner { position: relative; z-index: 2; }
+
+    .before-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .before-item { display: flex; align-items: baseline; gap: 1rem; padding: 0.85rem 1.25rem; font-size: 1rem; color: var(--dark-muted); line-height: 1.6; background: rgba(255,255,255,0.02); border: 1px solid var(--dark-rule); margin-bottom: 0.5rem; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; }
+    .before-item:nth-child(1) { transform: rotate(-0.8deg) translateX(-5px); }
+    .before-item:nth-child(2) { transform: rotate(0.5deg) translateX(8px); }
+    .before-item:nth-child(3) { transform: rotate(-1.2deg) translateX(-3px); }
+    .before-item:nth-child(4) { transform: rotate(1deg) translateX(12px); }
+    .before-item:nth-child(5) { transform: rotate(-0.4deg) translateX(-8px); }
+    .before-bullet { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; position: relative; top: 2px; box-shadow: 0 0 6px rgba(232, 93, 38, 0.4); }
+
+    .transform-pivot { margin: 3rem 0; padding: 1.5rem 0; text-align: center; font-size: 1.15rem; font-weight: 700; color: var(--orange); letter-spacing: -0.01em; position: relative; display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+    .transform-pivot::before, .transform-pivot::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      max-width: 160px;
+      background: linear-gradient(to right, transparent, var(--orange), transparent);
+      transform: scaleX(0);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .transform-pivot::before { transform-origin: right; background: linear-gradient(to left, var(--orange), transparent); }
+    .transform-pivot::after { transform-origin: left; background: linear-gradient(to right, var(--orange), transparent); }
+    .transform-pivot.visible::before, .transform-pivot.visible::after { transform: scaleX(1); }
+
+    .after-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; position: relative; background: var(--dark-rule); border: 1px solid var(--dark-rule); border-radius: 4px; overflow: hidden; }
+    .after-grid::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      bottom: 20%;
+      left: 33.33%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+      opacity: 0.4;
+      z-index: 2;
+    }
+    .after-grid::after {
+      content: '';
+      position: absolute;
+      top: 20%;
+      bottom: 20%;
+      left: 66.66%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+      opacity: 0.4;
+      z-index: 2;
+    }
+    .after-col { background: var(--dark-bg); }
+    .after-col-header { padding: 1rem 1.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); border-bottom: 1px solid var(--dark-rule); background: rgba(232,93,38,0.04); }
+    .after-col-list { list-style: none; padding: 0; }
+    .after-col-list li { padding: 0.75rem 1.5rem; font-size: 0.9rem; color: var(--dark-muted); border-bottom: 1px solid var(--dark-rule); line-height: 1.5; }
+    .after-col-list li:last-child { border-bottom: none; }
+
+    /* After column stagger animation */
+    .after-col {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .after-col:nth-child(1) { transition-delay: 0.1s; }
+    .after-col:nth-child(2) { transition-delay: 0.25s; }
+    .after-col:nth-child(3) { transition-delay: 0.4s; }
+    .after-grid.visible .after-col { opacity: 1; transform: translateY(0); }
+
+    /* Ingest Receipt -- Terminal style */
+    .section-ingest { background: var(--dark-bg); padding: 6rem 3rem; position: relative; }
+    .section-ingest::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--dark-surface), transparent); pointer-events: none; }
+
+    .receipt { max-width: 580px; margin: 2.5rem auto 0; border: 1px solid rgba(74, 247, 142, 0.15); background: rgba(10, 16, 24, 0.95); font-family: var(--mono); border-radius: 6px; overflow: hidden; position: relative; box-shadow: 0 0 40px rgba(74, 247, 142, 0.03), inset 0 0 80px rgba(74, 247, 142, 0.01); }
+    /* Scanline effect */
+    .receipt::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(74, 247, 142, 0.015) 2px,
+        rgba(74, 247, 142, 0.015) 4px
+      );
+      z-index: 3;
+    }
+    .receipt-header { padding: 1.5rem 2rem; border-bottom: 1px solid rgba(74, 247, 142, 0.1); background: rgba(74, 247, 142, 0.03); }
+    .receipt-header-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terminal-dim); margin-bottom: 0.35rem; }
+    .receipt-header-title { font-size: 1rem; font-weight: 700; color: var(--terminal-green); letter-spacing: -0.01em; }
+    .receipt-body { padding: 0; }
+    .receipt-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid rgba(74, 247, 142, 0.06); opacity: 0; transform: translateY(5px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .receipt-row.visible { opacity: 1; transform: translateY(0); }
+    .receipt-row:last-child { border-bottom: none; }
+    .receipt-label { padding: 0.85rem 2rem; font-size: 0.72rem; font-weight: 700; color: var(--terminal-dim); letter-spacing: 0.02em; border-right: 1px solid rgba(74, 247, 142, 0.06); display: flex; align-items: flex-start; }
+    .receipt-value { padding: 0.85rem 1.5rem; font-size: 0.82rem; color: var(--dark-text); line-height: 1.6; }
+    .receipt-value .entity { color: var(--terminal-green); font-weight: 700; }
+    .receipt-footer { padding: 1.25rem 2rem; border-top: 1px solid rgba(74, 247, 142, 0.1); background: rgba(74, 247, 142, 0.03); font-size: 0.82rem; color: var(--dark-muted); line-height: 1.6; }
+    .receipt-footer strong { color: var(--terminal-green); }
+
+    /* Blinking cursor */
+    .receipt-cursor {
+      padding: 0.5rem 2rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--terminal-green);
+    }
+    .receipt-cursor::after {
+      content: '\2588';
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Query / Chat -- Terminal/CLI style */
+    .section-query { background: var(--dark-surface); padding: 6rem 3rem; position: relative; }
+    .section-query::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to bottom, var(--dark-bg), transparent); pointer-events: none; z-index: 1; }
+    .section-query > .section-inner { position: relative; z-index: 2; }
+
+    .chat-thread { max-width: 720px; margin: 2.5rem auto 0; display: flex; flex-direction: column; gap: 0; }
+    .chat-pair { border: 1px solid rgba(255,255,255,0.06); margin-bottom: 1.5rem; background: rgba(10, 16, 24, 0.7); border-radius: 4px; overflow: hidden; }
+    .chat-input { padding: 1.25rem 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: baseline; gap: 0.75rem; background: rgba(0,0,0,0.2); font-family: var(--mono); }
+    .chat-prompt { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); flex-shrink: 0; font-family: var(--mono); }
+    .chat-question { font-size: 0.88rem; font-weight: 600; color: var(--dark-text); font-family: var(--mono); }
+    .chat-output { padding: 1.25rem 1.75rem; opacity: 0; transition: opacity 0.6s ease 0.3s; }
+    .chat-pair.visible .chat-output { opacity: 1; }
+    .chat-response { font-size: 0.9rem; color: var(--dark-muted); line-height: 1.75; }
+    .chat-response .wikilink { color: #7dd3fc; font-weight: 600; background: rgba(125, 211, 252, 0.08); padding: 0.1em 0.35em; border-radius: 3px; font-family: var(--mono); font-size: 0.82rem; }
+
+    /* Typing animation cascade */
+    .typing-text {
+      display: inline;
+      border-right: 2px solid var(--orange);
+      animation: cursor-blink 0.8s step-end infinite;
+    }
+    .typing-text.done { border-right-color: transparent; animation: none; }
+    @keyframes cursor-blink {
+      0%, 100% { border-right-color: var(--orange); }
+      50% { border-right-color: transparent; }
+    }
+    /* Chat pairs start hidden, cascade in */
+    .chat-pair { opacity: 0; transform: translateY(12px); }
+    .chat-pair.active { opacity: 1; transform: translateY(0); transition: opacity 0.3s, transform 0.3s; }
+    .chat-output { opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.3s ease, max-height 0.3s ease; }
+    .chat-output.shown { opacity: 1; max-height: 600px; }
+    /* Response typing cursor */
+    .chat-response-typed {
+      border-right: 2px solid var(--orange);
+      animation: cursor-blink 0.8s step-end infinite;
+      display: inline;
+    }
+    .chat-response-typed.done { border-right-color: transparent; animation: none; }
+
+    /* Git section */
+    .section-git { background: var(--dark-bg); padding: 6rem 3rem; position: relative; }
+    .section-git::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to bottom, var(--dark-surface), transparent); pointer-events: none; }
+    .git-prose { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; max-width: 720px; }
+    .git-prose + .git-prose { margin-top: 1.5rem; }
+
+    /* CTA */
+    .section-cta { background: var(--dark-surface); padding: 6rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .section-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,93,38,0.05) 0%, transparent 70%); pointer-events: none; }
+    .section-cta > .section-inner { position: relative; z-index: 1; }
+    .section-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p { font-size: 1rem; color: var(--dark-muted); margin-bottom: 2.5rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.75; }
+    .cta-secondary { margin-top: 1.25rem; font-size: 0.88rem; color: var(--dark-muted); }
+    .cta-secondary a { color: var(--dark-muted); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s, border-color 0.2s; }
+    .cta-secondary a:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* Footer */
+    footer { background: var(--dark-surface); border-top: 1px solid var(--dark-rule); padding: 4rem 3rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .footer-tagline { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+    .footer-col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact a { display: block; font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid var(--dark-rule); padding-top: 1.5rem; font-size: 0.8rem; color: var(--dark-muted); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 0; margin-top: 0; }
+      .hero-stat { padding: 1rem 0; }
+
+      .section-transform, .section-ingest, .section-query, .section-git, .section-cta { padding: 4rem 1.5rem; }
+
+      .before-item { transform: none !important; }
+
+      .after-grid { grid-template-columns: 1fr; }
+      .after-grid::before, .after-grid::after { display: none; }
+
+      .receipt { margin-top: 2rem; }
+      .receipt-row { grid-template-columns: 1fr; }
+      .receipt-label { border-right: none; border-bottom: 1px solid rgba(74, 247, 142, 0.06); padding: 0.65rem 1.5rem; }
+      .receipt-value { padding: 0.65rem 1.5rem; }
+
+      .chat-input { flex-direction: column; gap: 0.35rem; }
+
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/ai-automations.html">AI Automations</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#services">Services</a>
+    <a href="/ai-automations.html">AI Automations</a>
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-section-fade"></div>
+    <div class="hero-inner">
+      <div class="reveal">
+        <div style="margin-bottom:2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
+        <div class="hero-eyebrow">Knowledge Ops</div>
+        <h1>Knowledge Base. <em>Your Business, Searchable.</em></h1>
+        <p class="hero-sub">Books, podcast transcripts, strategy conversations, competitor research -- they all go into a folder. The system reads them, creates structured pages for every person, company, and concept mentioned, cross-references everything, and makes it all queryable. Months later, you ask a question and get a cited answer pulling from any source you've ever fed it.</p>
+        <a href="/ai-automations.html" class="btn-primary">See AI Automations</a>
+      </div>
+      <div class="hero-stats reveal" style="--stagger: 2">
+        <div class="hero-stat">
+          <div class="hero-stat-number" data-count="11" data-suffix="+">11+</div>
+          <div class="hero-stat-label">Sources ingested</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number" data-count="40" data-suffix="+">40+</div>
+          <div class="hero-stat-label">Pages auto-generated</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">Cited</div>
+          <div class="hero-stat-label">Answers from any source</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before & After -->
+  <section class="section-transform">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">Before &amp; After</div>
+      <h2 class="section-h2 reveal">You saved it somewhere. <em>Good luck finding it.</em></h2>
+
+      <ul class="before-list">
+        <li class="before-item reveal" style="--stagger: 0">That advisor call from three months ago where something actually clicked</li>
+        <li class="before-item reveal" style="--stagger: 1">The competitive analysis doc you paid for and forgot existed</li>
+        <li class="before-item reveal" style="--stagger: 2">A book that changed how you think about pricing, sitting unread on your Kindle</li>
+        <li class="before-item reveal" style="--stagger: 3">Meeting notes scattered across five different note-taking apps</li>
+        <li class="before-item reveal" style="--stagger: 4">The strategy doc you built last quarter that nobody has opened since</li>
+      </ul>
+
+      <div class="transform-pivot reveal">All of that knowledge is technically saved. But it's practically lost.</div>
+    </div>
+  </section>
+
+  <!-- Ingest Walkthrough -->
+  <section class="section-ingest">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">How It Works</div>
+      <h2 class="section-h2 reveal">What happens when you <em>drop a file in.</em></h2>
+
+      <div class="receipt reveal">
+        <div class="receipt-header">
+          <div class="receipt-header-label">Ingest Log</div>
+          <div class="receipt-header-title">Advisor Strategy Call - April 16.md</div>
+        </div>
+        <div class="receipt-body">
+          <div class="receipt-row">
+            <div class="receipt-label">Source summary</div>
+            <div class="receipt-value">Advisor Strategy Call -- Positioning & Pricing</div>
+          </div>
+          <div class="receipt-row">
+            <div class="receipt-label">Entities created</div>
+            <div class="receipt-value"><span class="entity">The Advisor</span>, <span class="entity">Key Referral Partner</span></div>
+          </div>
+          <div class="receipt-row">
+            <div class="receipt-label">Concepts updated</div>
+            <div class="receipt-value"><span class="entity">Positioning Evolution</span>, <span class="entity">Pricing Strategy</span>, <span class="entity">Trust Equation</span></div>
+          </div>
+          <div class="receipt-row">
+            <div class="receipt-label">Cross-references</div>
+            <div class="receipt-value">12 links to prior conversations, strategy docs, and frameworks</div>
+          </div>
+          <div class="receipt-row">
+            <div class="receipt-label">Index updated</div>
+            <div class="receipt-value">Central index + log entry filed</div>
+          </div>
+        </div>
+        <div class="receipt-footer"><strong>Total processing: one command.</strong> All of this happens automatically.</div>
+        <div class="receipt-cursor"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ask It Anything -->
+  <section class="section-query">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">Queryable Intelligence</div>
+      <h2 class="section-h2 reveal">Ask it anything. <em>Get cited answers.</em></h2>
+      <p class="reveal" style="font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 0.5rem; line-height: 1.75;">This isn't just file organization. It's a system you can actually talk to.</p>
+
+      <div class="chat-thread" id="chatThread">
+        <div class="chat-pair" data-chat="0">
+          <div class="chat-input">
+            <span class="chat-prompt">Query &gt;</span>
+            <span class="chat-question"><span class="typing-text" data-text="What did the advisor say about our positioning last month?"></span></span>
+          </div>
+          <div class="chat-output">
+            <div class="chat-response">In the April strategy call, the advisor pushed back on leading with 'fractional COO' and recommended leading with operations + AI automation instead, because most small business owners do not recognize the fractional COO category (<span class="wikilink">[[conversations/2026-04-16-advisor-strategy-call]]</span>). He also flagged that the consulting book is an underutilized trust asset. Two open questions came out of that call: whether to rebrand and how to price the paid assessment (<span class="wikilink">[[syntheses/positioning-evolution]]</span>).</div>
+          </div>
+        </div>
+
+        <div class="chat-pair" data-chat="1">
+          <div class="chat-input">
+            <span class="chat-prompt">Query &gt;</span>
+            <span class="chat-question"><span class="typing-text" data-text="Summarize what we've researched about our top competitor."></span></span>
+          </div>
+          <div class="chat-output">
+            <div class="chat-response">Three sources reference Piedmont Avenue Consulting: the Bay Area launch research, the competitive landscape doc, and the positioning conversation (<span class="wikilink">[[entities/piedmont-avenue-consulting]]</span>). They're marketing-focused, not operations, with a strong local networking presence. Their weakness is that they do not address operational systems or exit-readiness, which is the gap we're positioned to fill. Full comparison lives in <span class="wikilink">[[syntheses/competitive-landscape]]</span>.</div>
+          </div>
+        </div>
+
+        <div class="chat-pair" data-chat="2">
+          <div class="chat-input">
+            <span class="chat-prompt">Query &gt;</span>
+            <span class="chat-question"><span class="typing-text" data-text="What's the core thesis from the operations strategy doc?"></span></span>
+          </div>
+          <div class="chat-output">
+            <div class="chat-response">The operations strategy blueprint argues that small businesses fail from broken systems, not lack of marketing, and that 'only systems scale' (<span class="wikilink">[[concepts/systems-vs-growth]]</span>). The proposed offer ladder runs from a paid diagnostic through a masterclass to private client work. Referral-first acquisition through CPAs, attorneys, and bankers is the primary growth channel (<span class="wikilink">[[sources/operations-strategy-blueprint]]</span>). The doc flags brand name and pricing as unresolved.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Git Repo -->
+  <section class="section-git">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">Portable by Design</div>
+      <h2 class="section-h2 reveal">It's a Git repo. <em>It goes anywhere.</em></h2>
+      <p class="git-prose reveal">The wiki is a Git repository. It syncs to the cloud, can be queried by other tools, and can be deployed for a team. It's not locked into one app. If you want to move it, share it, or build on top of it, there's nothing stopping you.</p>
+      <p class="git-prose reveal" style="--stagger: 1">I built this for myself. I can build one for your team -- your SOPs, your market research, your vendor evaluations, your onboarding materials. All structured, cross-referenced, and queryable by anyone on your team who needs an answer.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="section-inner">
+      <h2 class="reveal">Your company's knowledge is scattered. <em>It doesn't have to be.</em></h2>
+      <p class="reveal" style="--stagger: 1">Every document, every conversation, every meeting can actually make your team smarter -- permanently. Let's talk about what a knowledge base would look like for your business.</p>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary reveal" style="--stagger: 2">Book a Free Strategy Session</a>
+      <p class="cta-secondary reveal" style="--stagger: 3">Or reach me at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Startup to Sold Consulting<span style="color:var(--orange);">.</span></div>
+          <p class="footer-tagline">Hands-on operations partner for Bay Area businesses.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links"><li><a href="/ai-automations.html">AI Automations</a></li><li><a href="/brokers.html">Brokers</a></li><li><a href="/business-valuation-calculator.html">Valuation Calculator</a></li><li><a href="/portfolio.html">Portfolio</a></li><li><a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a></li></ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:8585238881">858-523-8881</a>
+            <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Startup to Sold Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+
+    // Scroll reveal with IntersectionObserver
+    const revealElements = document.querySelectorAll('.reveal, .transform-pivot, .after-grid, .chat-pair, .receipt-row');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Receipt rows sequential reveal
+    const receipt = document.querySelector('.receipt');
+    const receiptRows = document.querySelectorAll('.receipt-row');
+    const receiptObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          receiptRows.forEach((row, i) => {
+            setTimeout(() => row.classList.add('visible'), i * 200);
+          });
+          receiptObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    if (receipt) receiptObserver.observe(receipt);
+
+    // Stat count-up animation
+    const statNumbers = document.querySelectorAll('.hero-stat-number[data-count]');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          let current = 0;
+          const duration = 1200;
+          const step = Math.ceil(target / (duration / 30));
+          const counter = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(counter);
+            }
+            el.textContent = current + suffix;
+          }, 30);
+          statObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    statNumbers.forEach(el => statObserver.observe(el));
+
+    // Cascading typing animation for all queries AND responses
+    const chatThread = document.getElementById('chatThread');
+    if (chatThread && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const pairs = chatThread.querySelectorAll('.chat-pair');
+
+      // Capture original response HTML and clear for typing
+      pairs.forEach(pair => {
+        const resp = pair.querySelector('.chat-response');
+        if (resp) {
+          resp.dataset.originalHtml = resp.innerHTML;
+          resp.innerHTML = '';
+          resp.classList.add('chat-response-typed');
+        }
+      });
+
+      function typeText(el, text, speed) {
+        return new Promise(resolve => {
+          el.textContent = '';
+          let i = 0;
+          const interval = setInterval(() => {
+            el.textContent += text[i];
+            i++;
+            if (i >= text.length) {
+              clearInterval(interval);
+              el.classList.add('done');
+              resolve();
+            }
+          }, speed);
+        });
+      }
+
+      // Type HTML character-by-character while preserving tags
+      function typeHtml(el, html, speed) {
+        return new Promise(resolve => {
+          // Tokenize: each token is either a complete tag or a single character
+          const tokens = [];
+          let i = 0;
+          while (i < html.length) {
+            if (html[i] === '<') {
+              const end = html.indexOf('>', i);
+              tokens.push(html.slice(i, end + 1));
+              i = end + 1;
+            } else if (html[i] === '&') {
+              const end = html.indexOf(';', i);
+              if (end !== -1 && end - i < 8) {
+                tokens.push(html.slice(i, end + 1));
+                i = end + 1;
+              } else {
+                tokens.push(html[i]);
+                i++;
+              }
+            } else {
+              tokens.push(html[i]);
+              i++;
+            }
+          }
+
+          el.innerHTML = '';
+          let idx = 0;
+          const interval = setInterval(() => {
+            // Add tokens until we add a visible character or run out
+            let addedVisible = false;
+            while (idx < tokens.length && !addedVisible) {
+              el.innerHTML += tokens[idx];
+              if (!tokens[idx].startsWith('<')) {
+                addedVisible = true;
+              }
+              idx++;
+            }
+            // Flush any trailing tags immediately
+            while (idx < tokens.length && tokens[idx].startsWith('<')) {
+              el.innerHTML += tokens[idx];
+              idx++;
+            }
+            if (idx >= tokens.length) {
+              clearInterval(interval);
+              el.classList.add('done');
+              resolve();
+            }
+          }, speed);
+        });
+      }
+
+      async function runChatCascade() {
+        for (const pair of pairs) {
+          const typingEl = pair.querySelector('.typing-text');
+          const output = pair.querySelector('.chat-output');
+          const response = pair.querySelector('.chat-response');
+          const text = typingEl.dataset.text;
+          const responseHtml = response.dataset.originalHtml;
+
+          // Show the pair (input line appears)
+          pair.classList.add('active');
+
+          // Type the query fast
+          await typeText(typingEl, text, 22);
+
+          // Brief pause, then open the output container
+          await new Promise(r => setTimeout(r, 200));
+          output.classList.add('shown');
+
+          // Let the cursor blink for a beat before the response starts typing
+          await new Promise(r => setTimeout(r, 450));
+
+          // Type out the response
+          await typeHtml(response, responseHtml, 8);
+
+          // Pause before next query
+          await new Promise(r => setTimeout(r, 500));
+        }
+      }
+
+      const chatObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runChatCascade();
+            chatObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      chatObserver.observe(chatThread);
+    } else if (chatThread) {
+      // Reduced motion: show everything immediately
+      chatThread.querySelectorAll('.chat-pair').forEach(p => p.classList.add('active'));
+      chatThread.querySelectorAll('.chat-output').forEach(o => o.classList.add('shown'));
+      chatThread.querySelectorAll('.typing-text').forEach(t => { t.textContent = t.dataset.text; t.classList.add('done'); });
+    }
+
+    // Parallax on hero background
+    const heroBg = document.querySelector('.hero-bg-pattern');
+    if (heroBg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        if (scrollY < 800) {
+          heroBg.style.transform = `translateY(${scrollY * 0.15}px)`;
+        }
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

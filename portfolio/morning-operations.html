@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morning Operations System -- Startup to Sold Consulting</title>
+  <meta name="description" content="Calendar sync, email triage, task routing, exercise scheduling -- all connected, all automated, all before coffee. Custom-built for whatever YOUR daily ops look like." />
+  <meta property="og:title" content="Morning Operations System -- Startup to Sold Consulting" />
+  <meta property="og:description" content="Calendar sync, email triage, task routing, exercise scheduling -- all connected, all automated, all before coffee. Custom-built for whatever YOUR daily ops look like." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/portfolio/morning-operations.html" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/portfolio/morning-operations" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #e85d26;
+      --orange-glow: rgba(232,93,38,0.35);
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; position: relative; }
+
+    /* Blueprint grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,93,38,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,93,38,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Section divider gradient lines */
+    .gradient-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--orange) 50%, transparent 100%);
+      opacity: 0.4;
+    }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 3rem; height: 64px; background: rgba(15,22,35,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--dark-rule); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--dark-text); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,22,35,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 700; color: var(--dark-text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { color: var(--orange) !important; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--orange); }
+
+    /* Hero */
+    .hero { background: var(--dark-bg); padding: 9rem 3rem 6rem; position: relative; overflow: hidden; z-index: 1; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; }
+
+    /* Scan lines animation */
+    .hero-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(232,93,38,0.015) 3px,
+        rgba(232,93,38,0.015) 4px
+      );
+      animation: scanDrift 12s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes scanDrift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-40px); }
+    }
+
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { background: #c44a1a; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(232,93,38,0.3); }
+    .hero-stats { display: flex; flex-direction: column; border-left: 1px solid var(--dark-rule); padding-left: 2.5rem; }
+    .hero-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--dark-rule); }
+    .hero-stat:last-child { border-bottom: none; }
+    .hero-stat-number { font-size: 2rem; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
+    .hero-stat-label { font-size: 0.8rem; color: var(--dark-muted); line-height: 1.4; }
+
+    /* Countdown animation for the "0" stat */
+    .countdown-stat {
+      display: inline-block;
+    }
+
+    /* Shared */
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* Pipeline Section */
+    .section-pipeline { background: var(--dark-surface); padding: 6rem 3rem; position: relative; z-index: 1; }
+    .section-pipeline h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-pipeline h2 em { color: var(--orange); font-style: normal; }
+    .section-pipeline .section-lead { font-size: 1rem; color: var(--dark-muted); max-width: 720px; margin-bottom: 3.5rem; line-height: 1.75; }
+
+    .pipeline { position: relative; padding-left: 2.5rem; margin-left: 1rem; }
+    .pipeline::before { content: ''; position: absolute; left: 0; top: 1.5rem; bottom: 1.5rem; width: 2px; background: rgba(232,93,38,0.15); }
+
+    /* Animated pipeline line that draws on scroll */
+    .pipeline-line-fill {
+      position: absolute;
+      left: 0;
+      top: 1.5rem;
+      width: 2px;
+      height: 0;
+      background: var(--orange);
+      transition: height 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 1;
+    }
+    .pipeline.activated .pipeline-line-fill {
+      height: calc(100% - 3rem);
+    }
+
+    .pipeline-block {
+      position: relative;
+      background: linear-gradient(135deg, rgba(22,32,50,1) 0%, rgba(18,28,44,1) 100%);
+      border: 1px solid var(--dark-rule);
+      border-left: 3px solid transparent;
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, opacity 0.6s, border-left-color 0.6s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .pipeline-block:last-child { margin-bottom: 0; }
+    .pipeline-block.active {
+      opacity: 1;
+      transform: translateY(0);
+      border-left-color: var(--orange);
+    }
+    .pipeline-block:hover {
+      border-color: rgba(232,93,38,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px rgba(232,93,38,0.05);
+    }
+    .pipeline-block::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--dark-bg);
+      border: 2px solid rgba(232,93,38,0.4);
+      z-index: 2;
+      margin-left: -1px;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .pipeline-block.active::before {
+      border-color: var(--orange);
+      background: var(--orange);
+      box-shadow: 0 0 10px var(--orange-glow);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 6px var(--orange-glow); }
+      50% { box-shadow: 0 0 14px var(--orange-glow); }
+    }
+    .pipeline-block-title { font-size: 1.05rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .pipeline-block-desc { font-size: 0.9rem; color: var(--dark-muted); line-height: 1.7; }
+
+    /* Voice Capture Callout */
+    .section-callout { background: var(--dark-bg); padding: 6rem 3rem; position: relative; z-index: 1; }
+    .callout-card {
+      max-width: 840px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--dark-surface) 0%, rgba(20,30,48,1) 100%);
+      border: 1px solid var(--dark-rule);
+      border-left: 6px solid var(--orange);
+      padding: 3rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: -4px 0 30px rgba(232,93,38,0.08);
+      transform: translateX(-40px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .callout-card.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Audio waveform decoration */
+    .callout-waveform {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .callout-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    .callout-title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 1.25rem; }
+    .callout-desc { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; }
+
+    /* Prose Section */
+    .section-prose { background: var(--dark-surface); padding: 6rem 3rem; position: relative; z-index: 1; }
+    .section-prose h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 2rem; }
+    .section-prose h2 em { color: var(--orange); font-style: normal; }
+    .prose-h2-gradient {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--dark-text) 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .prose-eyebrow-track {
+      transition: letter-spacing 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .prose-eyebrow-track.expanded {
+      letter-spacing: 0.22em;
+    }
+    .prose-body { max-width: 720px; }
+    .prose-body p { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; margin-bottom: 1.25rem; }
+    .prose-body p:last-child { margin-bottom: 0; }
+
+    /* CTA */
+    .section-cta { background: var(--dark-bg); padding: 6rem 3rem; text-align: center; position: relative; z-index: 1; }
+    .section-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p { font-size: 1rem; color: var(--dark-muted); margin-bottom: 2.5rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.75; }
+    .cta-secondary { margin-top: 1.25rem; font-size: 0.88rem; color: var(--dark-muted); }
+    .cta-secondary a { color: var(--dark-muted); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s, border-color 0.2s; }
+    .cta-secondary a:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* Footer */
+    footer { background: var(--dark-surface); border-top: 1px solid var(--dark-rule); padding: 4rem 3rem 2rem; position: relative; z-index: 1; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .footer-tagline { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+    .footer-col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact a { display: block; font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid var(--dark-rule); padding-top: 1.5rem; font-size: 0.8rem; color: var(--dark-muted); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-scanlines { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .pipeline-block { opacity: 1; transform: none; transition: none; }
+      .pipeline-block.active::before { animation: none; }
+      .callout-card { transform: none; opacity: 1; transition: none; }
+      .pipeline-line-fill { transition: none; }
+      .prose-eyebrow-track { transition: none; }
+      @keyframes scanDrift { 0%, 100% { transform: none; } }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { border-left: none; padding-left: 0; border-top: 1px solid var(--dark-rule); padding-top: 0; margin-top: 0; }
+      .hero-stat { padding: 1rem 0; }
+      .section-pipeline, .section-callout, .section-prose, .section-cta { padding: 4rem 1.5rem; }
+      .pipeline { padding-left: 2rem; margin-left: 0.5rem; }
+      .pipeline-block { padding: 1.5rem; }
+      .callout-card { padding: 2rem 1.75rem; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/ai-automations.html">AI Automations</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#services">Services</a>
+    <a href="/ai-automations.html">AI Automations</a>
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-scanlines"></div>
+    <div class="hero-inner">
+      <div>
+        <div style="margin-bottom:2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
+        <div class="hero-eyebrow">Orchestration</div>
+        <h1>Morning Operations System <em>Your Team's First Hour, Automated.</em></h1>
+        <p class="hero-sub">What if your team's first hour was productive instead of administrative? Calendar syncing, email triaging, task routing, scheduling -- all the daily busywork that eats into real work. I built a system that handles all of it with one command. Custom-built for my own operations, but the pattern works for any business.</p>
+        <a href="/ai-automations.html" class="btn-primary">See AI Automations</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">5</div>
+          <div class="hero-stat-label">Accounts synced</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">~25 min</div>
+          <div class="hero-stat-label">Reclaimed per day</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number"><span class="countdown-stat" id="countdownStat">0</span></div>
+          <div class="hero-stat-label">Manual steps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gradient-divider"></div>
+
+  <!-- What This System Does - Pipeline -->
+  <section class="section-pipeline">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal">The Pipeline</div>
+      <h2 class="reveal reveal-delay-1">What This System <em>Does</em></h2>
+      <p class="section-lead reveal reveal-delay-2">One command kicks off a sequence of connected operations. Each step feeds the next. By the time it finishes, the day is ready to go.</p>
+
+      <div class="pipeline" id="pipeline">
+        <div class="pipeline-line-fill"></div>
+        <div class="pipeline-block">
+          <div class="pipeline-block-title">Archive &amp; Build</div>
+          <div class="pipeline-block-desc">Yesterday's work moves to archive. Today's plan builds itself from five calendars, with unfinished tasks carried forward automatically.</div>
+        </div>
+        <div class="pipeline-block">
+          <div class="pipeline-block-title">Email Cleanup</div>
+          <div class="pipeline-block-desc">Noise gets trashed. Errors get summarized by type and count, then trashed. Only the signal makes it through.</div>
+        </div>
+        <div class="pipeline-block">
+          <div class="pipeline-block-title">Day-Specific Ops</div>
+          <div class="pipeline-block-desc">Monday: spam reports processed, apology drafts created. Friday: weekly events email auto-drafted. Each day has its own routine.</div>
+        </div>
+        <div class="pipeline-block">
+          <div class="pipeline-block-title">GTD Triage</div>
+          <div class="pipeline-block-desc">Voice captures from throughout the day (recorded on iPhone via Siri) get pulled from email, parsed, and routed into the right project with next actions defined. No manual sorting.</div>
+        </div>
+        <div class="pipeline-block">
+          <div class="pipeline-block-title">Exercise Scheduling</div>
+          <div class="pipeline-block-desc">Gym classes checked, calendar conflicts detected, bookings made, recovery blocks added. Two weeks out, fully automated.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gradient-divider"></div>
+
+  <!-- Voice to Task - Callout -->
+  <section class="section-callout">
+    <div class="section-inner">
+      <div class="callout-card" id="calloutCard">
+        <!-- Waveform decoration -->
+        <svg class="callout-waveform" viewBox="0 0 840 40" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 20 Q20 5, 40 20 T80 20 T120 20 T160 20 T200 20 T240 20 T280 20 T320 20 T360 20 T400 20 T440 20 T480 20 T520 20 T560 20 T600 20 T640 20 T680 20 T720 20 T760 20 T800 20 T840 20" stroke="var(--orange)" stroke-width="2" fill="none"/>
+          <path d="M0 25 Q30 10, 60 25 T120 25 T180 25 T240 25 T300 25 T360 25 T420 25 T480 25 T540 25 T600 25 T660 25 T720 25 T780 25 T840 25" stroke="var(--orange)" stroke-width="1.5" fill="none"/>
+          <path d="M0 15 Q25 30, 50 15 T100 15 T150 15 T200 15 T250 15 T300 15 T350 15 T400 15 T450 15 T500 15 T550 15 T600 15 T650 15 T700 15 T750 15 T800 15 T840 15" stroke="var(--orange)" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="callout-eyebrow">The Standout</div>
+        <div class="callout-title">Voice Capture to Structured Task</div>
+        <p class="callout-desc">Throughout the day, I capture tasks by talking to my phone. "Remind me to follow up with the printer vendor about the invoice." "Add updating the help center to the DailyPB project." The next morning, the system pulls every capture from email, figures out which project it belongs to, and files it with a defined next action. No inbox processing. No manual sorting. Just talk, and it gets handled.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="gradient-divider"></div>
+
+  <!-- The Real Point - Prose -->
+  <section class="section-prose" id="proseSection">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal"><span class="prose-eyebrow-track" id="proseEyebrow">The Real Point</span></div>
+      <h2 class="reveal reveal-delay-1"><span class="prose-h2-gradient">My system.</span> <em>Your pattern.</em></h2>
+      <div class="prose-body reveal reveal-delay-2">
+        <p>This system is built for my specific operations -- my calendars, my email accounts, my gym, my task workflow. But the pattern is universal. Every team has a first hour that's spent getting oriented instead of doing real work. Checking email, syncing calendars, figuring out what happened yesterday, sorting through messages.</p>
+        <p>All of that can be one command, custom-built for whatever your daily operations look like. Not a generic app. Not a SaaS tool with features you don't need. A system designed around exactly how your team actually works.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="gradient-divider"></div>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="section-inner">
+      <div class="section-eyebrow reveal" style="justify-content:center;">Your First Hour</div>
+      <h2 class="reveal reveal-delay-1">What does your team's first hour look like? <em>It could look like nothing.</em></h2>
+      <p class="reveal reveal-delay-2">If it involves checking, syncing, sorting, or triaging, I can make it disappear. Let's figure out where you're losing time.</p>
+      <div class="reveal reveal-delay-3">
+        <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+        <p class="cta-secondary">Or reach me at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Startup to Sold Consulting<span style="color:var(--orange);">.</span></div>
+          <p class="footer-tagline">Hands-on operations partner for Bay Area businesses.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links"><li><a href="/ai-automations.html">AI Automations</a></li><li><a href="/brokers.html">Brokers</a></li><li><a href="/business-valuation-calculator.html">Valuation Calculator</a></li><li><a href="/portfolio.html">Portfolio</a></li><li><a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a></li></ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:8585238881">858-523-8881</a>
+            <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Startup to Sold Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+
+    // Intersection Observer for scroll reveals
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Pipeline sequential animation
+    const pipeline = document.getElementById('pipeline');
+    const pipelineBlocks = pipeline.querySelectorAll('.pipeline-block');
+    let pipelineActivated = false;
+
+    const pipelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !pipelineActivated) {
+          pipelineActivated = true;
+          pipeline.classList.add('activated');
+          pipelineBlocks.forEach((block, i) => {
+            setTimeout(() => {
+              block.classList.add('active');
+            }, i * 300);
+          });
+          pipelineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    pipelineObserver.observe(pipeline);
+
+    // Voice capture callout slide-in
+    const calloutCard = document.getElementById('calloutCard');
+    const calloutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          calloutCard.classList.add('visible');
+          calloutObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    calloutObserver.observe(calloutCard);
+
+    // Prose eyebrow letter-spacing expansion
+    const proseSection = document.getElementById('proseSection');
+    const proseEyebrow = document.getElementById('proseEyebrow');
+    const proseObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          proseEyebrow.classList.add('expanded');
+          proseObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    proseObserver.observe(proseSection);
+
+    // Countdown animation for "0" stat
+    const countdownEl = document.getElementById('countdownStat');
+    let countdownDone = false;
+
+    const countdownObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countdownDone) {
+          countdownDone = true;
+          let current = 24;
+          countdownEl.textContent = current;
+          const interval = setInterval(() => {
+            current--;
+            countdownEl.textContent = current;
+            if (current <= 0) {
+              clearInterval(interval);
+              countdownEl.textContent = '0';
+            }
+          }, 70);
+          countdownObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    countdownObserver.observe(countdownEl);
+
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      pipelineBlocks.forEach(block => block.classList.add('active'));
+      pipeline.classList.add('activated');
+      calloutCard.classList.add('visible');
+      proseEyebrow.classList.add('expanded');
+      countdownEl.textContent = '0';
+    }
+  </script>
+</body>
+</html>
