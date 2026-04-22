@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Task Automation Analyzer | Startup to Sold</title>
+  <meta name="description" content="Describe one repetitive task and find out in 30 seconds whether AI can automate it, how, and how much time you'd save." />
+  <meta property="og:title" content="Free Task Automation Analyzer | Startup to Sold" />
+  <meta property="og:description" content="Describe one repetitive task and find out in 30 seconds whether AI can automate it, how, and how much time you'd save." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/tools/automation-analyzer.html" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1c1c1e;
+      --orange: #e85d26;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --off-white: #f5f4f1;
+      --rule: #e2e0db;
+      --muted: #6b6b72;
+      --green: #4a9a6a;
+      --red: #c0392b;
+      --amber: #d9832e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(15,22,35,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--dark-text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: 1px solid var(--dark-rule);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-secondary:hover { border-color: var(--dark-text); }
+    .btn-text {
+      background: none;
+      border: none;
+      color: var(--dark-muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .btn-text:hover { color: var(--dark-text); }
+
+    /* HEADINGS */
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--dark-text);
+      margin-bottom: 1.5rem;
+    }
+    h1 em, h2 em { color: var(--orange); font-style: normal; }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--dark-text);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--dark-muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 620px;
+    }
+
+    /* SECTION EYEBROW */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); }
+
+    /* SECTIONS */
+    .section-light { padding: 5rem 3rem; background: var(--off-white); color: var(--ink); border-bottom: 1px solid var(--rule); }
+    .section-dark  { padding: 5rem 3rem; background: var(--dark-bg);   color: var(--dark-text); border-bottom: 1px solid var(--dark-rule); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* FORM INPUTS — intake */
+    .intake-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 820px; }
+    .intake-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .input-label { display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+
+    textarea, input[type="number"], input[type="text"], input[type="email"] {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      padding: 0.95rem 1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      resize: vertical;
+    }
+    textarea { min-height: 150px; }
+    textarea:focus, input[type="number"]:focus, input[type="text"]:focus, input[type="email"]:focus { outline: none; border-color: var(--orange); }
+    .input-prefix { position: relative; }
+    .input-prefix span { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.95rem; pointer-events: none; }
+    .input-prefix input { padding-left: 2rem; }
+
+    .intake-example { font-size: 0.88rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.65; font-style: italic; }
+    .intake-rate-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; }
+
+    .form-error { color: var(--red); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .form-error.visible { display: block; }
+
+    .intake-actions { margin-top: 2rem; display: flex; gap: 1rem; align-items: center; }
+
+    /* FOLLOW-UP (on dark) */
+    .followup-intro { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; max-width: 620px; margin-bottom: 2.5rem; }
+    .followup-round-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 0.75rem; }
+    .followup-question { background: var(--dark-surface); border: 1px solid var(--dark-rule); padding: 1.75rem; margin-bottom: 1.25rem; }
+    .followup-question-text { font-size: 1.05rem; font-weight: 700; color: var(--dark-text); margin-bottom: 0.35rem; line-height: 1.45; }
+    .followup-why { font-size: 0.82rem; color: var(--orange); font-weight: 600; letter-spacing: 0.02em; margin-bottom: 1rem; }
+    .followup-question textarea {
+      background: rgba(255,255,255,0.04);
+      color: var(--dark-text);
+      border-color: var(--dark-rule);
+      min-height: 80px;
+    }
+    .followup-question textarea:focus { border-color: var(--orange); }
+
+    /* LOADING */
+    .loading-block { display: flex; align-items: center; gap: 1rem; padding: 2rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); }
+    .spinner { width: 24px; height: 24px; border: 3px solid var(--dark-rule); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.9s linear infinite; }
+    .loading-text { font-size: 0.95rem; color: var(--dark-muted); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* VERDICT */
+    .verdict-classification-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .badge-automatable         { background: var(--green);  color: #fff; }
+    .badge-partially-automatable { background: var(--amber); color: #fff; }
+    .badge-not-automatable     { background: var(--muted);  color: #fff; }
+
+    .verdict-headline { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem; color: var(--dark-text); }
+    .verdict-explanation { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; max-width: 720px; margin-bottom: 2rem; }
+
+    .verdict-caveat {
+      display: flex; gap: 0.75rem; padding: 1rem 1.25rem;
+      background: rgba(217,131,46,0.08);
+      border-left: 3px solid var(--amber);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--dark-muted);
+      line-height: 1.6;
+      max-width: 720px;
+    }
+    .verdict-caveat strong { color: var(--dark-text); font-weight: 700; }
+
+    .verdict-savings-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .savings-card { background: var(--dark-surface); border: 1px solid var(--dark-rule); padding: 1.75rem; }
+    .savings-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .savings-value { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+    .savings-unit  { font-size: 0.85rem; color: var(--dark-muted); margin-top: 0.35rem; }
+
+    .verdict-approach-card { background: var(--dark-surface); border: 1px solid var(--dark-rule); padding: 2rem; margin-bottom: 2rem; max-width: 820px; }
+    .verdict-approach-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .verdict-approach-text  { font-size: 0.98rem; color: var(--dark-text); line-height: 1.7; }
+    .verdict-human-note     { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--dark-rule); font-size: 0.9rem; color: var(--dark-muted); line-height: 1.6; }
+    .verdict-human-note strong { color: var(--dark-text); font-weight: 700; }
+
+    .verdict-subpage-link {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+    .verdict-subpage-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .verdict-subpage-link::after { content: '→'; }
+
+    .verdict-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
+    .verdict-try-another { display: block; margin-top: 1.5rem; }
+
+    /* EMAIL RESULT MODAL */
+    .email-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(15,22,35,0.75);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200; padding: 1rem;
+    }
+    .email-modal-backdrop.open { display: flex; }
+    .email-modal {
+      background: var(--dark-surface); border: 1px solid var(--dark-rule);
+      padding: 2rem; max-width: 460px; width: 100%;
+    }
+    .email-modal h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; color: var(--dark-text); }
+    .email-modal p { font-size: 0.92rem; color: var(--dark-muted); margin-bottom: 1.5rem; line-height: 1.6; }
+    .email-modal input { margin-bottom: 1rem; }
+    .email-modal-actions { display: flex; gap: 0.75rem; }
+    .email-modal-success { color: var(--green); font-size: 0.92rem; font-weight: 600; }
+
+    /* FOOTER */
+    footer { background: var(--dark-bg); border-top: 1px solid var(--dark-rule); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-size: 0.95rem; font-weight: 800; color: var(--dark-text); text-decoration: none; letter-spacing: -0.02em; }
+    .footer-dot { color: var(--orange); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.78rem; font-weight: 600; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+
+    /* EMBED MODE (?embed=1) — the tool is hosted in a white panel on the parent
+       page. We strip chrome, run transparent bg so the host's panel color shows
+       through, and tighten padding so the iframe content reports a snug height
+       to the parent (which auto-sizes the iframe via postMessage). */
+    html.embed, html.embed body { background: transparent !important; }
+    html.embed .js-chrome { display: none !important; }
+    html.embed .section-light,
+    html.embed .section-dark {
+      background: transparent !important;
+      padding: 1.5rem 1.25rem !important;
+      border-bottom: none !important;
+    }
+    /* Narrow embed — match the tightness of the parent mobile layout */
+    @media (max-width: 640px) {
+      html.embed .section-light,
+      html.embed .section-dark { padding: 1rem 0.85rem !important; }
+      html.embed textarea { min-height: 120px; }
+      html.embed .intake-row { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+      html.embed .intake-grid { gap: 1rem !important; }
+    }
+    html.embed .section-inner { padding: 0; max-width: none; }
+    html.embed body > section:last-of-type { padding-bottom: 1.5rem !important; }
+    html.embed .intake-grid > :last-child { margin-bottom: 0; }
+    html.embed .section-light .section-label:first-child { margin-bottom: 0.85rem; }
+
+    /* Adjust input styling so it reads well on a pure-white panel bg */
+    html.embed textarea,
+    html.embed input[type="text"],
+    html.embed input[type="number"],
+    html.embed input[type="email"] {
+      background: #faf9f6;
+      border-color: rgba(28,28,30,0.15);
+    }
+    html.embed textarea:focus,
+    html.embed input[type="text"]:focus,
+    html.embed input[type="number"]:focus,
+    html.embed input[type="email"]:focus {
+      background: #fff;
+      border-color: var(--orange);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .section-light, .section-dark { padding: 2.5rem 1.25rem; }
+      .intake-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .intake-row { grid-template-columns: 1fr; gap: 0.75rem; }
+      .verdict-savings-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .verdict-ctas { flex-direction: column; align-items: stretch; }
+      .verdict-ctas .btn-primary, .verdict-ctas .btn-secondary { width: 100%; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 0 1.25rem; }
+      .section-light, .section-dark { padding: 2rem 1rem; }
+      h1 { font-size: 2rem; }
+      textarea, input[type="number"], input[type="text"], input[type="email"] { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="js-chrome">
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+    </div>
+  </nav>
+
+  <!-- HERO / INTAKE -->
+  <section class="section-dark js-chrome" id="hero" style="padding-top: 9rem; padding-bottom: 3rem;">
+    <div class="section-inner">
+      <div class="section-label">Task Automation Analyzer</div>
+      <h1>Is that thing you keep doing <em>automatable</em>?</h1>
+      <p class="hero-sub">Describe one task you or someone on your team does over and over. We'll tell you in under a minute whether AI can handle it, how it would work, and how much time it'd save.</p>
+    </div>
+  </section>
+
+  <section class="section-light" id="intake">
+    <div class="section-inner">
+      <div class="section-label">Describe the task</div>
+
+      <div class="intake-grid">
+        <div class="input-group">
+          <label class="input-label" for="task-input">The task</label>
+          <textarea id="task-input" placeholder="Every time a new lead fills out our contact form, someone has to manually respond within 24 hours with pricing info..." aria-describedby="task-example" maxlength="2000"></textarea>
+          <p id="task-example" class="intake-example">Tip: the more concrete, the better. The fields below help us give a sharper answer.</p>
+        </div>
+
+        <div class="intake-row">
+          <div class="input-group">
+            <label class="input-label" for="frequency-input">How often <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input type="text" id="frequency-input" placeholder="e.g. 10 times a week" autocomplete="off" maxlength="80" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="duration-input">Time per time <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input type="text" id="duration-input" placeholder="e.g. 8 minutes" autocomplete="off" maxlength="80" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="rate-input">Hourly rate <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <div class="input-prefix">
+              <span>$</span>
+              <input type="text" id="rate-input" inputmode="numeric" placeholder="75" autocomplete="off" maxlength="8" />
+            </div>
+          </div>
+        </div>
+        <p class="intake-rate-hint">All three optional. If you fill them in, we can usually skip the follow-up questions.</p>
+      </div>
+
+      <div id="intake-error" class="form-error">Add a task before analyzing.</div>
+
+      <div class="intake-actions">
+        <button type="button" id="analyze-btn" class="btn-primary">Analyze this task</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOLLOWUP SCREEN (hidden until needed) -->
+  <section class="section-dark" id="followup-screen" style="display:none;">
+    <div class="section-inner">
+      <div class="followup-round-badge" id="followup-round-badge">Follow-up</div>
+      <h2 style="margin-bottom: 1rem;">A few quick questions</h2>
+      <p class="followup-intro">We want to give you a sharp answer, not a mushy one. Each question below closes a specific gap — skip none of them.</p>
+      <div id="followup-questions"></div>
+      <div id="followup-error" class="form-error" style="color: #ff8a6a;">Please answer each question before continuing.</div>
+      <div class="intake-actions" style="margin-top: 1.5rem;">
+        <button type="button" id="followup-submit-btn" class="btn-primary">Submit answers</button>
+        <button type="button" id="followup-reset-btn" class="btn-text">← Start over</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOADING SCREEN -->
+  <section class="section-dark" id="loading-screen" style="display:none;">
+    <div class="section-inner">
+      <div class="loading-block">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="loading-text" id="loading-text">Analyzing your task…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERDICT SCREEN -->
+  <section class="section-dark" id="verdict-screen" style="display:none;">
+    <div class="section-inner">
+      <div id="verdict-badge" class="verdict-classification-badge badge-automatable">Automatable</div>
+      <h2 id="verdict-headline" class="verdict-headline">—</h2>
+
+      <div id="verdict-caveat" class="verdict-caveat" style="display:none;">
+        <div><strong>Heads up:</strong> <span id="verdict-caveat-text">—</span></div>
+      </div>
+
+      <p id="verdict-explanation" class="verdict-explanation">—</p>
+
+      <div id="verdict-savings-grid" class="verdict-savings-grid" style="display:none;">
+        <div class="savings-card">
+          <div class="savings-label">Frequency</div>
+          <div id="savings-frequency" class="savings-value">—</div>
+          <div class="savings-unit">per week</div>
+        </div>
+        <div class="savings-card">
+          <div class="savings-label">Hours saved / year</div>
+          <div id="savings-hours" class="savings-value">—</div>
+          <div class="savings-unit" id="savings-hours-unit">estimated range</div>
+        </div>
+        <div class="savings-card" id="savings-dollars-card" style="display:none;">
+          <div class="savings-label">Dollar value / year</div>
+          <div id="savings-dollars" class="savings-value">—</div>
+          <div class="savings-unit">at your hourly rate</div>
+        </div>
+      </div>
+
+      <div id="verdict-approach-card" class="verdict-approach-card" style="display:none;">
+        <div class="verdict-approach-label">How this could work</div>
+        <div id="verdict-approach-text" class="verdict-approach-text">—</div>
+        <div id="verdict-human-note" class="verdict-human-note" style="display:none;">
+          <strong>What still needs a human: </strong><span id="verdict-human-text">—</span>
+        </div>
+      </div>
+
+      <a id="verdict-subpage-link" class="verdict-subpage-link" href="#" style="display:none;">
+        Read more about this kind of automation
+      </a>
+
+      <div class="verdict-ctas">
+        <a id="verdict-cta-primary" class="btn-primary" href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener">Book a strategy call</a>
+        <button type="button" id="verdict-cta-email" class="btn-secondary">Email me this result</button>
+      </div>
+
+      <div class="verdict-try-another">
+        <button type="button" id="verdict-reset-btn" class="btn-text">Try another task →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL MODAL -->
+  <div id="email-modal-backdrop" class="email-modal-backdrop" role="dialog" aria-modal="true">
+    <div class="email-modal">
+      <h3>Email this result to yourself</h3>
+      <p>We'll send Chuck a note and he'll forward the result with any additional context. No marketing list.</p>
+      <label class="input-label" for="email-input">Email address</label>
+      <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email" />
+      <div id="email-error" class="form-error">Please enter a valid email.</div>
+      <div id="email-success" class="email-modal-success" style="display:none;">Thanks — Chuck will be in touch shortly.</div>
+      <div class="email-modal-actions">
+        <button type="button" id="email-submit-btn" class="btn-primary">Send</button>
+        <button type="button" id="email-cancel-btn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="js-chrome">
+    <a href="/" class="footer-logo">Startup to Sold<span class="footer-dot">.</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/automations/">AI Automations</a>
+      <a href="/portfolio.html">Portfolio</a>
+    </div>
+  </footer>
+
+  <script>
+    // CONFIG ---------------------------------------------------------------
+    // In dev, set window.__ANALYZER_API_BASE = "http://127.0.0.1:8787" or pass
+    // ?api=http://127.0.0.1:8787 in the URL. Production default points at the
+    // Cloudflare Worker directly. Once a custom route is set up on
+    // startuptosold.com, switch the default to /api/automation-analyzer.
+    const API_BASE =
+      new URLSearchParams(window.location.search).get("api") ||
+      window.__ANALYZER_API_BASE ||
+      "/api/automation-analyzer";
+
+    // Embed mode — hide site chrome and use compact spacing. Activated with
+    // ?embed=1. Used by iframe embeds on /automations, /operations, etc.
+    const IS_EMBED = new URLSearchParams(window.location.search).get("embed") === "1";
+    if (IS_EMBED) {
+      document.documentElement.classList.add("embed");
+
+      // Post actual content height to parent so it can resize the iframe to
+      // fit — eliminates the empty space when showing only the intake screen,
+      // and grows the iframe when the verdict renders.
+      const postHeight = () => {
+        try {
+          const h = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+          );
+          window.parent.postMessage({ type: "automation-analyzer:height", height: h }, "*");
+        } catch {}
+      };
+      const observer = new ResizeObserver(postHeight);
+      window.addEventListener("load", postHeight);
+      window.addEventListener("load", () => observer.observe(document.body));
+      // Also fire on DOMContentLoaded as a safety net
+      document.addEventListener("DOMContentLoaded", postHeight);
+    }
+    const ANALYZE_URL      = API_BASE.replace(/\/$/, "") + "/analyze";
+    const EMAIL_RESULT_URL = API_BASE.replace(/\/$/, "") + "/email-result";
+
+    // Browser-session soft cap. Real abuse protection is the IP-based limit in the
+    // Worker; this just nudges casual repeat-users toward the book-a-call CTA.
+    const SESSION_RUN_CAP = 3;
+    const SESSION_STORAGE_KEY = "automationAnalyzer.runCount";
+    function getSessionRunCount() {
+      try { return Number(sessionStorage.getItem(SESSION_STORAGE_KEY) || 0); } catch { return 0; }
+    }
+    function incrementSessionRunCount() {
+      try { sessionStorage.setItem(SESSION_STORAGE_KEY, String(getSessionRunCount() + 1)); } catch {}
+    }
+    function resetSessionRunCount() {
+      try { sessionStorage.removeItem(SESSION_STORAGE_KEY); } catch {}
+    }
+
+    // STATE ----------------------------------------------------------------
+    const state = {
+      task: "",
+      raw_task_input: "",
+      frequency: "",
+      duration: "",
+      hourly_rate: null,
+      round_count: 0,
+      conversation_history: [],
+      current_questions: [],
+      latest_verdict: null,
+    };
+
+    // ELEMENT REFS ---------------------------------------------------------
+    const els = {
+      intakeSection:    document.getElementById("intake"),
+      taskInput:        document.getElementById("task-input"),
+      frequencyInput:   document.getElementById("frequency-input"),
+      durationInput:    document.getElementById("duration-input"),
+      rateInput:        document.getElementById("rate-input"),
+      analyzeBtn:       document.getElementById("analyze-btn"),
+      intakeError:      document.getElementById("intake-error"),
+
+      followupScreen:   document.getElementById("followup-screen"),
+      followupBadge:    document.getElementById("followup-round-badge"),
+      followupQs:       document.getElementById("followup-questions"),
+      followupError:    document.getElementById("followup-error"),
+      followupSubmit:   document.getElementById("followup-submit-btn"),
+      followupReset:    document.getElementById("followup-reset-btn"),
+
+      loadingScreen:    document.getElementById("loading-screen"),
+      loadingText:      document.getElementById("loading-text"),
+
+      verdictScreen:    document.getElementById("verdict-screen"),
+      verdictBadge:     document.getElementById("verdict-badge"),
+      verdictHeadline:  document.getElementById("verdict-headline"),
+      verdictExpl:      document.getElementById("verdict-explanation"),
+      verdictCaveat:    document.getElementById("verdict-caveat"),
+      verdictCaveatTxt: document.getElementById("verdict-caveat-text"),
+      savingsGrid:      document.getElementById("verdict-savings-grid"),
+      savingsFreq:      document.getElementById("savings-frequency"),
+      savingsHours:     document.getElementById("savings-hours"),
+      savingsHoursUnit: document.getElementById("savings-hours-unit"),
+      savingsDollarsCard: document.getElementById("savings-dollars-card"),
+      savingsDollars:   document.getElementById("savings-dollars"),
+      approachCard:     document.getElementById("verdict-approach-card"),
+      approachText:     document.getElementById("verdict-approach-text"),
+      humanNote:        document.getElementById("verdict-human-note"),
+      humanText:        document.getElementById("verdict-human-text"),
+      subpageLink:      document.getElementById("verdict-subpage-link"),
+      ctaPrimary:       document.getElementById("verdict-cta-primary"),
+      ctaEmail:         document.getElementById("verdict-cta-email"),
+      verdictReset:     document.getElementById("verdict-reset-btn"),
+
+      emailBackdrop:    document.getElementById("email-modal-backdrop"),
+      emailInput:       document.getElementById("email-input"),
+      emailError:       document.getElementById("email-error"),
+      emailSuccess:     document.getElementById("email-success"),
+      emailSubmit:      document.getElementById("email-submit-btn"),
+      emailCancel:      document.getElementById("email-cancel-btn"),
+    };
+
+    // HELPERS --------------------------------------------------------------
+    function showSection(name) {
+      els.intakeSection.style.display   = name === "intake" ? "" : "none";
+      els.followupScreen.style.display  = name === "followup" ? "" : "none";
+      els.loadingScreen.style.display   = name === "loading" ? "" : "none";
+      els.verdictScreen.style.display   = name === "verdict" ? "" : "none";
+      if (name === "followup" || name === "verdict") {
+        setTimeout(() => {
+          const target = name === "followup" ? els.followupScreen : els.verdictScreen;
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      }
+    }
+
+    function setError(el, msg) {
+      if (!msg) { el.classList.remove("visible"); el.textContent = ""; return; }
+      el.textContent = msg;
+      el.classList.add("visible");
+      el.style.display = "block";
+    }
+    function clearError(el) { setError(el, null); el.style.display = "none"; }
+
+    function parseRate(raw) {
+      if (!raw) return null;
+      const n = Number(String(raw).replace(/[^\d.]/g, ""));
+      return Number.isFinite(n) && n > 0 ? n : null;
+    }
+
+    function fmtRange(range, { round = true } = {}) {
+      if (!range || !Array.isArray(range) || range.length !== 2) return null;
+      const [lo, hi] = range;
+      if (!Number.isFinite(lo) || !Number.isFinite(hi)) return null;
+      const r = (n) => round ? Math.round(n).toLocaleString() : String(n);
+      return lo === hi ? r(lo) : `${r(lo)} – ${r(hi)}`;
+    }
+
+    function fmtDollars(n) {
+      if (!Number.isFinite(n)) return null;
+      return "$" + Math.round(n).toLocaleString();
+    }
+
+    // API ------------------------------------------------------------------
+    async function callAnalyze() {
+      const payload = {
+        task: state.task,
+        hourly_rate: state.hourly_rate,
+        round_count: state.round_count,
+        conversation_history: state.conversation_history,
+      };
+      const res = await fetch(ANALYZE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 429) {
+        const body = await res.json().catch(() => ({}));
+        const wait = body.retry_after_seconds;
+        const waitStr = wait ? ` (try again in ${formatRetry(wait)})` : "";
+        const e = new Error(`You've used the analyzer a few times already${waitStr}. Ready to talk through it with Chuck directly? Book a strategy call using the button on the last result.`);
+        e.rateLimited = true;
+        throw e;
+      }
+      if (res.status === 400) {
+        const body = await res.json().catch(() => ({}));
+        if (body.error === "off_topic") {
+          const e = new Error("This tool only analyzes business tasks for automation. Describe a specific, repetitive task you or your team does at work.");
+          e.offTopic = true;
+          throw e;
+        }
+        if (body.error === "task_too_long" || body.error === "answer_too_long") {
+          throw new Error("That's a lot of text. Try keeping your task description under 2,000 characters.");
+        }
+      }
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Analyzer API error (${res.status}): ${body.slice(0, 200)}`);
+      }
+      return res.json();
+    }
+
+    function formatRetry(seconds) {
+      if (seconds < 60) return `${Math.round(seconds)}s`;
+      if (seconds < 3600) return `${Math.round(seconds / 60)} min`;
+      return `${Math.round(seconds / 3600)} hr`;
+    }
+
+    async function callEmailResult(email) {
+      const res = await fetch(EMAIL_RESULT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          verdict_json: state.latest_verdict,
+          task: state.task,
+        }),
+      });
+      if (!res.ok) throw new Error(`email error ${res.status}`);
+      return res.json();
+    }
+
+    // RENDERERS ------------------------------------------------------------
+    function renderFollowups(questions, roundNumber) {
+      els.followupBadge.textContent = `Follow-up — round ${roundNumber + 1}`;
+      els.followupQs.innerHTML = "";
+      questions.forEach((q, i) => {
+        const block = document.createElement("div");
+        block.className = "followup-question";
+        block.innerHTML = `
+          <div class="followup-question-text">${escapeHtml(q.question)}</div>
+          <div class="followup-why">Why: ${escapeHtml(q.why)}</div>
+          <textarea data-qid="${escapeHtml(q.id || `q${i+1}`)}" data-q="${escapeHtml(q.question)}" rows="2" placeholder="Your answer…"></textarea>
+        `;
+        els.followupQs.appendChild(block);
+      });
+      clearError(els.followupError);
+      showSection("followup");
+    }
+
+    function renderVerdict(verdict) {
+      state.latest_verdict = verdict;
+
+      // Badge + class
+      const c = verdict.classification;
+      els.verdictBadge.className = "verdict-classification-badge " + (
+        c === "automatable" ? "badge-automatable" :
+        c === "partially_automatable" ? "badge-partially-automatable" :
+        "badge-not-automatable"
+      );
+      els.verdictBadge.textContent =
+        c === "automatable" ? "Automatable" :
+        c === "partially_automatable" ? "Partially automatable" :
+        "Not a good automation fit";
+
+      els.verdictHeadline.textContent = verdict.headline || "";
+      els.verdictExpl.textContent     = verdict.explanation || "";
+
+      // Caveat (low-confidence signals)
+      if (verdict.caveat && verdict.caveat.trim()) {
+        els.verdictCaveat.style.display = "";
+        els.verdictCaveatTxt.textContent = verdict.caveat;
+      } else {
+        els.verdictCaveat.style.display = "none";
+      }
+
+      // Savings
+      const freq = verdict.frequency_per_week;
+      const hours = verdict.hours_saved_per_year;
+      const hoursStr = fmtRange(hours);
+      if (freq != null || hoursStr) {
+        els.savingsGrid.style.display = "";
+        els.savingsFreq.textContent = freq != null ? String(freq) : "—";
+        els.savingsHours.textContent = hoursStr || "—";
+        if (state.hourly_rate && hours) {
+          const lo = hours[0] * state.hourly_rate;
+          const hi = hours[1] * state.hourly_rate;
+          els.savingsDollarsCard.style.display = "";
+          els.savingsDollars.textContent =
+            fmtDollars(lo) === fmtDollars(hi) ? fmtDollars(lo) : `${fmtDollars(lo)} – ${fmtDollars(hi)}`;
+        } else {
+          els.savingsDollarsCard.style.display = "none";
+        }
+      } else {
+        els.savingsGrid.style.display = "none";
+      }
+
+      // Approach
+      if (verdict.approach && verdict.approach.trim()) {
+        els.approachCard.style.display = "";
+        els.approachText.textContent = verdict.approach;
+      } else {
+        els.approachCard.style.display = "none";
+      }
+
+      // Partial — what still needs a human
+      if (c === "partially_automatable" && verdict.what_still_needs_a_human) {
+        els.humanNote.style.display = "";
+        els.humanText.textContent = verdict.what_still_needs_a_human;
+      } else {
+        els.humanNote.style.display = "none";
+      }
+
+      // Subpage
+      if (verdict.subpage && verdict.subpage.slug) {
+        els.subpageLink.style.display = "";
+        els.subpageLink.href = verdict.subpage.slug;
+        els.subpageLink.textContent = `Read more: ${verdict.subpage.title || "AI Automations"} `;
+      } else {
+        els.subpageLink.style.display = "none";
+      }
+
+      // CTA — show savings in the primary CTA when we have them
+      let ctaLabel = "Book a strategy call";
+      if (hoursStr) {
+        ctaLabel = `Book a call — save ${hoursStr} hrs/year`;
+      }
+      els.ctaPrimary.textContent = ctaLabel;
+
+      // GA event
+      try {
+        window.gtag && gtag("event", "automation_analyzer_verdict", {
+          classification: c,
+          confidence: verdict.confidence,
+          subpage: verdict.subpage && verdict.subpage.slug,
+        });
+      } catch {}
+
+      showSection("verdict");
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    // FLOW -----------------------------------------------------------------
+    function resetAll() {
+      state.task = "";
+      state.raw_task_input = "";
+      state.frequency = "";
+      state.duration = "";
+      state.hourly_rate = null;
+      state.round_count = 0;
+      state.conversation_history = [];
+      state.current_questions = [];
+      state.latest_verdict = null;
+      els.taskInput.value = "";
+      els.frequencyInput.value = "";
+      els.durationInput.value = "";
+      els.rateInput.value = "";
+      clearError(els.intakeError);
+      updateAnalyzeButtonForSessionCap();
+      showSection("intake");
+      els.intakeSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function updateAnalyzeButtonForSessionCap() {
+      const n = getSessionRunCount();
+      if (n >= SESSION_RUN_CAP) {
+        els.analyzeBtn.disabled = true;
+        els.analyzeBtn.textContent = `Ready to go deeper? Book a call →`;
+        els.analyzeBtn.onclick = (e) => {
+          e.preventDefault();
+          window.open("https://calendly.com/chuck-startuptosold/30min", "_blank", "noopener");
+        };
+        setError(els.intakeError, `You've analyzed ${n} tasks this visit — the next step is usually a 20-minute call to pick one and scope it out.`);
+        els.intakeError.style.color = "var(--muted)";
+      } else {
+        els.analyzeBtn.disabled = false;
+        els.analyzeBtn.textContent = "Analyze this task";
+        els.analyzeBtn.onclick = null;
+        els.intakeError.style.color = "";
+      }
+    }
+
+    async function submitAnalyzer() {
+      try {
+        els.loadingText.textContent = state.round_count === 0
+          ? "Analyzing your task…"
+          : "Thinking about your answers…";
+        showSection("loading");
+
+        const response = await callAnalyze();
+
+        if (response.mode === "followup") {
+          state.current_questions = response.followup_questions || [];
+          renderFollowups(state.current_questions, state.round_count);
+        } else if (response.mode === "verdict") {
+          // Only count a "run" once we reach a verdict — not every follow-up round.
+          incrementSessionRunCount();
+          renderVerdict(response.verdict);
+        } else {
+          throw new Error(`Unexpected mode: ${response.mode}`);
+        }
+      } catch (err) {
+        if (err.rateLimited || err.offTopic) {
+          setError(els.intakeError, err.message);
+          els.intakeError.style.color = err.rateLimited ? "var(--muted)" : "";
+        } else {
+          alert("Something went wrong analyzing that task. Please try again in a moment.\n\n" + (err.message || err));
+        }
+        showSection("intake");
+      }
+    }
+
+    function composeTaskWithContext(task, frequency, duration) {
+      const extras = [];
+      if (frequency && frequency.trim()) extras.push(`Frequency: ${frequency.trim()}`);
+      if (duration  && duration.trim())  extras.push(`Time per occurrence: ${duration.trim()}`);
+      if (extras.length === 0) return task;
+      return `${task}\n\n(${extras.join(" • ")})`;
+    }
+
+    els.analyzeBtn.addEventListener("click", async () => {
+      // Session cap takes precedence
+      if (getSessionRunCount() >= SESSION_RUN_CAP) {
+        updateAnalyzeButtonForSessionCap();
+        return;
+      }
+
+      const rawTask = els.taskInput.value.trim();
+      if (!rawTask) {
+        setError(els.intakeError, "Add a task before analyzing.");
+        els.taskInput.focus();
+        return;
+      }
+      if (rawTask.length < 10) {
+        setError(els.intakeError, "Give us a bit more detail — what you do, and how often.");
+        els.taskInput.focus();
+        return;
+      }
+      clearError(els.intakeError);
+
+      const frequency = els.frequencyInput.value.trim();
+      const duration  = els.durationInput.value.trim();
+      const combined  = composeTaskWithContext(rawTask, frequency, duration);
+
+      state.raw_task_input = rawTask;
+      state.frequency = frequency;
+      state.duration = duration;
+      state.task = combined;
+      state.hourly_rate = parseRate(els.rateInput.value);
+      state.round_count = 0;
+      state.conversation_history = [];
+
+      try {
+        window.gtag && gtag("event", "automation_analyzer_submit", {
+          task_length: rawTask.length,
+          has_frequency: !!frequency,
+          has_duration: !!duration,
+          has_hourly_rate: !!state.hourly_rate,
+        });
+      } catch {}
+
+      await submitAnalyzer();
+    });
+
+    // On load, respect any existing session cap
+    updateAnalyzeButtonForSessionCap();
+
+    els.followupSubmit.addEventListener("click", async () => {
+      // Collect answers
+      const textareas = els.followupQs.querySelectorAll("textarea[data-qid]");
+      const qa = [];
+      let missing = false;
+      textareas.forEach((ta) => {
+        const answer = ta.value.trim();
+        if (!answer) missing = true;
+        qa.push({
+          question: ta.getAttribute("data-q"),
+          answer: answer || "(no answer given)",
+        });
+      });
+      if (missing) {
+        setError(els.followupError, "Please answer each question — even a short one helps.");
+        return;
+      }
+      clearError(els.followupError);
+
+      state.conversation_history.push({ round: state.round_count, qa });
+      state.round_count += 1;
+
+      await submitAnalyzer();
+    });
+
+    els.followupReset.addEventListener("click", resetAll);
+    els.verdictReset.addEventListener("click", resetAll);
+
+    // EMAIL MODAL ----------------------------------------------------------
+    els.ctaEmail.addEventListener("click", () => {
+      els.emailBackdrop.classList.add("open");
+      els.emailInput.value = "";
+      clearError(els.emailError);
+      els.emailSuccess.style.display = "none";
+      setTimeout(() => els.emailInput.focus(), 50);
+    });
+    els.emailCancel.addEventListener("click", () => {
+      els.emailBackdrop.classList.remove("open");
+    });
+    els.emailBackdrop.addEventListener("click", (e) => {
+      if (e.target === els.emailBackdrop) els.emailBackdrop.classList.remove("open");
+    });
+    els.emailSubmit.addEventListener("click", async () => {
+      const email = els.emailInput.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError(els.emailError, "Please enter a valid email.");
+        return;
+      }
+      clearError(els.emailError);
+      els.emailSubmit.disabled = true;
+      try {
+        await callEmailResult(email);
+        els.emailSuccess.style.display = "";
+        setTimeout(() => els.emailBackdrop.classList.remove("open"), 1500);
+        try {
+          window.gtag && gtag("event", "automation_analyzer_email_capture");
+        } catch {}
+      } catch (err) {
+        setError(els.emailError, "Something went wrong. Please try again.");
+      } finally {
+        els.emailSubmit.disabled = false;
+      }
+    });
+
+    // Keyboard: submit intake on Ctrl/Cmd+Enter in textarea
+    els.taskInput.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        els.analyzeBtn.click();
+      }
+    });
+  </script>
+
+</body>
+</html>

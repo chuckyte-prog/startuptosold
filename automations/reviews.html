@@ -327,7 +327,40 @@
     </div>
   </section>
 
-  <section class="section-cta">
+<!--
+  Reusable CTA card for the Automation Analyzer.
+  Paste in between sections where it makes sense contextually.
+  The entire block is self-contained (inline styles) so it's safe to drop into
+  any page without worrying about class-name collisions.
+-->
+<section class="section-analyzer-cta" style="padding: 4rem 3rem; background: #0f1623; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center;" class="analyzer-cta-grid">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #e85d26; margin-bottom: 1rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+          <span style="display: block; width: 1.5rem; height: 2px; background: #e85d26;"></span>
+          Free Tool
+        </div>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; color: #f2f2f5; margin: 0 0 0.75rem 0;">Not sure if <em style="color: #e85d26; font-style: normal;">your task</em> is automatable?</h3>
+        <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; color: #8e8e99; line-height: 1.7; margin: 0; max-width: 640px;">Describe one repetitive task and get an instant verdict: automatable or not, how it would work, and how many hours you'd save per year. No email required.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;" class="analyzer-cta-actions">
+        <a href="/tools/automation-analyzer.html" style="font-family: 'Plus Jakarta Sans', sans-serif; background: #e85d26; color: #fff; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1.1rem 2rem; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;">Try the Analyzer &rarr;</a>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.78rem; color: #8e8e99; text-align: center;">Takes 30 seconds</span>
+      </div>
+    </div>
+  </div>
+  <style>
+    @media (max-width: 768px) {
+      .section-analyzer-cta { padding: 2.5rem 1.5rem !important; }
+      .section-analyzer-cta .analyzer-cta-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+      .section-analyzer-cta .analyzer-cta-actions a { width: 100%; }
+    }
+  </style>
+</section>
+<!-- /CTA CARD -->
+
+    <section class="section-cta">
     <div class="section-inner">
       <div class="section-eyebrow" style="justify-content:center;">Get Started</div>
       <h2>Ready to turn happy customers into <em>public proof?</em></h2>

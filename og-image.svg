@@ -13,21 +13,9 @@
   <rect x="1060" y="250" width="140" height="380" fill="#2b5ea7" opacity="0.10"/>
 
   <!-- Orange accent bar -->
-  <rect x="80" y="165" width="48" height="5" fill="#e85d26"/>
+  <rect x="80" y="200" width="60" height="6" fill="#e85d26"/>
 
-  <!-- Eyebrow label -->
-  <text x="80" y="205" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#e85d26" text-anchor="start">STARTUP TO SOLD CONSULTING</text>
-
-  <!-- Main headline - centered vertically in safe zone -->
-  <text x="80" y="305" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="86" font-weight="800" fill="#ffffff" text-anchor="start" letter-spacing="-2">Fractional COO</text>
-  <text x="80" y="400" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="86" font-weight="800" fill="#e85d26" text-anchor="start" letter-spacing="-2">&amp; AI Automation</text>
-
-  <!-- Subheadline -->
-  <text x="80" y="455" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="22" font-weight="400" fill="#8e8e99" text-anchor="start">For Bay Area Businesses doing $500K-$10M</text>
-
-  <!-- Orange dots + URL bottom -->
-  <circle cx="80" cy="500" r="4" fill="#e85d26"/>
-  <circle cx="100" cy="500" r="4" fill="#e85d26" opacity="0.5"/>
-  <circle cx="120" cy="500" r="4" fill="#e85d26" opacity="0.25"/>
-  <text x="145" y="505" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#8e8e99" text-anchor="start" letter-spacing="1">startuptosold.com</text>
+  <!-- Main headline - big and centered -->
+  <text x="80" y="310" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="105" font-weight="800" fill="#ffffff" text-anchor="start" letter-spacing="-3">Fractional COO</text>
+  <text x="80" y="430" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="105" font-weight="800" fill="#e85d26" text-anchor="start" letter-spacing="-3">&amp; AI Automation</text>
 </svg>
