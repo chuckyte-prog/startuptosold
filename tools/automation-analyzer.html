@@ -905,14 +905,55 @@
       }
     }
 
+    // Rotating loading messages — gives the user a sense of what the model is
+    // working through rather than a static spinner. Started in submitAnalyzer()
+    // and stopped when the response lands. Different sequence per round so it
+    // doesn't repeat when the user comes back with follow-up answers.
+    const LOADING_PHASES_FIRST = [
+      "Reading your task…",
+      "Checking what's automatable about it…",
+      "Looking up matching automations…",
+      "Estimating your time savings…",
+      "Putting together your result…",
+    ];
+    const LOADING_PHASES_FOLLOWUP = [
+      "Reading your answers…",
+      "Connecting the dots with what you said before…",
+      "Checking if we have what we need…",
+      "Wrapping up…",
+    ];
+
+    let loadingRotator = null;
+    function startLoadingRotator(phases) {
+      stopLoadingRotator();
+      let i = 0;
+      els.loadingText.textContent = phases[0];
+      els.loadingText.style.transition = "opacity 0.3s ease";
+      els.loadingText.style.opacity = "1";
+      loadingRotator = setInterval(() => {
+        // Stop at the last phase so we don't loop — if the request is slower
+        // than expected the final "Putting together" message stays on.
+        if (i >= phases.length - 1) return;
+        els.loadingText.style.opacity = "0";
+        setTimeout(() => {
+          i++;
+          els.loadingText.textContent = phases[i];
+          els.loadingText.style.opacity = "1";
+        }, 300);
+      }, 2800);
+    }
+    function stopLoadingRotator() {
+      if (loadingRotator) { clearInterval(loadingRotator); loadingRotator = null; }
+    }
+
     async function submitAnalyzer() {
       try {
-        els.loadingText.textContent = state.round_count === 0
-          ? "Analyzing your task…"
-          : "Thinking about your answers…";
+        const phases = state.round_count === 0 ? LOADING_PHASES_FIRST : LOADING_PHASES_FOLLOWUP;
+        startLoadingRotator(phases);
         showSection("loading");
 
         const response = await callAnalyze();
+        stopLoadingRotator();
 
         if (response.mode === "followup") {
           state.current_questions = response.followup_questions || [];
@@ -925,6 +966,7 @@
           throw new Error(`Unexpected mode: ${response.mode}`);
         }
       } catch (err) {
+        stopLoadingRotator();
         if (err.rateLimited || err.offTopic) {
           setError(els.intakeError, err.message);
           els.intakeError.style.color = err.rateLimited ? "var(--muted)" : "";
