@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chuck Temple — Chief of Staff Application, Tasklet</title>
+  <meta name="description" content="A direct fit check against the Tasklet Chief of Staff job posting." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1c1c1e;
+      --orange: #e85d26;
+      --blue: #1a3a5c;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-surface-2: #1a2740;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+      --green: #43c07a;
+      --amber: #e8b04a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    /* ── HEADER ── */
+    header.hero {
+      border-bottom: 1px solid var(--dark-rule);
+      padding-bottom: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-size: clamp(1.9rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .lede {
+      font-size: 1.08rem;
+      color: var(--dark-muted);
+      max-width: 640px;
+    }
+    .lede strong { color: var(--dark-text); font-weight: 700; }
+
+    /* ── VIDEO ── */
+    .video-wrap {
+      margin: 2.5rem 0 3rem;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-rule);
+      aspect-ratio: 16 / 9;
+    }
+    .video-wrap iframe,
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--dark-muted);
+      font-size: 0.95rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .video-placeholder code {
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.05);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--dark-text);
+    }
+
+    /* ── SECTION ── */
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .section-note {
+      color: var(--dark-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── FIT TABLE ── */
+    .fit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .fit-row {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1.1rem 1.25rem;
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-rule);
+      border-radius: 10px;
+    }
+    .fit-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .fit-icon.yes {
+      background: rgba(67,192,122,0.15);
+      color: var(--green);
+      border: 1px solid rgba(67,192,122,0.4);
+    }
+    .fit-icon.warn {
+      background: rgba(232,176,74,0.15);
+      color: var(--amber);
+      border: 1px solid rgba(232,176,74,0.4);
+    }
+    .fit-quote {
+      font-size: 0.82rem;
+      color: var(--dark-muted);
+      font-style: italic;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+    .fit-answer {
+      color: var(--dark-text);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+    .fit-answer strong { font-weight: 700; }
+
+    /* ── HONEST GAPS ── */
+    .gaps {
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-rule);
+      border-radius: 10px;
+      padding: 1.75rem;
+    }
+    .gap-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--dark-rule);
+    }
+    .gap-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .gap-item:first-child { padding-top: 0; }
+    .gap-label {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--dark-text);
+    }
+    .gap-body {
+      color: var(--dark-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--dark-rule);
+      color: var(--dark-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    footer a { font-weight: 600; }
+    .footer-line {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 2rem 1rem 3rem; }
+      .fit-row { padding: 1rem; }
+      .fit-row { grid-template-columns: 28px 1fr; gap: 0.75rem; }
+      .fit-icon { width: 24px; height: 24px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="hero">
+      <div class="eyebrow">For Andrew Lee, Tasklet</div>
+      <h1>Chuck Temple — a fit check against your Chief of Staff posting.</h1>
+      <p class="lede">
+        You asked me to apply with a video. I also want to give you the receipts in writing, against the exact language of the role. <strong>Greens are where I've directly done the job.</strong> <strong>Ambers are where I want to be honest with you about gaps.</strong>
+      </p>
+    </header>
+
+    <section>
+      <h2>Video introduction</h2>
+      <p class="section-note">Five minutes. Who I am, why Tasklet, and a demo of what I've built.</p>
+      <div class="video-wrap">
+        <!-- Replace the src below with your Loom/YouTube embed once recorded -->
+        <div class="video-placeholder" id="video-placeholder">
+          <div>Video embed goes here.</div>
+          <div>Replace the placeholder <code>&lt;div&gt;</code> with a Loom or YouTube <code>&lt;iframe&gt;</code>.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Responsibilities — where I've already done the job.</h2>
+      <p class="section-note">Your five bullets. My direct experience, one sentence each.</p>
+
+      <div class="fit-list">
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"Be the CEO's right hand — define & communicate strategy, lead high-priority projects that don't fit neatly into any other role, fight fires."</div>
+            <div class="fit-answer">I was the CEO at DVD Your Memories for 14 years. Fighting the fires no one else could fight was the job. At DailyPB I do it solo every day.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"Own finance and budget — manage cash, track burn, file taxes, handle accounting, spend money wisely."</div>
+            <div class="fit-answer">I ran P&L at DVD through a near-bankruptcy and out the other side. I've watched the bank account balance fall below $100 and made payroll anyway. I know cash.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"Run recruiting operations — source candidates, manage pipelines, close exceptional people."</div>
+            <div class="fit-answer">I hired 27 employees at DVD across 4 locations and wrote the hiring playbooks myself. Recruiting from cold source to closed offer is a muscle I've used for years.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"Manage office operations — make sure the physical (and virtual) workspace runs smoothly."</div>
+            <div class="fit-answer">4 retail locations in 2 states. Leases, build-outs, equipment, IT, the boring stuff that breaks when no one owns it. I owned it.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"Handle people operations — onboarding, benefits, building culture systems that help a small team scale."</div>
+            <div class="fit-answer">Same 27 people. I wrote the onboarding, ran the benefits, built the culture systems. At Happy Moose Juice as COO I did it again for a different company, in a different industry.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Your ideal candidate — how I match up.</h2>
+      <p class="section-note">Your five bullets again. Same format.</p>
+
+      <div class="fit-list">
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"You've been a founder, COO, chief of staff, or similar generalist leader at a startup and know what 'do whatever it takes' actually means."</div>
+            <div class="fit-answer">Founder at DVD Your Memories. COO at Happy Moose Juice. Solo operator at DailyPB. Three for three on the list.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"You're exceptionally organized and can juggle finance, recruiting, and operations without dropping balls."</div>
+            <div class="fit-answer">Running 4 locations of a service business is juggling those three every single day. That was my normal for over a decade.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"You're a strong communicator and writer — you'll represent the company to candidates, vendors, and partners."</div>
+            <div class="fit-answer">I wrote a book called <a href="https://startuptosold.com" target="_blank" rel="noopener">Startup to Sold</a> about the DVD exit. I blog at startuptosold.com. Writing is how I think.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon yes">&#10003;</div>
+          <div>
+            <div class="fit-quote">"You're scrappy and resourceful — you'll figure things out with Google, AI tools, and sheer determination before asking for help."</div>
+            <div class="fit-answer">I run DailyPB as a one-person company on Bubble, Stripe Connect, Twilio, SendGrid, and Claude Code. This is my default operating mode.</div>
+          </div>
+        </div>
+
+        <div class="fit-row">
+          <div class="fit-icon warn">!</div>
+          <div>
+            <div class="fit-quote">"You could easily be a chief of staff at a top AI lab — but you want the outsized impact of a startup, and you believe Tasklet can win."</div>
+            <div class="fit-answer">I'll be straight: I don't have the lab pedigree. I don't have a CS degree. I've never worked at Google or Anthropic. What I have is fourteen years running my own company end to end, a sale, a book, and a second COO stint. I think that's more useful at an 8-person startup than a resume-shaped candidate, but you get to decide.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Where I want to be straight with you.</h2>
+      <p class="section-note">The honest stuff. I'd rather you know now than find out later.</p>
+
+      <div class="gaps">
+        <div class="gap-item">
+          <div class="gap-label">The "top AI lab" line.</div>
+          <div class="gap-body">
+            I read that as a trajectory filter, not a credential filter. I don't have the pedigree that pattern-matches to a lab Chief of Staff role. I do have the thing that's harder to fake: I've run a company, signed the checks, and sold it. That matters more at 9 people than it does at 900.
+          </div>
+        </div>
+
+        <div class="gap-item">
+          <div class="gap-label">No coding background, but deep in Claude Code.</div>
+          <div class="gap-body">
+            I'm not an engineer. I built DailyPB on Bubble. But I've been living inside Claude Code for the last year running my marketing and ops, and I've shipped working agents, tools, and automations. The technical floor has moved. I'm above the line that matters for a CoS role, and I can hold a real conversation with your engineers.
+          </div>
+        </div>
+
+        <div class="gap-item">
+          <div class="gap-label">SF in-person is fine.</div>
+          <div class="gap-body">
+            I live in Albany. It's a 30-minute commute to your SF office. Full-time, in-person, no friction.
+          </div>
+        </div>
+
+        <div class="gap-item">
+          <div class="gap-label">I'm a US citizen. No visa sponsorship needed.</div>
+          <div class="gap-body">
+            Just confirming what you asked about on the careers page.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-line"><strong>Chuck Temple</strong> &middot; chuckyte@gmail.com &middot; (530) 867-4025</div>
+      <div class="footer-line">DailyPB: <a href="https://dailypb.com" target="_blank" rel="noopener">dailypb.com</a> &middot; Startup to Sold: <a href="https://startuptosold.com" target="_blank" rel="noopener">startuptosold.com</a></div>
+    </footer>
+
+  </div>
+</body>
+</html>
