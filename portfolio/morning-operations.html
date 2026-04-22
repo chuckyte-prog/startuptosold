@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Morning Operations System -- Startup to Sold Consulting</title>
-  <meta name="description" content="Calendar sync, email triage, task routing, exercise scheduling -- all connected, all automated, all before coffee. Custom-built for whatever YOUR daily ops look like." />
-  <meta property="og:title" content="Morning Operations System -- Startup to Sold Consulting" />
-  <meta property="og:description" content="Calendar sync, email triage, task routing, exercise scheduling -- all connected, all automated, all before coffee. Custom-built for whatever YOUR daily ops look like." />
+  <title>Morning Operations System | Startup to Sold Consulting</title>
+  <meta name="description" content="Calendar sync, email triage, task routing, exercise scheduling. All connected, all automated, all before coffee. Custom-built for whatever your daily ops look like." />
+  <meta property="og:title" content="Morning Operations System | Startup to Sold Consulting" />
+  <meta property="og:description" content="Calendar sync, email triage, task routing, exercise scheduling. All connected, all automated, all before coffee. Custom-built for whatever your daily ops look like." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://startuptosold.com/portfolio/morning-operations.html" />
   <meta property="og:image" content="https://startuptosold.com/og-image.png" />
@@ -82,7 +82,25 @@
 
     /* Hero */
     .hero { background: var(--dark-bg); padding: 9rem 3rem 6rem; position: relative; overflow: hidden; z-index: 1; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../images/portfolio/morning-ops-hero.jpg');
+      background-size: cover;
+      background-position: center right;
+      opacity: 0.38;
+      z-index: 0;
+      filter: saturate(1.05);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(15,22,35,0.95) 0%, rgba(15,22,35,0.72) 45%, rgba(15,22,35,0.45) 100%),
+        linear-gradient(180deg, rgba(15,22,35,0.4) 0%, rgba(15,22,35,0.6) 100%);
+    }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 80% 30%, rgba(232,93,38,0.07) 0%, transparent 70%); pointer-events: none; z-index: 1; }
 
     /* Scan lines animation */
     .hero-scanlines {
@@ -238,20 +256,112 @@
       opacity: 1;
     }
 
-    /* Audio waveform decoration */
-    .callout-waveform {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
     .callout-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
     .callout-title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 1.25rem; }
     .callout-desc { font-size: 1rem; color: var(--dark-muted); line-height: 1.85; }
+
+    /* Voice-to-task diagram */
+    .voice-diagram {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2.5rem 0 2rem;
+      padding: 1.5rem 1.75rem;
+      background: rgba(15,22,35,0.55);
+      border: 1px solid var(--dark-rule);
+      border-left: 2px solid rgba(232,93,38,0.5);
+    }
+    .vd-waveform { display: flex; align-items: center; gap: 3px; height: 40px; }
+    .vd-bar {
+      width: 3px;
+      background: var(--orange);
+      border-radius: 1px;
+      opacity: 0.5;
+      height: 8px;
+    }
+    .callout-card.visible .vd-bar {
+      animation: vdBar 1.4s ease-in-out infinite;
+    }
+    .callout-card.visible .vd-bar:nth-child(1) { animation-delay: 0s; }
+    .callout-card.visible .vd-bar:nth-child(2) { animation-delay: 0.1s; }
+    .callout-card.visible .vd-bar:nth-child(3) { animation-delay: 0.2s; }
+    .callout-card.visible .vd-bar:nth-child(4) { animation-delay: 0.3s; }
+    .callout-card.visible .vd-bar:nth-child(5) { animation-delay: 0.4s; }
+    .callout-card.visible .vd-bar:nth-child(6) { animation-delay: 0.5s; }
+    .callout-card.visible .vd-bar:nth-child(7) { animation-delay: 0.6s; }
+    .callout-card.visible .vd-bar:nth-child(8) { animation-delay: 0.7s; }
+    @keyframes vdBar {
+      0%, 100% { height: 8px; opacity: 0.4; }
+      50% { height: 32px; opacity: 1; }
+    }
+    .vd-arrow {
+      color: rgba(232,93,38,0.5);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .vd-quote {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--dark-text);
+      line-height: 1.5;
+      flex: 1;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.7s 0.4s ease-out, transform 0.7s 0.4s ease-out;
+    }
+    .callout-card.visible .vd-quote {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .vd-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .vd-outcome {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: rgba(15,22,35,0.55);
+      border: 1px solid var(--dark-rule);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .callout-card.visible .vd-outcome-a { transition-delay: 1s; opacity: 1; transform: translateY(0); }
+    .callout-card.visible .vd-outcome-b { transition-delay: 1.2s; opacity: 1; transform: translateY(0); }
+    .vd-outcome-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+    }
+    .vd-outcome-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+      margin-bottom: 0.1rem;
+    }
+    .vd-outcome-text {
+      font-size: 0.88rem;
+      color: var(--dark-text);
+      line-height: 1.4;
+    }
+    @media (max-width: 640px) {
+      .voice-diagram { grid-template-columns: auto 1fr; gap: 1rem; padding: 1.25rem; }
+      .vd-arrow { display: none; }
+      .vd-split { grid-template-columns: 1fr; }
+    }
 
     /* Prose Section */
     .section-prose { background: var(--dark-surface); padding: 6rem 3rem; position: relative; z-index: 1; }
@@ -305,6 +415,9 @@
       .callout-card { transform: none; opacity: 1; transition: none; }
       .pipeline-line-fill { transition: none; }
       .prose-eyebrow-track { transition: none; }
+      .vd-bar { animation: none !important; height: 20px !important; opacity: 0.8 !important; }
+      .vd-quote { opacity: 1 !important; transform: none !important; }
+      .vd-outcome { opacity: 1 !important; transform: none !important; }
       @keyframes scanDrift { 0%, 100% { transform: none; } }
     }
 
@@ -357,23 +470,24 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-scanlines"></div>
     <div class="hero-inner">
       <div>
         <div style="margin-bottom:2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
         <div class="hero-eyebrow">Orchestration</div>
         <h1>Morning Operations System <em>Your Team's First Hour, Automated.</em></h1>
-        <p class="hero-sub">What if your team's first hour was productive instead of administrative? Calendar syncing, email triaging, task routing, scheduling -- all the daily busywork that eats into real work. I built a system that handles all of it with one command. Custom-built for my own operations, but the pattern works for any business.</p>
+        <p class="hero-sub">What if your team's first hour was productive instead of administrative? Calendar syncing, email triaging, task routing, scheduling, all the daily busywork that eats into real work. I built a system that handles all of it with one command. I can build one for your business too.</p>
         <a href="/ai-automations.html" class="btn-primary">See AI Automations</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-number">5</div>
-          <div class="hero-stat-label">Accounts synced</div>
+          <div class="hero-stat-number">1</div>
+          <div class="hero-stat-label">Command to run</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-number">~25 min</div>
-          <div class="hero-stat-label">Reclaimed per day</div>
+          <div class="hero-stat-number">~60 min</div>
+          <div class="hero-stat-label">Reclaimed per person per day</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-number"><span class="countdown-stat" id="countdownStat">0</span></div>
@@ -395,24 +509,24 @@
       <div class="pipeline" id="pipeline">
         <div class="pipeline-line-fill"></div>
         <div class="pipeline-block">
-          <div class="pipeline-block-title">Archive &amp; Build</div>
-          <div class="pipeline-block-desc">Yesterday's work moves to archive. Today's plan builds itself from five calendars, with unfinished tasks carried forward automatically.</div>
+          <div class="pipeline-block-title">Plan the Day</div>
+          <div class="pipeline-block-desc">Yesterday's work gets archived. Today's plan builds itself from every calendar you run, with unfinished tasks carried forward automatically.</div>
         </div>
         <div class="pipeline-block">
-          <div class="pipeline-block-title">Email Cleanup</div>
-          <div class="pipeline-block-desc">Noise gets trashed. Errors get summarized by type and count, then trashed. Only the signal makes it through.</div>
+          <div class="pipeline-block-title">Tame the Inbox</div>
+          <div class="pipeline-block-desc">Noise gets cleared. Important patterns get summarized. Only the signal makes it through to the person.</div>
         </div>
         <div class="pipeline-block">
-          <div class="pipeline-block-title">Day-Specific Ops</div>
-          <div class="pipeline-block-desc">Monday: spam reports processed, apology drafts created. Friday: weekly events email auto-drafted. Each day has its own routine.</div>
+          <div class="pipeline-block-title">Weekly Routines</div>
+          <div class="pipeline-block-desc">Each day has its own recurring work. Weekly cleanups, recurring reports, standing drafts. The system handles them on the right day, every time.</div>
         </div>
         <div class="pipeline-block">
-          <div class="pipeline-block-title">GTD Triage</div>
-          <div class="pipeline-block-desc">Voice captures from throughout the day (recorded on iPhone via Siri) get pulled from email, parsed, and routed into the right project with next actions defined. No manual sorting.</div>
+          <div class="pipeline-block-title">Route Whatever Came In</div>
+          <div class="pipeline-block-desc">Ideas, tasks, and reminders captured throughout the previous day get sorted and filed automatically. Nothing sits unassigned.</div>
         </div>
         <div class="pipeline-block">
-          <div class="pipeline-block-title">Exercise Scheduling</div>
-          <div class="pipeline-block-desc">Gym classes checked, calendar conflicts detected, bookings made, recovery blocks added. Two weeks out, fully automated.</div>
+          <div class="pipeline-block-title">Personal Scheduling</div>
+          <div class="pipeline-block-desc">On request, the system handles standing routines that would otherwise take time every week. Workouts, reports, standing reminders, whatever keeps falling off your list.</div>
         </div>
       </div>
     </div>
@@ -424,15 +538,54 @@
   <section class="section-callout">
     <div class="section-inner">
       <div class="callout-card" id="calloutCard">
-        <!-- Waveform decoration -->
-        <svg class="callout-waveform" viewBox="0 0 840 40" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 20 Q20 5, 40 20 T80 20 T120 20 T160 20 T200 20 T240 20 T280 20 T320 20 T360 20 T400 20 T440 20 T480 20 T520 20 T560 20 T600 20 T640 20 T680 20 T720 20 T760 20 T800 20 T840 20" stroke="var(--orange)" stroke-width="2" fill="none"/>
-          <path d="M0 25 Q30 10, 60 25 T120 25 T180 25 T240 25 T300 25 T360 25 T420 25 T480 25 T540 25 T600 25 T660 25 T720 25 T780 25 T840 25" stroke="var(--orange)" stroke-width="1.5" fill="none"/>
-          <path d="M0 15 Q25 30, 50 15 T100 15 T150 15 T200 15 T250 15 T300 15 T350 15 T400 15 T450 15 T500 15 T550 15 T600 15 T650 15 T700 15 T750 15 T800 15 T840 15" stroke="var(--orange)" stroke-width="1" fill="none"/>
-        </svg>
         <div class="callout-eyebrow">The Standout</div>
         <div class="callout-title">Voice Capture to Structured Task</div>
-        <p class="callout-desc">Throughout the day, I capture tasks by talking to my phone. "Remind me to follow up with the printer vendor about the invoice." "Add updating the help center to the DailyPB project." The next morning, the system pulls every capture from email, figures out which project it belongs to, and files it with a defined next action. No inbox processing. No manual sorting. Just talk, and it gets handled.</p>
+
+        <div class="voice-diagram" aria-hidden="true">
+          <div class="vd-waveform">
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+            <span class="vd-bar"></span>
+          </div>
+          <div class="vd-arrow">&rarr;</div>
+          <div class="vd-quote">"Follow up with the vendor about the invoice."</div>
+        </div>
+
+        <div class="vd-split">
+          <div class="vd-outcome vd-outcome-a">
+            <div class="vd-outcome-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="16" height="14" rx="1.5"/>
+                <path d="M7 10l2.5 2.5L15 7"/>
+              </svg>
+            </div>
+            <div>
+              <div class="vd-outcome-label">Task list</div>
+              <div class="vd-outcome-text">Lands on today's plan, routed to the right project.</div>
+            </div>
+          </div>
+          <div class="vd-outcome vd-outcome-b">
+            <div class="vd-outcome-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2.5" y="4" width="17" height="14" rx="1.5"/>
+                <path d="M2.5 8h17"/>
+                <circle cx="5.5" cy="6" r="0.5" fill="currentColor"/>
+                <circle cx="7.5" cy="6" r="0.5" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <div class="vd-outcome-label">Browser agent</div>
+              <div class="vd-outcome-text">If it's simple, the system just does it.</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="callout-desc">Throughout the day, I capture tasks by talking to my phone. The next morning, each one either lands on the day's task list, or if it's simple enough, a browser agent runs it. No inbox processing. No manual sorting. Just talk, and it gets handled.</p>
       </div>
     </div>
   </section>
@@ -445,7 +598,7 @@
       <div class="section-eyebrow reveal"><span class="prose-eyebrow-track" id="proseEyebrow">The Real Point</span></div>
       <h2 class="reveal reveal-delay-1"><span class="prose-h2-gradient">My system.</span> <em>Your pattern.</em></h2>
       <div class="prose-body reveal reveal-delay-2">
-        <p>This system is built for my specific operations -- my calendars, my email accounts, my gym, my task workflow. But the pattern is universal. Every team has a first hour that's spent getting oriented instead of doing real work. Checking email, syncing calendars, figuring out what happened yesterday, sorting through messages.</p>
+        <p>I built this for my own operations. But the pattern is universal. Every team has a first hour that's spent getting oriented instead of doing real work, checking email, syncing calendars, figuring out what happened yesterday, sorting through messages.</p>
         <p>All of that can be one command, custom-built for whatever your daily operations look like. Not a generic app. Not a SaaS tool with features you don't need. A system designed around exactly how your team actually works.</p>
       </div>
     </div>
