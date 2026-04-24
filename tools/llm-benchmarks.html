@@ -255,6 +255,10 @@
         <option value="">+ Add a model to compare…</option>
       </select>
       <div class="quick">
+        <label style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-2); user-select:none;">
+          <input type="checkbox" id="frontier-toggle-compare" checked onchange="onFrontierToggle('compare', event)" style="accent-color: var(--accent);">
+          Frontier only
+        </label>
         <button onclick="quickCompareFrontier()">Quick: top frontier</button>
         <button onclick="clearCompare()">Clear</button>
       </div>
@@ -287,6 +291,12 @@
 <section id="view-composite" style="display:none">
   <div class="composite-wrap">
     <p class="composite-intro">Composite ranking across all benchmarks, normalized so the top scorer on each benchmark = 100, others scale relative to it. Tier 1 benchmarks (core to your work) weighted 2x by default, Tier 2 weighted 1x. Tune the weights below if your current focus is different.</p>
+    <div style="margin-bottom:18px;">
+      <label style="display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); user-select:none;">
+        <input type="checkbox" id="frontier-toggle-composite" checked onchange="onFrontierToggle('composite', event)" style="accent-color: var(--accent);">
+        Frontier only (last ~6 months of releases)
+      </label>
+    </div>
     <div class="weights">
       <h3>Weights</h3>
       <p>Higher weight = benchmark contributes more to the composite score. 0 = ignore entirely.</p>
@@ -555,9 +565,110 @@ const BENCHMARK_DATA = [
 ];
 
 // ============================================================================
+// Canonicalize variants + classify frontier
+// ============================================================================
+
+// Strip agent scaffold and variant suffixes to get the canonical model name.
+// Examples:
+//   "Claude Opus 4.6 (ForgeCode)"  -> "Claude Opus 4.6"
+//   "Claude Opus 4.7 (Thinking)"   -> "Claude Opus 4.7"
+//   "GPT-5.5 (Codex)"              -> "GPT-5.5"
+//   "Gemini 3.1 Pro (TongAgents)"  -> "Gemini 3.1 Pro"
+//   "Kimi K2.6 (Agent Swarm)"      -> "Kimi K2.6"
+//   "Claude 4.6 Opus"              -> "Claude Opus 4.6"  (typo normalization)
+// We ALSO fold "Thinking"/"High"/"Pro Thinking"/"Reasoning" reasoning-effort
+// variants into the base model, since they're the same underlying model.
+function canonicalizeModel(name) {
+  let n = name;
+  // Drop any parenthetical suffix
+  n = n.replace(/\s*\([^)]*\)\s*$/, "");
+  // Fix "Claude 4.6 Opus" -> "Claude Opus 4.6" typo
+  n = n.replace(/^Claude\s+(\d+(?:\.\d+)?)\s+(Opus|Sonnet|Haiku)$/i, "Claude $2 $1");
+  // Drop trailing effort modifiers: "Thinking", "Reasoning", "High", "Medium", "Low", "Instant"
+  n = n.replace(/\s+(Thinking|Reasoning|High|Medium|Low|Instant|Chat|Preview)\s*$/i, (m, w) => {
+    // Keep "Preview" when it's part of the model name itself (e.g. "Gemini 3.1 Pro Preview") -
+    // but for most models Preview is a distinct release tier so we do drop it. Mythos Preview
+    // is a special case: "Claude Mythos Preview" should stay intact, but we only want to drop
+    // Preview when it follows a numeric version. The regex above already handles base case;
+    // for Mythos Preview the word before "Preview" is "Mythos" (non-numeric), we don't match.
+    return "";
+  });
+  // Specifically keep "Claude Mythos Preview" (test for pattern where word before trailing
+  // Preview is non-numeric). Safer: add back if stripped.
+  if (/Mythos$/i.test(n) && /Mythos Preview/i.test(name)) n = n + " Preview";
+  return n.trim();
+}
+
+// Frontier = released in the last ~6 months based on version heuristics.
+// Returns true for the models Chuck actually cares about choosing between.
+function isFrontier(canonicalName) {
+  const n = canonicalName;
+  // Anthropic
+  if (/^Claude Opus 4\.(5|6|7)/i.test(n)) return true;
+  if (/^Claude Sonnet 4\.6/i.test(n)) return true;
+  if (/^Claude Mythos/i.test(n)) return true;
+  // OpenAI
+  if (/^GPT-5\.(2|3|4|5)/i.test(n)) return true;
+  if (/GPT-5\.2 Pro/i.test(n)) return true;
+  if (/GPT-5\.5 Pro/i.test(n)) return true;
+  if (/GPT-5\.4 Pro/i.test(n)) return true;
+  if (/^GPT-5\.3 Codex/i.test(n)) return true;
+  // Google
+  if (/^Gemini 3(\.1)? (Pro|Flash)/i.test(n)) return true;
+  // xAI
+  if (/^Grok-4\.(1|20)/i.test(n)) return true;
+  if (/^Grok-4 Heavy/i.test(n)) return true;
+  // Moonshot / Alibaba / Xiaomi / Meta / Zhipu — frontier open models
+  if (/^Kimi K2\.(5|6)/i.test(n)) return true;
+  if (/^Qwen3\.(5|6)/i.test(n)) return true;
+  if (/^Muse Spark/i.test(n)) return true;
+  if (/^GLM-5/i.test(n)) return true;
+  if (/^MiniMax M2\.(1|5)/i.test(n)) return true;
+  if (/^MiMo-V2/i.test(n)) return true;
+  if (/^Seed 2\.0/i.test(n)) return true;
+  if (/^DeepSeek-V3\.2/i.test(n)) return true;
+  if (/^ERNIE 5/i.test(n)) return true;
+  return false;
+}
+
+// Process BENCHMARK_DATA once: add `canonical` + `frontier` to every model.
+// For display (By benchmark view) we keep original `model` name; for cross-benchmark
+// joining (Compare, Composite, Model, Use-case) we use `canonical`.
+BENCHMARK_DATA.forEach(b => {
+  b.models.forEach(m => {
+    m.canonical = canonicalizeModel(m.model);
+    m.frontier = isFrontier(m.canonical);
+  });
+  // For benchmarks where multiple rows canonicalize to the same model, keep only
+  // the highest-scoring row (sorted by score desc). This prevents Terminal-Bench
+  // showing Opus 4.6 eight times.
+  const seen = new Map();
+  const sorted = [...b.models].sort((x, y) => y.score - x.score);
+  const deduped = [];
+  for (const m of sorted) {
+    if (!seen.has(m.canonical)) {
+      seen.set(m.canonical, true);
+      deduped.push(m);
+    }
+  }
+  // Re-sort by original rank so display order is preserved (top-ranked first)
+  deduped.sort((x, y) => x.rank - y.rank);
+  // Re-number ranks 1..N so the card display isn't "#1, #3, #7..."
+  deduped.forEach((m, i) => { m.displayRank = i + 1; });
+  b.canonicalModels = deduped;
+});
+
+// ============================================================================
 // Render — benchmark view
 // ============================================================================
 let activeTier = "all";
+const frontierFilter = { compare: true, composite: true };
+
+function onFrontierToggle(view, evt) {
+  frontierFilter[view] = evt.target.checked;
+  if (view === 'compare') { populateComparePicker(); renderCompare(); }
+  if (view === 'composite') { renderComposite(); }
+}
 
 function fmtScore(score, format) {
   if (format === "elo") return Math.round(score);
@@ -570,10 +681,13 @@ function renderGrid() {
   const grid = document.getElementById("grid");
   const filtered = BENCHMARK_DATA.filter(b => activeTier === "all" || String(b.tier) === activeTier);
   grid.innerHTML = filtered.map(b => {
+    const list = b.canonicalModels;
     const expanded = expandedCards.has(b.id);
-    const showCount = expanded ? b.models.length : Math.min(5, b.models.length);
-    const shown = b.models.slice(0, showCount);
-    const hasMore = b.models.length > 5;
+    const showCount = expanded ? list.length : Math.min(5, list.length);
+    const shown = list.slice(0, showCount);
+    const hasMore = list.length > 5;
+    const origCount = b.models.length;
+    const collapsedCount = origCount - list.length;
     return `
     <div class="card">
       <div class="card-head">
@@ -584,10 +698,10 @@ function renderGrid() {
       <p class="card-why">${b.whyItMatters}</p>
       <table class="rank">
         ${shown.map(m => `
-          <tr class="mdl" onclick="selectModel('${m.model.replace(/'/g, "\\'")}')">
-            <td class="rk">#${m.rank}</td>
+          <tr class="mdl" onclick="selectModel('${m.canonical.replace(/'/g, "\\'")}')">
+            <td class="rk">#${m.displayRank}</td>
             <td>
-              <span class="mdl-name">${m.model}</span>
+              <span class="mdl-name">${m.canonical}</span>
               ${m.preview ? '<span class="preview-tag">preview</span>' : ''}
               <span class="mdl-org">${m.org}</span>
             </td>
@@ -597,9 +711,9 @@ function renderGrid() {
       </table>
       ${b.note ? `<p class="card-note">${b.note}</p>` : ''}
       <div class="card-foot">
-        <span>Updated ${b.lastUpdated} · ${b.models.length} models tracked</span>
+        <span>Updated ${b.lastUpdated} · ${list.length} models${collapsedCount > 0 ? ` (${collapsedCount} duplicates collapsed)` : ''}</span>
         <div style="display:flex; gap:10px; align-items:center;">
-          ${hasMore ? `<button onclick="toggleCard('${b.id}')">${expanded ? 'Show top 5' : `Show all ${b.models.length}`}</button>` : ''}
+          ${hasMore ? `<button onclick="toggleCard('${b.id}')">${expanded ? 'Show top 5' : `Show all ${list.length}`}</button>` : ''}
           <a href="${b.sourceUrl}" target="_blank" rel="noopener">View source →</a>
         </div>
       </div>
@@ -627,8 +741,8 @@ function setTier(t) {
 // ============================================================================
 function allModels() {
   const set = new Map();
-  BENCHMARK_DATA.forEach(b => b.models.forEach(m => {
-    if (!set.has(m.model)) set.set(m.model, { org: m.org, preview: !!m.preview });
+  BENCHMARK_DATA.forEach(b => b.canonicalModels.forEach(m => {
+    if (!set.has(m.canonical)) set.set(m.canonical, { org: m.org, preview: !!m.preview, frontier: m.frontier });
   }));
   return Array.from(set.entries()).map(([model, meta]) => ({ model, ...meta }))
     .sort((a, b) => a.model.localeCompare(b.model));
@@ -654,7 +768,7 @@ function showModelDetail(modelName) {
   const container = document.getElementById("model-detail");
   if (!modelName) { container.innerHTML = '<div class="empty">Pick a model from the dropdown to see its ranking across every benchmark.</div>'; return; }
   const rows = BENCHMARK_DATA.map(b => {
-    const hit = b.models.find(m => m.model === modelName);
+    const hit = b.canonicalModels.find(m => m.canonical === modelName);
     return { benchmark: b, hit };
   });
   const meta = allModels().find(m => m.model === modelName) || {};
@@ -668,7 +782,7 @@ function showModelDetail(modelName) {
             ${r.benchmark.name}
             <span class="bdesc">${r.benchmark.description}</span>
           </div>
-          <div class="mrank ${r.hit ? '' : 'notop'}">${r.hit ? '#' + r.hit.rank : 'not in top 5'}</div>
+          <div class="mrank ${r.hit ? '' : 'notop'}">${r.hit ? '#' + r.hit.displayRank : 'not ranked'}</div>
           <div class="mscore">${r.hit ? fmtScore(r.hit.score, r.benchmark.scoreFormat) : '—'}</div>
         </div>
       `).join("")}
@@ -687,23 +801,28 @@ function selectModel(name) {
 // ============================================================================
 let compareModels = [];
 
+let comparePickerWired = false;
 function populateComparePicker() {
   const sel = document.getElementById("compare-picker");
   const grouped = {};
-  allModels().forEach(m => { (grouped[m.org] = grouped[m.org] || []).push(m); });
+  const source = frontierFilter.compare ? allModels().filter(m => m.frontier) : allModels();
+  source.forEach(m => { (grouped[m.org] = grouped[m.org] || []).push(m); });
   sel.innerHTML = '<option value="">+ Add a model to compare…</option>' +
     Object.entries(grouped).sort().map(([org, models]) => `
       <optgroup label="${org}">
         ${models.map(m => `<option value="${m.model}">${m.model}${m.preview ? ' (preview)' : ''}</option>`).join("")}
       </optgroup>
     `).join("");
-  sel.addEventListener("change", e => {
-    if (e.target.value && !compareModels.includes(e.target.value)) {
-      compareModels.push(e.target.value);
-      renderCompare();
-    }
-    e.target.value = "";
-  });
+  if (!comparePickerWired) {
+    sel.addEventListener("change", e => {
+      if (e.target.value && !compareModels.includes(e.target.value)) {
+        compareModels.push(e.target.value);
+        renderCompare();
+      }
+      e.target.value = "";
+    });
+    comparePickerWired = true;
+  }
 }
 
 function removeCompareModel(m) {
@@ -714,11 +833,10 @@ function removeCompareModel(m) {
 function clearCompare() { compareModels = []; renderCompare(); }
 
 function quickCompareFrontier() {
-  // Pick the best non-preview model from each top org on SWE-bench (anchor benchmark)
-  compareModels = ["Claude Opus 4.7", "GPT-5.3 Codex", "Gemini 3.1 Pro Preview"];
-  // Only keep ones that actually exist in the data
+  // One model from each top org (canonical names after dedupe)
+  const picks = ["Claude Opus 4.7", "GPT-5.4", "Gemini 3.1 Pro", "Kimi K2.6"];
   const existing = new Set(allModels().map(m => m.model));
-  compareModels = compareModels.filter(m => existing.has(m));
+  compareModels = picks.filter(m => existing.has(m));
   renderCompare();
 }
 
@@ -737,8 +855,8 @@ function renderCompare() {
   // For each benchmark, find each model's score and whose is best
   const rows = BENCHMARK_DATA.map(b => {
     const scores = compareModels.map(mn => {
-      const hit = b.models.find(m => m.model === mn);
-      return { model: mn, score: hit ? hit.score : null, rank: hit ? hit.rank : null };
+      const hit = b.canonicalModels.find(m => m.canonical === mn);
+      return { model: mn, score: hit ? hit.score : null, rank: hit ? hit.displayRank : null };
     });
     const valid = scores.filter(s => s.score !== null).map(s => s.score);
     const best = valid.length > 0 ? Math.max(...valid) : null;
@@ -832,8 +950,8 @@ function computeComposite(modelName, w) {
   BENCHMARK_DATA.forEach(b => {
     const weight = w[b.id] ?? (b.tier === 1 ? 2 : 1);
     if (weight === 0) return;
-    const hit = b.models.find(m => m.model === modelName);
-    const topScore = Math.max(...b.models.map(m => m.score));
+    const hit = b.canonicalModels.find(m => m.canonical === modelName);
+    const topScore = Math.max(...b.canonicalModels.map(m => m.score));
     let normalized;
     if (!hit) {
       normalized = MISSING_PENALTY * 100;
@@ -852,8 +970,8 @@ function computeComposite(modelName, w) {
 }
 
 function renderComposite() {
-  const all = allModels();
-  const results = all.map(m => {
+  const source = frontierFilter.composite ? allModels().filter(m => m.frontier) : allModels();
+  const results = source.map(m => {
     const c = computeComposite(m.model, weights);
     return { ...m, ...c };
   }).sort((a, b) => b.score - a.score);
@@ -1037,9 +1155,9 @@ function analyzeUsecase() {
   function reasonFor(modelName) {
     const per = [];
     for (const b of topBenches) {
-      const hit = b.models.find(m => m.model === modelName);
+      const hit = b.canonicalModels.find(m => m.canonical === modelName);
       if (hit) {
-        const topScore = Math.max(...b.models.map(x => x.score));
+        const topScore = Math.max(...b.canonicalModels.map(x => x.score));
         per.push({ bench: b, hit, normalized: (hit.score / topScore) * 100 });
       }
     }
@@ -1047,7 +1165,7 @@ function analyzeUsecase() {
     if (per.length === 0) return "Ranks on broader benchmarks but not the ones most relevant to your use case.";
     const best = per[0];
     const wonder = best.normalized >= 95 ? "tops" : best.normalized >= 85 ? "strong on" : "competitive on";
-    return `${wonder} ${best.bench.name} (#${best.hit.rank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
+    return `${wonder} ${best.bench.name} (#${best.hit.displayRank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
   }
 
   results.innerHTML = `
