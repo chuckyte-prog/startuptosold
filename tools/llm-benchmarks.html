@@ -87,6 +87,18 @@
   .card-foot button:hover { border-color: var(--accent); color: var(--ink); }
   .card-note { color: var(--ink-3); font-size: 11px; margin: 8px 0 0; font-style: italic; padding: 8px 10px; background: var(--bg-3); border-left: 2px solid var(--line-2); border-radius: 3px; }
 
+  .explainer-toggle { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding: 8px 12px; background: transparent; border: 1px dashed var(--line-2); color: var(--ink-2); border-radius: 6px; font-size: 12px; font-family: inherit; cursor: pointer; width: 100%; text-align: left; transition: all 0.15s; }
+  .explainer-toggle:hover { border-color: var(--accent); color: var(--ink); border-style: solid; }
+  .explainer-toggle .chev { color: var(--ink-3); font-size: 10px; margin-left: auto; transition: transform 0.15s; }
+  .explainer-toggle.open .chev { transform: rotate(90deg); color: var(--accent); }
+
+  .explainer-body { margin-top: 10px; padding: 14px 16px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 8px; font-size: 13px; line-height: 1.55; }
+  .explainer-body h4 { margin: 0 0 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+  .explainer-body p { margin: 0 0 12px; color: var(--ink); }
+  .explainer-body p:last-child { margin-bottom: 0; }
+  .explainer-body .example { color: var(--ink-2); font-style: italic; border-left: 2px solid var(--line-2); padding: 2px 0 2px 12px; }
+  .explainer-body .caveat { color: var(--ink-3); font-size: 12px; }
+
   /* Model detail view */
   .model-view { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
   .model-view h2 { margin: 0 0 4px; font-size: 24px; }
@@ -336,6 +348,12 @@ const BENCHMARK_DATA = [
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["coding", "agentic", "dev"],
+    explainer: {
+      what: "The model is given a real bug report from a popular open-source Python project (Django, scikit-learn, sympy, etc.) and the full repository it came from. It has to write a patch that fixes the bug and passes the project's actual test suite.",
+      example: "\"Fix the Django admin bug where autocomplete_fields raises a KeyError when the referenced field uses a custom ForeignKey subclass.\" The model reads the codebase, makes the fix, and the score is whether the project's hidden tests pass.",
+      scoring: "Binary per problem — did the tests pass or not? Scored as % of 500 verified problems solved.",
+      caveat: "\"Verified\" subset filters out SWE-bench's original 2,294 problems down to ones humans confirmed are actually solvable and have clear success criteria."
+    },
     models: [
       { rank: 1, model: "Claude Opus 4.7", org: "Anthropic", score: 87.6 },
       { rank: 2, model: "GPT-5.3 Codex", org: "OpenAI", score: 85.0 },
@@ -362,13 +380,19 @@ const BENCHMARK_DATA = [
     id: "termbench",
     tier: 1,
     name: "Terminal-Bench 2.0",
-    description: "Multi-step terminal / agentic tasks",
+    description: "Can the model operate a computer from the command line?",
     whyItMatters: "Best proxy for agents that chain CLI + browser + APIs",
     sourceUrl: "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["coding", "agentic", "tool-use", "dev"],
     note: "Agent+model pairings. Same model appears multiple times with different agent scaffolds.",
+    explainer: {
+      what: "The model is dropped into a fresh Linux sandbox and given an English task description. It has to complete the task by running shell commands, reading output, and deciding what to do next — just like a human using a terminal.",
+      example: "\"Compile this open-source C library, fix any missing dependencies, run its test suite, and package it as a .deb file.\" Or: \"Download this dataset, train a classifier with 90%+ accuracy, and save the model to /output.\"",
+      scoring: "Binary per task. The harness runs a verification script at the end that checks whether the task actually succeeded. Scored as % of ~200 tasks completed.",
+      caveat: "Numbers on the leaderboard are agent+model pairings, not raw model capability. A model's score depends heavily on what agent scaffold (Codex, ForgeCode, Droid, etc.) is wrapping it."
+    },
     models: [
       { rank: 1, model: "GPT-5.5 (Codex)", org: "OpenAI", score: 82.0 },
       { rank: 2, model: "GPT-5.4 (ForgeCode)", org: "OpenAI", score: 81.8 },
@@ -396,13 +420,19 @@ const BENCHMARK_DATA = [
     id: "browsecomp",
     tier: 1,
     name: "BrowseComp",
-    description: "Agentic web browsing & research",
+    description: "Can the model find obscure answers that require hopping between websites?",
     whyItMatters: "Web agents, research automation, deep search synthesis",
     sourceUrl: "https://leaderboard.steel.dev/results",
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["browsing", "agentic", "research", "tool-use"],
     note: "Mix of single-agent and agent-swarm numbers from published model cards + Steel.dev index. Top-20 coverage thin; most published sources only report top 5-8.",
+    explainer: {
+      what: "1,266 hard questions where the answer exists on the public web but can't be found with a single search. The model has to browse multiple sites, chain findings together, and verify as it goes. OpenAI verified that GPT-4o with browsing scored near-zero.",
+      example: "\"What was the name of the 1995 film starring the actress who played the character Victoria, who married the final scorer of the 1998 World Cup two years after the win?\" Finding the answer requires identifying the actress, looking up her filmography, her spouse, then the 1998 World Cup final scorer.",
+      scoring: "Answers are short strings compared against a reference answer. Scored as % correct across 1,266 questions.",
+      caveat: "Scores vary dramatically between single-agent mode and \"agent swarm\" mode. The same model can score 40 points higher with a swarm than solo, so always check which mode a score represents."
+    },
     models: [
       { rank: 1, model: "GPT-5.5 Pro", org: "OpenAI", score: 90.1 },
       { rank: 2, model: "GPT-5.4 Pro", org: "OpenAI", score: 89.3 },
@@ -420,13 +450,19 @@ const BENCHMARK_DATA = [
     id: "taubench",
     tier: 1,
     name: "Tau-bench",
-    description: "Multi-turn tool use (airline / retail agents)",
+    description: "Can the model handle a customer-service call using tools correctly?",
     whyItMatters: "Closest public benchmark to triage, outreach, and scheduling agents",
     sourceUrl: "https://leaderboard.steel.dev/results",
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["tool-use", "agentic"],
     note: "Public Tau-bench data lags newest models. Top 5-8 are from model cards + comparative blogs; ranks beyond that rely on older benchmarks.",
+    explainer: {
+      what: "A simulated user (played by another LLM) calls the agent with a real-world request. The agent has to read company policy docs, ask clarifying questions, call the right APIs in the right order, and modify a database — all while following rules it was given at the start.",
+      example: "In the airline scenario: a simulated passenger says \"I want to change my flight from Tuesday to Thursday.\" The agent has to verify their booking, check fare rules, calculate any fees, confirm the change, and update the reservation. A mistake at any step fails the task.",
+      scoring: "pass^k metric: the agent runs the same task k times. If all k runs succeed, score = 1. This punishes models that occasionally forget policy or call APIs in the wrong order.",
+      caveat: "Scores drop sharply as k grows. GPT-4o went from ~50% at pass^1 to ~25% at pass^8 — reliability over many calls is much harder than succeeding once."
+    },
     models: [
       { rank: 1, model: "Claude Opus 4.6", org: "Anthropic", score: 72.0 },
       { rank: 2, model: "GPT-5.4", org: "OpenAI", score: 68.0 },
@@ -448,6 +484,12 @@ const BENCHMARK_DATA = [
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["reasoning", "knowledge"],
+    explainer: {
+      what: "198 multiple-choice questions written by PhD-level domain experts in physics, biology, and chemistry. The \"Diamond\" subset is filtered to questions that experts can reliably answer but non-experts fail at even with 30 minutes of Google.",
+      example: "\"Consider a nucleus with atomic number 7 and mass number 14. It undergoes a beta-minus decay. What is the resulting nucleus's binding energy per nucleon relative to the original?\" (followed by four answer choices)",
+      scoring: "% of 198 questions answered correctly. Random guessing = 25%.",
+      caveat: "Frontier models are approaching saturation (94%+). A 2-point gap near the top is probably noise, not capability. Useful as a floor check, less useful for picking between top models."
+    },
     models: [
       { rank: 1, model: "Gemini 3.1 Pro", org: "Google", score: 94.3 },
       { rank: 2, model: "Claude Opus 4.7", org: "Anthropic", score: 94.2 },
@@ -481,6 +523,12 @@ const BENCHMARK_DATA = [
     scoreFormat: "pct",
     tags: ["reasoning", "knowledge"],
     note: "Top tier heavily saturated with Gemini/Claude frontier reasoning variants. Open models dominate the long tail on llm-stats; frontier leaders from Artificial Analysis listed here.",
+    explainer: {
+      what: "A harder version of the original MMLU benchmark. ~12,000 multiple-choice questions across law, medicine, engineering, economics, and other professional domains. Uses 10 answer choices instead of 4, and questions require multi-step reasoning, not just recall.",
+      example: "\"A company has a deferred tax asset of $500K from an NOL carryforward. Under ASC 740, if there's a 60% likelihood the NOL will expire unused, what's the correct valuation allowance?\" (followed by 10 choices)",
+      scoring: "% correct. Random guess = 10%. Frontier model scores drop 14-16 points from MMLU to MMLU-Pro because the choices are harder to eliminate.",
+      caveat: "Open Chinese models (Qwen, GLM) often dominate llm-stats' MMLU-Pro because they optimize for this class of benchmark. Artificial Analysis reports more reflective of frontier-lab capability."
+    },
     models: [
       { rank: 1, model: "Gemini 3.1 Pro Preview", org: "Google", score: 90.99 },
       { rank: 2, model: "Gemini 3 Pro", org: "Google", score: 90.1 },
@@ -508,13 +556,19 @@ const BENCHMARK_DATA = [
     id: "lmarena",
     tier: 2,
     name: "LMArena (Arena Elo)",
-    description: "Open-ended human preference, blind battles",
+    description: "Which model do real people prefer when both answer the same question?",
     whyItMatters: "Proxy for writing quality, voice, general instruction following",
     sourceUrl: "https://arena.ai/leaderboard",
     lastUpdated: "2026-04-23",
     scoreFormat: "elo",
     tags: ["writing", "voice", "general"],
     note: "Scores beyond #10 shown on the leaderboard without public Elo numbers — ranks are directional, exact Elo not published.",
+    explainer: {
+      what: "Real humans type any question they want into arena.ai — coding help, recipe ideas, writing feedback, relationship advice, math homework, anything. Two anonymous models each write a response. The human reads both and picks the one they prefer. The site doesn't reveal which model was which until after the pick. Millions of these battles feed an Elo rating.",
+      example: "Someone types: \"Rewrite this cold email to sound more human and less salesy: [pastes email].\" Model A returns a polished rewrite that keeps the original structure. Model B returns a rewrite plus a paragraph explaining what it changed and why. The human picks whichever felt more useful — maybe B for the explanation, maybe A for being concise. One battle, one vote. A top-ranked model like Claude Opus 4.7 got there because humans picked its responses more often than any other model's across millions of such battles.",
+      scoring: "Elo rating (same system as chess). Higher = more humans prefer this model in head-to-heads. A 20-point Elo gap means the higher-rated model wins about 53% of battles against the lower-rated one. A 100-point gap = 64%.",
+      caveat: "Measures whether humans LIKED the answer, not whether it was correct. Models that sound confident, format nicely, or write longer answers often win over terser-but-more-accurate ones. A great LMArena score doesn't guarantee factual accuracy."
+    },
     models: [
       { rank: 1, model: "Claude Opus 4.7 (Thinking)", org: "Anthropic", score: 1503 },
       { rank: 2, model: "Claude Opus 4.6 (Thinking)", org: "Anthropic", score: 1502 },
@@ -542,13 +596,19 @@ const BENCHMARK_DATA = [
     id: "longctx",
     tier: 2,
     name: "Long-Context (MRCR @ 1M)",
-    description: "8-needle multi-needle retrieval at 1M tokens",
+    description: "Can the model actually use the huge context window it advertises?",
     whyItMatters: "Heavy vault / codebase retrieval, large CLAUDE.md chains, long document analysis",
     sourceUrl: "https://awesomeagents.ai/leaderboards/long-context-benchmarks-leaderboard/",
     lastUpdated: "2026-04-23",
     scoreFormat: "pct",
     tags: ["long-context", "retrieval"],
     note: "Coverage is sparse at 1M — only 5-6 models have verified scores. Most models collapse beyond 128K. Published numbers vary based on needle count.",
+    explainer: {
+      what: "Feed the model ~1 million tokens of fake conversation (writing prompts like \"write a poem about tapirs\"). Hidden inside are 8 nearly-identical prompts. Ask the model to return the Nth one specifically. It has to distinguish between all 8 and retrieve the right one.",
+      example: "Pretend a user had asked for \"a poem about rocks\" 8 different times across a massive conversation. You then ask: \"Give me the 3rd poem about rocks.\" The model has to find all 8, count them in order, and return exactly the third one — not the 2nd, not the 4th.",
+      scoring: "% of queries where the model returns the correct instance. Much harder than needle-in-haystack because the needles look almost identical.",
+      caveat: "Most models advertise 1M context but only Claude Opus 4.6 and GPT-5.5/5.2 score meaningfully above 70% at 1M. Context window ≠ usable context."
+    },
     models: [
       { rank: 1, model: "Claude Opus 4.6", org: "Anthropic", score: 76.0 },
       { rank: 2, model: "GPT-5.5", org: "OpenAI", score: 74.0 },
@@ -659,6 +719,13 @@ function fmtScore(score, format) {
 }
 
 const expandedCards = new Set();
+const expandedExplainers = new Set();
+
+function toggleExplainer(id) {
+  if (expandedExplainers.has(id)) expandedExplainers.delete(id);
+  else expandedExplainers.add(id);
+  renderGrid();
+}
 
 function renderGrid() {
   const grid = document.getElementById("grid");
@@ -692,6 +759,23 @@ function renderGrid() {
         `).join("")}
       </table>
       ${b.note ? `<p class="card-note">${b.note}</p>` : ''}
+      ${b.explainer ? `
+        <button class="explainer-toggle ${expandedExplainers.has(b.id) ? 'open' : ''}" onclick="toggleExplainer('${b.id}')">
+          <span>What does this test?</span>
+          <span class="chev">▸</span>
+        </button>
+        ${expandedExplainers.has(b.id) ? `
+          <div class="explainer-body">
+            <h4>What it tests</h4>
+            <p>${b.explainer.what}</p>
+            <h4>Example</h4>
+            <p class="example">${b.explainer.example}</p>
+            <h4>How it's scored</h4>
+            <p>${b.explainer.scoring}</p>
+            ${b.explainer.caveat ? `<h4>Caveat</h4><p class="caveat">${b.explainer.caveat}</p>` : ''}
+          </div>
+        ` : ''}
+      ` : ''}
       <div class="card-foot">
         <span>Updated ${b.lastUpdated} · ${list.length} models${collapsedCount > 0 ? ` (${collapsedCount} duplicates collapsed)` : ''}</span>
         <div style="display:flex; gap:10px; align-items:center;">
