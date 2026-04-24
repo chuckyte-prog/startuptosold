@@ -814,7 +814,10 @@ function onWeightChange(e) {
 }
 
 // For each benchmark, normalize so top score in that benchmark = 100.
-// A model missing from a benchmark's top-5 gets null (excluded from that benchmark's weight).
+// Missing from top N: assume a "not ranked" score equal to the bottom-ranked model's score × 0.85.
+// This penalizes absence (we have no evidence the model is strong) without zeroing it out.
+const MISSING_PENALTY = 0.60; // A missing model is treated as 60% of the top score on that benchmark.
+
 function computeComposite(modelName, w) {
   let weightedSum = 0;
   let weightTotal = 0;
@@ -825,10 +828,16 @@ function computeComposite(modelName, w) {
     const weight = w[b.id] ?? (b.tier === 1 ? 2 : 1);
     if (weight === 0) return;
     const hit = b.models.find(m => m.model === modelName);
-    if (!hit) { perBench[b.id] = null; missingBenchmarks++; return; }
     const topScore = Math.max(...b.models.map(m => m.score));
-    const normalized = (hit.score / topScore) * 100;
-    perBench[b.id] = normalized;
+    let normalized;
+    if (!hit) {
+      normalized = MISSING_PENALTY * 100;
+      perBench[b.id] = null;
+      missingBenchmarks++;
+    } else {
+      normalized = (hit.score / topScore) * 100;
+      perBench[b.id] = normalized;
+    }
     weightedSum += normalized * weight;
     weightTotal += weight;
   });
@@ -874,7 +883,7 @@ function renderComposite() {
         `).join("")}
       </tbody>
     </table>
-    <p class="missing-note" style="margin-top:14px; display:block">Models are ranked against only the benchmarks where they appear in the top 5. A model absent from many benchmarks isn't penalized; it's just scored on what we know about it. "In 3/8 benchmarks" = score based on 3 data points.</p>
+    <p class="missing-note" style="margin-top:14px; display:block">Top score on each benchmark = 100. Missing from a benchmark's top 20 = scored as 60 (no-evidence penalty, so absence hurts but doesn't zero out). "In 3/8 benchmarks" means we have real data for 3 benchmarks and assumed middling performance on 5.</p>
   `;
 }
 
@@ -914,7 +923,7 @@ const KEYWORDS = {
   "tool-use":    ["tool use", "tool-use", "function call", "calls tools", "use tools", "plugin", "api call", "mcp", "structured output"],
   "browsing":    ["browser", "browse", "scrape", "scraping", "website", "web page", "crawl", "web research", "deep research", "surf"],
   "research":    ["research", "analyze", "analysis", "synthesize", "synthesis", "investigate", "summarize", "summari"],
-  "writing":     ["write", "writing", "blog", "copy", "article", "content", "email", "newsletter", "marketing", "social media", "post "],
+  "writing":     ["writing", "blog", "copy", "article", "content", "email", "newsletter", "marketing", "social media", "write a ", "write content", "written content"],
   "voice":       ["voice", "tone", "style", "sound like me", "my voice", "personality", "brand voice"],
   "reasoning":   ["reason", "reasoning", "logic", "logical", "complex problem", "hard question", "math", "science", "physics", "chemistry"],
   "knowledge":   ["knowledge", "trivia", "general knowledge", "professional", "domain expert"],
@@ -1051,7 +1060,7 @@ function analyzeUsecase() {
       `).join("")}
     </div>
 
-    <p style="color:var(--ink-3); font-size:12px; margin-top:22px; font-style:italic;">Fit score = composite across all benchmarks, weighted by what your description emphasized. Top scorer on each benchmark = 100. A model scoring 100 wins every weighted benchmark; 85 means it's strong but not dominant on what you care about.</p>
+    <p style="color:var(--ink-3); font-size:12px; margin-top:22px; font-style:italic;">Fit score = weighted composite across all benchmarks. Top scorer on each benchmark = 100. Models missing from a benchmark's top 20 are scored as 60 (no-evidence penalty). A model scoring 95+ is dominant on what you care about; 80-95 is strong; below 75 means it's missing from key benchmarks for your use case.</p>
   `;
 }
 
