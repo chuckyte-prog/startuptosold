@@ -925,10 +925,26 @@ const SIGNAL_MAP = {
 
 // Keyword detection — maps input text to signal tags
 const KEYWORDS = {
-  "coding":      ["code", "coding", "programming", "dev", "developer", "programmer", "github", "bug", "pull request", "pr ", "repo", "repository", "patch", "refactor", "function", "api", "sdk", "framework", "typescript", "python", "javascript", "ship code"],
+  "coding":      [
+    "code", "coding", "programming", "dev", "developer", "programmer",
+    "github", "bug", "pull request", "pr ", "repo", "repository", "patch",
+    "refactor", "function", "api", "sdk", "framework",
+    "typescript", "python", "javascript", "ship code",
+    // building tools / apps / sites (without needing the word "code")
+    "build a tool", "build an app", "build a site", "build an application",
+    "building a tool", "building an app", "building a site", "building tools",
+    "building apps", "building websites", "building sites", "building software",
+    "building simple", "making a tool", "make a tool", "create a tool",
+    "creating a tool", "make an app", "make a site", "make a website",
+    "simple tool", "simple tools", "simple website", "simple websites",
+    "simple site", "simple sites", "tool building", "website building",
+    "site building", "small tool", "small tools", "little tool",
+    "app", "apps", "application", "script", "scripts", "automation",
+    "automating"
+  ],
   "agentic":     ["agent", "agentic", "autonomous", "multi-step", "multi step", "orchestrat", "pipeline", "workflow", "chain", "autonomy"],
   "tool-use":    ["tool use", "tool-use", "function call", "calls tools", "use tools", "plugin", "api call", "mcp", "structured output"],
-  "browsing":    ["browser", "browse", "scrape", "scraping", "website", "web page", "crawl", "web research", "deep research", "surf"],
+  "browsing":    ["browser", "browse", "scrape", "scraping", "crawl", "web research", "deep research", "surf", "web scraping", "fetch from the web", "pull data from", "research the web", "web page", "web pages", "visit sites", "visit pages", "read sites", "navigate the web", "browsing the web"],
   "research":    ["research", "analyze", "analysis", "synthesize", "synthesis", "investigate", "summarize", "summari"],
   "writing":     ["writing", "blog", "copy", "article", "content", "email", "newsletter", "marketing", "social media", "write a ", "write content", "written content"],
   "voice":       ["voice", "tone", "style", "sound like me", "my voice", "personality", "brand voice"],
@@ -936,7 +952,14 @@ const KEYWORDS = {
   "knowledge":   ["knowledge", "trivia", "general knowledge", "professional", "domain expert"],
   "long-context":["long context", "long-context", "big context", "128k", "200k", "1m token", "million token", "entire codebase", "whole codebase", "large document", "long document"],
   "retrieval":   ["retrieve", "retrieval", "rag", "find in", "search through"],
-  "dev":         ["shipping code", "building tools", "cli", "command line", "terminal"],
+  "dev":         [
+    "shipping code", "building tools", "cli", "command line", "terminal",
+    // simple builder phrasing that implies dev-adjacent work
+    "build a tool", "building a tool", "simple tool", "simple website",
+    "simple site", "small tool", "tool building", "making a tool",
+    "create a tool", "website", "websites", "web site", "web sites",
+    "landing page", "frontend", "backend"
+  ],
   "general":     ["general purpose", "general-purpose", "broad", "everyday"]
 };
 
