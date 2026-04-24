@@ -9,3 +9,10 @@ docs/legacy-assessment/
 docs/legacy-chucktemple/
 docs/legacy-lead-capture/
 docs/site-structure.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
