@@ -272,6 +272,17 @@
           <input type="checkbox" id="frontier-toggle-compare" checked onchange="onFrontierToggle('compare', event)" style="accent-color: var(--accent);">
           Frontier only
         </label>
+        <label style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-2); user-select:none;">
+          Runs on:
+          <select onchange="onHardwareFilterChange('compare', event)" style="background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-family: inherit;">
+            <option value="all">All (any hardware)</option>
+            <option value="openweights">Any open-weights model</option>
+            <option value="laptop">Laptop (8-16GB RAM)</option>
+            <option value="midrange">Mid-range (32-64GB)</option>
+            <option value="highend">High-end home (128GB+ / Mac Studio)</option>
+            <option value="datacenter">Datacenter-class</option>
+          </select>
+        </label>
         <button onclick="quickCompareFrontier()">Quick: top frontier</button>
         <button onclick="clearCompare()">Clear</button>
       </div>
@@ -304,10 +315,21 @@
 <section id="view-composite" style="display:none">
   <div class="composite-wrap">
     <p class="composite-intro">Composite ranking across all benchmarks, normalized so the top scorer on each benchmark = 100, others scale relative to it. Tier 1 benchmarks (core to your work) weighted 2x by default, Tier 2 weighted 1x. Tune the weights below if your current focus is different.</p>
-    <div style="margin-bottom:18px;">
+    <div style="margin-bottom:18px; display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
       <label style="display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); user-select:none;">
         <input type="checkbox" id="frontier-toggle-composite" checked onchange="onFrontierToggle('composite', event)" style="accent-color: var(--accent);">
         Frontier only (last ~6 months of releases)
+      </label>
+      <label style="display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); user-select:none;">
+        Runs on:
+        <select onchange="onHardwareFilterChange('composite', event)" style="background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 6px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;">
+          <option value="all">All (any hardware)</option>
+          <option value="openweights">Any open-weights model</option>
+          <option value="laptop">Laptop (8-16GB RAM)</option>
+          <option value="midrange">Mid-range (32-64GB)</option>
+          <option value="highend">High-end home (128GB+ / Mac Studio)</option>
+          <option value="datacenter">Datacenter-class</option>
+        </select>
       </label>
     </div>
     <div class="weights">
@@ -648,6 +670,55 @@ function canonicalizeModel(name) {
 
 // Frontier = released in the last ~6 months based on version heuristics.
 // Returns true for the models Chuck actually cares about choosing between.
+// Classify where a model can run locally. Returns one of:
+//   "laptop"     — fits in 8-16GB RAM (≤7B dense at 4-bit). MacBook Air / mid laptop.
+//   "midrange"   — fits in 32-64GB RAM or a single consumer GPU (≤32B dense, or MoE with small active params).
+//   "highend"    — fits on 128GB+ workstation or Mac Studio M2/M3 Ultra (70-120B dense).
+//   "datacenter" — needs multi-GPU server or cloud. Big MoE models, 200B+ dense.
+//   "api"        — proprietary API-only. Cannot run locally at any hardware tier.
+// Order matters — return the most-restrictive tier that still fits. Anything not matched returns "api"
+// because we can't confirm open weights exist.
+function classifyLocalFit(canonicalName) {
+  const n = canonicalName;
+
+  // Closed / API-only
+  if (/^Claude /i.test(n)) return "api";
+  if (/^GPT-/i.test(n)) return "api";
+  if (/^Gemini /i.test(n)) return "api";
+  if (/^Grok-/i.test(n)) return "api";
+  if (/^ERNIE /i.test(n)) return "api";
+  if (/^OpenAI Deep Research/i.test(n)) return "api";
+  if (/^Junie CLI/i.test(n)) return "api";
+  if (/^Muse Spark/i.test(n)) return "api";          // Meta's recent model, not publicly released at time of snapshot
+  if (/^Qwen3\.5 Max/i.test(n)) return "api";        // Alibaba flagship, closed
+  if (/^Seed 2\.0/i.test(n)) return "api";           // ByteDance, closed
+
+  // Big MoE / datacenter-only
+  if (/^Kimi K2(\.|$)/i.test(n)) return "datacenter";    // ~1T params, 32B active
+  if (/^Kimi K2-Thinking/i.test(n)) return "datacenter";
+  if (/^MiniMax M2/i.test(n)) return "datacenter";       // large MoE
+  if (/^GLM-(4\.(5|7)|5)/i.test(n)) return "datacenter"; // 200B+ MoE
+  if (/^DeepSeek-V3/i.test(n)) return "datacenter";      // 671B MoE
+  if (/^Qwen3\.5-397B/i.test(n)) return "datacenter";
+  if (/^Qwen3\.5-122B/i.test(n)) return "datacenter";
+  if (/^Qwen3\.6 Plus/i.test(n)) return "datacenter";
+
+  // High-end home (~128GB+ RAM or high-end GPU workstation)
+  if (/^Llama 3\.1 70B/i.test(n)) return "highend";
+  if (/^WebSailor-72B/i.test(n)) return "highend";
+  if (/^MiMo-V2-Pro/i.test(n)) return "highend";    // ~70B class
+
+  // Mid-range home (32-64GB RAM / one consumer GPU)
+  if (/^Qwen3\.(5|6)-27B/i.test(n)) return "midrange";
+  if (/^Qwen3\.5-35B-A3B/i.test(n)) return "midrange";   // MoE, ~3B active
+  if (/^Qwen3\.6-35B-A3B/i.test(n)) return "midrange";
+  if (/^Gemma 4 31B/i.test(n)) return "midrange";
+  if (/^MiMo-V2-Flash/i.test(n)) return "midrange";
+
+  // Default fallback — unknown models treated as API-only (safer than claiming they run locally)
+  return "api";
+}
+
 function isFrontier(canonicalName) {
   const n = canonicalName;
   // Anthropic
@@ -683,6 +754,7 @@ function isFrontier(canonicalName) {
 BENCHMARK_DATA.forEach(b => {
   b.models.forEach(m => {
     m.canonical = canonicalizeModel(m.model);
+    m.localFit = classifyLocalFit(m.canonical);
     m.frontier = isFrontier(m.canonical);
   });
   // For benchmarks where multiple rows canonicalize to the same model, keep only
@@ -709,11 +781,34 @@ BENCHMARK_DATA.forEach(b => {
 // ============================================================================
 let activeTier = "all";
 const frontierFilter = { compare: true, composite: true };
+// Hardware filter: "all" (no filter), "laptop", "midrange", "highend", "datacenter", "openweights"
+// "openweights" = anything that isn't "api" (all downloadable models regardless of tier)
+const hardwareFilter = { compare: "all", composite: "all" };
 
 function onFrontierToggle(view, evt) {
   frontierFilter[view] = evt.target.checked;
   if (view === 'compare') { populateComparePicker(); renderCompare(); }
   if (view === 'composite') { renderComposite(); }
+}
+
+function onHardwareFilterChange(view, evt) {
+  hardwareFilter[view] = evt.target.value;
+  if (view === 'compare') { populateComparePicker(); renderCompare(); }
+  if (view === 'composite') { renderComposite(); }
+}
+
+// Returns true if a model passes the hardware filter for a given view.
+// Hierarchy: a model that fits "laptop" also fits "midrange"/"highend"/"datacenter"/"openweights"
+// because those tiers are strictly more capable. So "midrange" filter includes laptop + midrange models.
+function passesHardwareFilter(model, filter) {
+  if (filter === "all") return true;
+  if (filter === "openweights") return model.localFit !== "api";
+  const fits = model.localFit;
+  if (filter === "laptop")     return fits === "laptop";
+  if (filter === "midrange")   return fits === "laptop" || fits === "midrange";
+  if (filter === "highend")    return fits === "laptop" || fits === "midrange" || fits === "highend";
+  if (filter === "datacenter") return fits !== "api";
+  return true;
 }
 
 function fmtScore(score, format) {
@@ -811,7 +906,7 @@ function setTier(t) {
 function allModels() {
   const set = new Map();
   BENCHMARK_DATA.forEach(b => b.canonicalModels.forEach(m => {
-    if (!set.has(m.canonical)) set.set(m.canonical, { org: m.org, frontier: m.frontier });
+    if (!set.has(m.canonical)) set.set(m.canonical, { org: m.org, frontier: m.frontier, localFit: m.localFit });
   }));
   return Array.from(set.entries()).map(([model, meta]) => ({ model, ...meta }))
     .sort((a, b) => a.model.localeCompare(b.model));
@@ -874,7 +969,8 @@ let comparePickerWired = false;
 function populateComparePicker() {
   const sel = document.getElementById("compare-picker");
   const grouped = {};
-  const source = frontierFilter.compare ? allModels().filter(m => m.frontier) : allModels();
+  let source = frontierFilter.compare ? allModels().filter(m => m.frontier) : allModels();
+  source = source.filter(m => passesHardwareFilter(m, hardwareFilter.compare));
   source.forEach(m => { (grouped[m.org] = grouped[m.org] || []).push(m); });
   sel.innerHTML = '<option value="">+ Add a model to compare…</option>' +
     Object.entries(grouped).sort().map(([org, models]) => `
@@ -1042,7 +1138,8 @@ function computeComposite(modelName, w) {
 }
 
 function renderComposite() {
-  const source = frontierFilter.composite ? allModels().filter(m => m.frontier) : allModels();
+  let source = frontierFilter.composite ? allModels().filter(m => m.frontier) : allModels();
+  source = source.filter(m => passesHardwareFilter(m, hardwareFilter.composite));
   const results = source.map(m => {
     const c = computeComposite(m.model, weights);
     return { ...m, ...c };
