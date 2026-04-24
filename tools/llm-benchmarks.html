@@ -50,8 +50,9 @@
 
   /* View switcher */
   .controls { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-  .view-toggle { display: inline-flex; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px; gap: 2px; }
-  .view-toggle button { background: transparent; color: var(--ink-2); border: 0; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+  .view-toggle { display: inline-flex; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px; gap: 2px; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .view-toggle::-webkit-scrollbar { display: none; }
+  .view-toggle button { background: transparent; color: var(--ink-2); border: 0; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
   .view-toggle button.active { background: var(--accent); color: white; }
   .tier-filter { display: inline-flex; gap: 6px; align-items: center; color: var(--ink-3); font-size: 13px; }
   .tier-filter button { background: var(--bg-2); color: var(--ink-2); border: 1px solid var(--line); padding: 6px 12px; border-radius: 6px; font-size: 13px; }
@@ -118,7 +119,9 @@
   .model-add .quick button { background: var(--bg-3); border: 1px solid var(--line); color: var(--ink-2); padding: 7px 12px; border-radius: 6px; font-size: 12px; }
   .model-add .quick button:hover { border-color: var(--accent); color: var(--ink); }
 
-  table.compare { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; }
+  .table-scroll table { margin: 0; border: 0; }
+  table.compare { width: 100%; border-collapse: collapse; margin-top: 16px; min-width: 500px; }
   table.compare th, table.compare td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 13px; }
   table.compare th { background: var(--bg-3); color: var(--ink-2); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; position: sticky; top: 0; }
   table.compare th.benchcol { min-width: 200px; }
@@ -137,7 +140,7 @@
   .weights { background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px; padding: 18px; margin-bottom: 24px; }
   .weights h3 { margin: 0 0 4px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
   .weights p { margin: 0 0 14px; color: var(--ink-3); font-size: 12px; }
-  .weight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 22px; }
+  .weight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 22px; }
   .wrow { display: grid; grid-template-columns: 1fr 36px; gap: 10px; align-items: center; }
   .wrow label { font-size: 13px; }
   .wrow label .wt { color: var(--ink-3); font-size: 11px; margin-left: 6px; }
@@ -147,7 +150,7 @@
   .weights-actions button { background: transparent; border: 1px solid var(--line-2); color: var(--ink-2); padding: 6px 12px; border-radius: 6px; font-size: 12px; }
   .weights-actions button:hover { border-color: var(--accent); color: var(--ink); }
 
-  table.composite { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  table.composite { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 560px; }
   table.composite th, table.composite td { padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
   table.composite th { text-align: left; background: var(--bg-3); color: var(--ink-2); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
   table.composite th.num, table.composite td.num { text-align: right; font-family: "JetBrains Mono", monospace; }
@@ -746,6 +749,7 @@ function renderCompare() {
   const compositeScores = compareModels.map(mn => computeComposite(mn, defaultWeights()));
 
   container.innerHTML = `
+    <div class="table-scroll">
     <table class="compare">
       <thead>
         <tr>
@@ -774,6 +778,7 @@ function renderCompare() {
         </tr>
       </tbody>
     </table>
+    </div>
   `;
 }
 
@@ -857,6 +862,7 @@ function renderComposite() {
 
   const container = document.getElementById("composite-table");
   container.innerHTML = `
+    <div class="table-scroll">
     <table class="composite">
       <thead>
         <tr>
@@ -883,6 +889,7 @@ function renderComposite() {
         `).join("")}
       </tbody>
     </table>
+    </div>
     <p class="missing-note" style="margin-top:14px; display:block">Top score on each benchmark = 100. Missing from a benchmark's top 20 = scored as 60 (no-evidence penalty, so absence hurts but doesn't zero out). "In 3/8 benchmarks" means we have real data for 3 benchmarks and assumed middling performance on 5.</p>
   `;
 }
