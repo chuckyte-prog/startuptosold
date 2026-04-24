@@ -31,7 +31,6 @@
     --accent-2: #ff8a5c;
     --good: #3ecf8e;
     --ok: #d8b64a;
-    --preview: #7c5cff;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
@@ -80,7 +79,6 @@
   table.rank .mdl:hover .mdl-name { color: var(--accent-2); text-decoration: underline; }
   .mdl-name { font-weight: 600; }
   .mdl-org { color: var(--ink-3); font-size: 12px; margin-left: 6px; }
-  .preview-tag { color: var(--preview); font-size: 10px; font-weight: 700; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
   .score { text-align: right; font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
 
   .card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; color: var(--ink-3); flex-wrap: wrap; gap: 8px; }
@@ -325,7 +323,7 @@
 <script>
 // ============================================================================
 // BENCHMARK_DATA — snapshot 2026-04-23. To refresh, ask Claude: "refresh the benchmarks".
-// Each benchmark: { tier, name, description, whyItMatters, sourceUrl, lastUpdated, scoreFormat, models: [{rank, model, org, score, preview?}] }
+// Each benchmark: { tier, name, description, whyItMatters, sourceUrl, lastUpdated, scoreFormat, models: [{rank, model, org, score}] }
 // ============================================================================
 const BENCHMARK_DATA = [
   {
@@ -339,26 +337,25 @@ const BENCHMARK_DATA = [
     scoreFormat: "pct",
     tags: ["coding", "agentic", "dev"],
     models: [
-      { rank: 1, model: "Claude Mythos Preview", org: "Anthropic", score: 93.9, preview: true },
-      { rank: 2, model: "Claude Opus 4.7", org: "Anthropic", score: 87.6 },
-      { rank: 3, model: "GPT-5.3 Codex", org: "OpenAI", score: 85.0 },
-      { rank: 4, model: "Claude Opus 4.5", org: "Anthropic", score: 80.9 },
-      { rank: 5, model: "Claude Opus 4.6", org: "Anthropic", score: 80.8 },
-      { rank: 6, model: "Gemini 3.1 Pro", org: "Google", score: 80.6 },
-      { rank: 7, model: "MiniMax M2.5", org: "MiniMax", score: 80.2 },
-      { rank: 7, model: "Kimi K2.6", org: "Moonshot AI", score: 80.2 },
-      { rank: 9, model: "GPT-5.2", org: "OpenAI", score: 80.0 },
-      { rank: 10, model: "Claude Sonnet 4.6", org: "Anthropic", score: 79.6 },
-      { rank: 11, model: "Qwen3.6 Plus", org: "Alibaba", score: 78.8 },
-      { rank: 12, model: "Gemini 3 Flash", org: "Google", score: 78.0 },
-      { rank: 12, model: "MiMo-V2-Pro", org: "Xiaomi", score: 78.0 },
-      { rank: 14, model: "GLM-5", org: "Zhipu AI", score: 77.8 },
-      { rank: 15, model: "Muse Spark", org: "Meta", score: 77.4 },
-      { rank: 16, model: "Qwen3.6-27B", org: "Alibaba", score: 77.2 },
-      { rank: 17, model: "Kimi K2.5", org: "Moonshot AI", score: 76.8 },
-      { rank: 18, model: "Seed 2.0 Pro", org: "ByteDance", score: 76.5 },
-      { rank: 19, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 76.4 },
-      { rank: 20, model: "GPT-5.1", org: "OpenAI", score: 76.3 }
+      { rank: 1, model: "Claude Opus 4.7", org: "Anthropic", score: 87.6 },
+      { rank: 2, model: "GPT-5.3 Codex", org: "OpenAI", score: 85.0 },
+      { rank: 3, model: "Claude Opus 4.5", org: "Anthropic", score: 80.9 },
+      { rank: 4, model: "Claude Opus 4.6", org: "Anthropic", score: 80.8 },
+      { rank: 5, model: "Gemini 3.1 Pro", org: "Google", score: 80.6 },
+      { rank: 6, model: "MiniMax M2.5", org: "MiniMax", score: 80.2 },
+      { rank: 6, model: "Kimi K2.6", org: "Moonshot AI", score: 80.2 },
+      { rank: 8, model: "GPT-5.2", org: "OpenAI", score: 80.0 },
+      { rank: 9, model: "Claude Sonnet 4.6", org: "Anthropic", score: 79.6 },
+      { rank: 10, model: "Qwen3.6 Plus", org: "Alibaba", score: 78.8 },
+      { rank: 11, model: "Gemini 3 Flash", org: "Google", score: 78.0 },
+      { rank: 11, model: "MiMo-V2-Pro", org: "Xiaomi", score: 78.0 },
+      { rank: 13, model: "GLM-5", org: "Zhipu AI", score: 77.8 },
+      { rank: 14, model: "Muse Spark", org: "Meta", score: 77.4 },
+      { rank: 15, model: "Qwen3.6-27B", org: "Alibaba", score: 77.2 },
+      { rank: 16, model: "Kimi K2.5", org: "Moonshot AI", score: 76.8 },
+      { rank: 17, model: "Seed 2.0 Pro", org: "ByteDance", score: 76.5 },
+      { rank: 18, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 76.4 },
+      { rank: 19, model: "GPT-5.1", org: "OpenAI", score: 76.3 }
     ]
   },
   {
@@ -452,26 +449,25 @@ const BENCHMARK_DATA = [
     scoreFormat: "pct",
     tags: ["reasoning", "knowledge"],
     models: [
-      { rank: 1, model: "Claude Mythos Preview", org: "Anthropic", score: 94.6, preview: true },
-      { rank: 2, model: "Gemini 3.1 Pro", org: "Google", score: 94.3 },
-      { rank: 3, model: "Claude Opus 4.7", org: "Anthropic", score: 94.2 },
-      { rank: 4, model: "GPT-5.5", org: "OpenAI", score: 93.6 },
-      { rank: 5, model: "GPT-5.2 Pro", org: "OpenAI", score: 93.2 },
-      { rank: 6, model: "GPT-5.4", org: "OpenAI", score: 92.8 },
-      { rank: 7, model: "GPT-5.2", org: "OpenAI", score: 92.4 },
-      { rank: 8, model: "Gemini 3 Pro", org: "Google", score: 91.9 },
-      { rank: 9, model: "Claude Opus 4.6", org: "Anthropic", score: 91.3 },
-      { rank: 10, model: "Kimi K2.6", org: "Moonshot AI", score: 90.5 },
-      { rank: 11, model: "Qwen3.6 Plus", org: "Alibaba", score: 90.4 },
-      { rank: 11, model: "Gemini 3 Flash", org: "Google", score: 90.4 },
-      { rank: 13, model: "Claude Sonnet 4.6", org: "Anthropic", score: 89.9 },
-      { rank: 14, model: "Muse Spark", org: "Meta", score: 89.5 },
-      { rank: 15, model: "Seed 2.0 Pro", org: "ByteDance", score: 88.9 },
-      { rank: 16, model: "Grok-4 Heavy", org: "xAI", score: 88.4 },
-      { rank: 16, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 88.4 },
-      { rank: 18, model: "GPT-5.1 Thinking", org: "OpenAI", score: 88.1 },
-      { rank: 19, model: "GPT-5.1 High", org: "OpenAI", score: 88.1 },
-      { rank: 20, model: "GPT-5 Medium", org: "OpenAI", score: 88.1 }
+      { rank: 1, model: "Gemini 3.1 Pro", org: "Google", score: 94.3 },
+      { rank: 2, model: "Claude Opus 4.7", org: "Anthropic", score: 94.2 },
+      { rank: 3, model: "GPT-5.5", org: "OpenAI", score: 93.6 },
+      { rank: 4, model: "GPT-5.2 Pro", org: "OpenAI", score: 93.2 },
+      { rank: 5, model: "GPT-5.4", org: "OpenAI", score: 92.8 },
+      { rank: 6, model: "GPT-5.2", org: "OpenAI", score: 92.4 },
+      { rank: 7, model: "Gemini 3 Pro", org: "Google", score: 91.9 },
+      { rank: 8, model: "Claude Opus 4.6", org: "Anthropic", score: 91.3 },
+      { rank: 9, model: "Kimi K2.6", org: "Moonshot AI", score: 90.5 },
+      { rank: 10, model: "Qwen3.6 Plus", org: "Alibaba", score: 90.4 },
+      { rank: 10, model: "Gemini 3 Flash", org: "Google", score: 90.4 },
+      { rank: 12, model: "Claude Sonnet 4.6", org: "Anthropic", score: 89.9 },
+      { rank: 13, model: "Muse Spark", org: "Meta", score: 89.5 },
+      { rank: 14, model: "Seed 2.0 Pro", org: "ByteDance", score: 88.9 },
+      { rank: 15, model: "Grok-4 Heavy", org: "xAI", score: 88.4 },
+      { rank: 15, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 88.4 },
+      { rank: 17, model: "GPT-5.1 Thinking", org: "OpenAI", score: 88.1 },
+      { rank: 18, model: "GPT-5.1 High", org: "OpenAI", score: 88.1 },
+      { rank: 19, model: "GPT-5 Medium", org: "OpenAI", score: 88.1 }
     ]
   },
   {
@@ -574,28 +570,16 @@ const BENCHMARK_DATA = [
 //   "Claude Opus 4.7 (Thinking)"   -> "Claude Opus 4.7"
 //   "GPT-5.5 (Codex)"              -> "GPT-5.5"
 //   "Gemini 3.1 Pro (TongAgents)"  -> "Gemini 3.1 Pro"
-//   "Kimi K2.6 (Agent Swarm)"      -> "Kimi K2.6"
-//   "Claude 4.6 Opus"              -> "Claude Opus 4.6"  (typo normalization)
-// We ALSO fold "Thinking"/"High"/"Pro Thinking"/"Reasoning" reasoning-effort
-// variants into the base model, since they're the same underlying model.
+//   "Gemini 3.1 Pro Preview"       -> "Gemini 3.1 Pro" (preview tier folded in)
+//   "Claude 4.6 Opus"              -> "Claude Opus 4.6" (typo normalization)
 function canonicalizeModel(name) {
   let n = name;
   // Drop any parenthetical suffix
   n = n.replace(/\s*\([^)]*\)\s*$/, "");
   // Fix "Claude 4.6 Opus" -> "Claude Opus 4.6" typo
   n = n.replace(/^Claude\s+(\d+(?:\.\d+)?)\s+(Opus|Sonnet|Haiku)$/i, "Claude $2 $1");
-  // Drop trailing effort modifiers: "Thinking", "Reasoning", "High", "Medium", "Low", "Instant"
-  n = n.replace(/\s+(Thinking|Reasoning|High|Medium|Low|Instant|Chat|Preview)\s*$/i, (m, w) => {
-    // Keep "Preview" when it's part of the model name itself (e.g. "Gemini 3.1 Pro Preview") -
-    // but for most models Preview is a distinct release tier so we do drop it. Mythos Preview
-    // is a special case: "Claude Mythos Preview" should stay intact, but we only want to drop
-    // Preview when it follows a numeric version. The regex above already handles base case;
-    // for Mythos Preview the word before "Preview" is "Mythos" (non-numeric), we don't match.
-    return "";
-  });
-  // Specifically keep "Claude Mythos Preview" (test for pattern where word before trailing
-  // Preview is non-numeric). Safer: add back if stripped.
-  if (/Mythos$/i.test(n) && /Mythos Preview/i.test(name)) n = n + " Preview";
+  // Drop trailing variant modifiers
+  n = n.replace(/\s+(Thinking|Reasoning|High|Medium|Low|Instant|Chat|Preview)\s*$/i, "");
   return n.trim();
 }
 
@@ -606,7 +590,6 @@ function isFrontier(canonicalName) {
   // Anthropic
   if (/^Claude Opus 4\.(5|6|7)/i.test(n)) return true;
   if (/^Claude Sonnet 4\.6/i.test(n)) return true;
-  if (/^Claude Mythos/i.test(n)) return true;
   // OpenAI
   if (/^GPT-5\.(2|3|4|5)/i.test(n)) return true;
   if (/GPT-5\.2 Pro/i.test(n)) return true;
@@ -702,7 +685,6 @@ function renderGrid() {
             <td class="rk">#${m.displayRank}</td>
             <td>
               <span class="mdl-name">${m.canonical}</span>
-              ${m.preview ? '<span class="preview-tag">preview</span>' : ''}
               <span class="mdl-org">${m.org}</span>
             </td>
             <td class="score">${fmtScore(m.score, b.scoreFormat)}</td>
@@ -742,7 +724,7 @@ function setTier(t) {
 function allModels() {
   const set = new Map();
   BENCHMARK_DATA.forEach(b => b.canonicalModels.forEach(m => {
-    if (!set.has(m.canonical)) set.set(m.canonical, { org: m.org, preview: !!m.preview, frontier: m.frontier });
+    if (!set.has(m.canonical)) set.set(m.canonical, { org: m.org, frontier: m.frontier });
   }));
   return Array.from(set.entries()).map(([model, meta]) => ({ model, ...meta }))
     .sort((a, b) => a.model.localeCompare(b.model));
@@ -758,7 +740,7 @@ function populateModelSelect() {
   sel.innerHTML = '<option value="">-- Pick a model --</option>' +
     Object.entries(grouped).sort().map(([org, models]) => `
       <optgroup label="${org}">
-        ${models.map(m => `<option value="${m.model}">${m.model}${m.preview ? ' (preview)' : ''}</option>`).join("")}
+        ${models.map(m => `<option value="${m.model}">${m.model}</option>`).join("")}
       </optgroup>
     `).join("");
   sel.addEventListener("change", e => showModelDetail(e.target.value));
@@ -773,7 +755,7 @@ function showModelDetail(modelName) {
   });
   const meta = allModels().find(m => m.model === modelName) || {};
   container.innerHTML = `
-    <h2>${modelName}${meta.preview ? ' <span class="preview-tag">preview</span>' : ''}</h2>
+    <h2>${modelName}</h2>
     <div class="org-label">${meta.org || ''}</div>
     <div class="model-rows">
       ${rows.map(r => `
@@ -810,7 +792,7 @@ function populateComparePicker() {
   sel.innerHTML = '<option value="">+ Add a model to compare…</option>' +
     Object.entries(grouped).sort().map(([org, models]) => `
       <optgroup label="${org}">
-        ${models.map(m => `<option value="${m.model}">${m.model}${m.preview ? ' (preview)' : ''}</option>`).join("")}
+        ${models.map(m => `<option value="${m.model}">${m.model}</option>`).join("")}
       </optgroup>
     `).join("");
   if (!comparePickerWired) {
@@ -846,7 +828,7 @@ function renderCompare() {
     ? '<span style="color:var(--ink-3); font-size:13px; font-style:italic;">No models selected. Add models above, or use "Quick: top frontier".</span>'
     : compareModels.map(m => {
         const meta = allModels().find(x => x.model === m) || {};
-        return `<span class="chip">${m}${meta.preview ? ' <span class="preview-tag">preview</span>' : ''} <button onclick="removeCompareModel('${m.replace(/'/g, "\\'")}')" aria-label="remove">×</button></span>`;
+        return `<span class="chip">${m} <button onclick="removeCompareModel('${m.replace(/'/g, "\\'")}')" aria-label="remove">×</button></span>`;
       }).join("");
 
   const container = document.getElementById("compare-table");
@@ -997,7 +979,6 @@ function renderComposite() {
             <td class="rank-badge">#${i + 1}</td>
             <td>
               ${r.model}
-              ${r.preview ? '<span class="preview-tag">preview</span>' : ''}
               ${r.missingBenchmarks > 0 ? `<span class="missing-note">(in ${BENCHMARK_DATA.length - r.missingBenchmarks}/${BENCHMARK_DATA.length} benchmarks)</span>` : ''}
             </td>
             <td>${r.org}</td>
@@ -1229,7 +1210,6 @@ function analyzeUsecase() {
           <div class="rec-body">
             <div>
               <span class="rec-name">${m.model}</span>
-              ${m.preview ? '<span class="preview-tag">preview</span>' : ''}
               <span class="rec-org">· ${m.org}</span>
             </div>
             <div class="rec-reason">${reasonFor(m.model)}</div>
