@@ -152,8 +152,11 @@
   .weights p { margin: 0 0 14px; color: var(--ink-3); font-size: 12px; }
   .weight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 22px; }
   .wrow { display: grid; grid-template-columns: 1fr 36px; gap: 10px; align-items: center; }
-  .wrow label { font-size: 13px; }
-  .wrow label .wt { color: var(--ink-3); font-size: 11px; margin-left: 6px; }
+  .wrow label { font-size: 13px; display: block; }
+  .wrow label .wt { color: var(--ink-3); font-size: 11px; }
+  .wrow .wlabel-row { display: flex; align-items: center; gap: 8px; }
+  .wrow .wlabel-name { font-weight: 600; }
+  .wrow .wlabel-desc { display: block; color: var(--ink-3); font-size: 11px; margin-top: 2px; line-height: 1.35; }
   .wrow input[type=range] { width: 100%; }
   .wrow .wval { font-family: "JetBrains Mono", monospace; font-size: 13px; text-align: right; color: var(--accent); font-weight: 700; }
   .weights-actions { display: flex; gap: 10px; margin-top: 14px; }
@@ -986,8 +989,11 @@ function renderWeightControls() {
   grid.innerHTML = BENCHMARK_DATA.map(b => `
     <div class="wrow">
       <label>
-        ${b.name}
-        <span class="wt">T${b.tier}</span>
+        <span class="wlabel-row">
+          <span class="wlabel-name">${b.name}</span>
+          <span class="wt">T${b.tier}</span>
+        </span>
+        <span class="wlabel-desc">${b.description}</span>
         <input type="range" min="0" max="3" step="0.5" value="${weights[b.id]}" data-id="${b.id}" oninput="onWeightChange(event)">
       </label>
       <span class="wval" id="wv-${b.id}">${weights[b.id].toFixed(1)}</span>
