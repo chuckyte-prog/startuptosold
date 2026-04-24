@@ -1086,13 +1086,43 @@ function setUsecase(key) {
   analyzeUsecase();
 }
 
+// Phrases that negate/discount anything in the same clause.
+// "I rarely need X", "I don't do X", "not much X", etc. should suppress X.
+const NEGATION_PATTERNS = [
+  /\bi (don't|do not|dont)\b/,
+  /\bi (won't|will not|wont)\b/,
+  /\bi (rarely|seldom|barely|hardly|never)\b/,
+  /\bi (won't need|don't need|do not need|rarely need|never need|won't use|don't use|never use)\b/,
+  /\b(no|not|little) need (for|to)\b/,
+  /\b(not|isn't|aren't) (important|critical|relevant|needed|required)\b/,
+  /\b(not much|not many|not a lot)\b/,
+  /\bless (important|relevant|needed|focus)\b/,
+  /\bnot my (focus|priority|main|primary)\b/,
+  /\bdon't (care|focus|prioritize) (about|on)\b/,
+  /\bminimal\b/,
+];
+
+function clauseIsNegated(clause) {
+  const c = clause.toLowerCase();
+  return NEGATION_PATTERNS.some(rx => rx.test(c));
+}
+
 function detectSignals(text) {
-  const t = " " + text.toLowerCase() + " ";
+  // Split into clauses on sentence AND comma-like boundaries so "I code, but I
+  // rarely browse" correctly negates only the "browse" half.
+  const clauses = text.split(/[.;,]|\bbut\b|\bhowever\b|\balthough\b|\bexcept\b/i);
   const detected = {};
-  for (const [tag, words] of Object.entries(KEYWORDS)) {
-    for (const w of words) {
-      if (t.includes(w.toLowerCase())) {
-        detected[tag] = (detected[tag] || 0) + 1;
+  for (const clauseRaw of clauses) {
+    const clause = clauseRaw.trim();
+    if (!clause) continue;
+    if (clauseIsNegated(clause)) continue;  // skip negated clauses entirely
+    const t = " " + clause.toLowerCase() + " ";
+    for (const [tag, words] of Object.entries(KEYWORDS)) {
+      for (const w of words) {
+        if (t.includes(w.toLowerCase())) {
+          detected[tag] = (detected[tag] || 0) + 1;
+          break;  // each tag counts at most once per clause
+        }
       }
     }
   }
@@ -1151,21 +1181,25 @@ function analyzeUsecase() {
   // Top 5 model recommendations
   const top5 = ranked.slice(0, 5);
 
-  // Build reason per model: name the 1-2 benchmarks where they score highest among the weighted set
+  // Build reason per model: cite benchmarks that BOTH matter for this use case (high weight)
+  // AND this model scores well on. Rank by weight × normalized so a 14× benchmark with
+  // an 85% normalized score beats a 1× benchmark with 100% normalized.
   function reasonFor(modelName) {
     const per = [];
     for (const b of topBenches) {
       const hit = b.canonicalModels.find(m => m.canonical === modelName);
       if (hit) {
         const topScore = Math.max(...b.canonicalModels.map(x => x.score));
-        per.push({ bench: b, hit, normalized: (hit.score / topScore) * 100 });
+        const normalized = (hit.score / topScore) * 100;
+        const weighted = normalized * b.weight;
+        per.push({ bench: b, hit, normalized, weighted });
       }
     }
-    per.sort((a, b) => b.normalized - a.normalized);
+    per.sort((a, b) => b.weighted - a.weighted);
     if (per.length === 0) return "Ranks on broader benchmarks but not the ones most relevant to your use case.";
     const best = per[0];
-    const wonder = best.normalized >= 95 ? "tops" : best.normalized >= 85 ? "strong on" : "competitive on";
-    return `${wonder} ${best.bench.name} (#${best.hit.displayRank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
+    const word = best.normalized >= 95 ? "tops" : best.normalized >= 85 ? "strong on" : "competitive on";
+    return `${word} ${best.bench.name} (#${best.hit.displayRank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
   }
 
   results.innerHTML = `
