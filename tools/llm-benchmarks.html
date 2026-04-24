@@ -69,7 +69,9 @@
   .tier-pill.t2 { background: rgba(62, 207, 142, 0.12); color: var(--good); }
 
   .card-sub { color: var(--ink-2); font-size: 13px; margin: 2px 0 2px; }
-  .card-why { color: var(--ink-3); font-size: 12px; font-style: italic; margin: 0 0 14px; }
+  .bench-name { color: var(--ink-3); font-size: 12px; margin: 2px 0 2px; font-family: "JetBrains Mono", monospace; letter-spacing: -0.01em; }
+  .bench-desc-inline { color: var(--ink-2); font-family: "Plus Jakarta Sans", sans-serif; letter-spacing: 0; }
+  .card-why { color: var(--ink-3); font-size: 12px; font-style: italic; margin: 6px 0 14px; }
 
   table.rank { width: 100%; border-collapse: collapse; }
   table.rank td { padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; vertical-align: middle; }
@@ -157,6 +159,7 @@
   .wrow .wlabel-row { display: flex; align-items: center; gap: 8px; }
   .wrow .wlabel-name { font-weight: 600; }
   .wrow .wlabel-desc { display: block; color: var(--ink-3); font-size: 11px; margin-top: 2px; line-height: 1.35; }
+  .wrow .wlabel-bench { font-family: "JetBrains Mono", monospace; color: var(--ink-3); opacity: 0.75; }
   .wrow input[type=range] { width: 100%; }
   .wrow .wval { font-family: "JetBrains Mono", monospace; font-size: 13px; text-align: right; color: var(--accent); font-weight: 700; }
   .weights-actions { display: flex; gap: 10px; margin-top: 14px; }
@@ -242,12 +245,6 @@
     <button id="btn-composite" onclick="showView('composite')">Best for me</button>
     <button id="btn-usecase" onclick="showView('usecase')">For my use case</button>
   </div>
-  <div class="tier-filter" id="tier-filter">
-    <span>Show:</span>
-    <button class="on" data-tier="all" onclick="setTier('all')">All</button>
-    <button data-tier="1" onclick="setTier('1')">Tier 1 only</button>
-    <button data-tier="2" onclick="setTier('2')">Tier 2 only</button>
-  </div>
 </div>
 
 <section id="view-bench">
@@ -318,7 +315,7 @@
 
 <section id="view-composite" style="display:none">
   <div class="composite-wrap">
-    <p class="composite-intro">Composite ranking across all benchmarks, normalized so the top scorer on each benchmark = 100, others scale relative to it. Tier 1 benchmarks (core to your work) weighted 2x by default, Tier 2 weighted 1x. Tune the weights below if your current focus is different.</p>
+    <p class="composite-intro">Composite ranking across all benchmarks, normalized so the top scorer on each benchmark = 100 and others scale relative to it. Default weights emphasize the agentic capabilities (coding, command-line tasks, web research, tool use) that most predict real-world usefulness. Tune the weights below to match what you actually care about.</p>
     <div style="margin-bottom:18px; display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
       <label style="display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); user-select:none;">
         <input type="checkbox" id="frontier-toggle-composite" checked onchange="onFrontierToggle('composite', event)" style="accent-color: var(--accent);">
@@ -341,9 +338,8 @@
       <p>Higher weight = benchmark contributes more to the composite score. 0 = ignore entirely.</p>
       <div class="weight-grid" id="weight-grid"></div>
       <div class="weights-actions">
-        <button onclick="resetWeights()">Reset to tier defaults</button>
+        <button onclick="resetWeights()">Reset to default weights</button>
         <button onclick="equalWeights()">Equal weights</button>
-        <button onclick="tier1OnlyWeights()">Tier 1 only</button>
       </div>
     </div>
     <div id="composite-table"></div>
@@ -370,6 +366,7 @@ const BENCHMARK_DATA = [
   {
     id: "swebench",
     tier: 1,
+    capability: "Real-world coding",
     name: "SWE-bench Verified",
     description: "Real GitHub issues resolved end-to-end",
     whyItMatters: "Best proxy for \"can the model ship code in a real repo\"",
@@ -408,6 +405,7 @@ const BENCHMARK_DATA = [
   {
     id: "termbench",
     tier: 1,
+    capability: "Command-line agent tasks",
     name: "Terminal-Bench 2.0",
     description: "Can the model operate a computer from the command line?",
     whyItMatters: "Best proxy for agents that chain CLI + browser + APIs",
@@ -448,6 +446,7 @@ const BENCHMARK_DATA = [
   {
     id: "browsecomp",
     tier: 1,
+    capability: "Web research",
     name: "BrowseComp",
     description: "Can the model find obscure answers that require hopping between websites?",
     whyItMatters: "Web agents, research automation, deep search synthesis",
@@ -478,6 +477,7 @@ const BENCHMARK_DATA = [
   {
     id: "taubench",
     tier: 1,
+    capability: "Multi-turn tool use",
     name: "Tau-bench",
     description: "Can the model handle a customer-service call using tools correctly?",
     whyItMatters: "Closest public benchmark to triage, outreach, and scheduling agents",
@@ -506,6 +506,7 @@ const BENCHMARK_DATA = [
   {
     id: "gpqa",
     tier: 2,
+    capability: "Graduate-level reasoning",
     name: "GPQA Diamond",
     description: "Graduate-level physics / chem / bio reasoning",
     whyItMatters: "Reasoning floor-check: deal analysis, P&L reading, hard domain questions",
@@ -544,6 +545,7 @@ const BENCHMARK_DATA = [
   {
     id: "mmlupro",
     tier: 2,
+    capability: "Broad knowledge & reasoning",
     name: "MMLU-Pro",
     description: "Broad reasoning + professional knowledge",
     whyItMatters: "Floor check on general-purpose capability across 10-choice hard questions",
@@ -584,6 +586,7 @@ const BENCHMARK_DATA = [
   {
     id: "lmarena",
     tier: 2,
+    capability: "Human preference",
     name: "LMArena (Arena Elo)",
     description: "Which model do real people prefer when both answer the same question?",
     whyItMatters: "Proxy for writing quality, voice, general instruction following",
@@ -624,6 +627,7 @@ const BENCHMARK_DATA = [
   {
     id: "longctx",
     tier: 2,
+    capability: "Long-context retrieval",
     name: "Long-Context (MRCR @ 1M)",
     description: "Can the model actually use the huge context window it advertises?",
     whyItMatters: "Heavy vault / codebase retrieval, large CLAUDE.md chains, long document analysis",
@@ -783,7 +787,6 @@ BENCHMARK_DATA.forEach(b => {
 // ============================================================================
 // Render — benchmark view
 // ============================================================================
-let activeTier = "all";
 const frontierFilter = { compare: true, composite: true };
 // Hardware filter: "all" (no filter), "laptop", "midrange", "highend", "datacenter", "openweights"
 // "openweights" = anything that isn't "api" (all downloadable models regardless of tier)
@@ -831,7 +834,7 @@ function toggleExplainer(id) {
 
 function renderGrid() {
   const grid = document.getElementById("grid");
-  const filtered = BENCHMARK_DATA.filter(b => activeTier === "all" || String(b.tier) === activeTier);
+  const filtered = BENCHMARK_DATA;
   grid.innerHTML = filtered.map(b => {
     const list = b.canonicalModels;
     const expanded = expandedCards.has(b.id);
@@ -843,10 +846,9 @@ function renderGrid() {
     return `
     <div class="card">
       <div class="card-head">
-        <h2>${b.name}</h2>
-        <span class="tier-pill t${b.tier}">Tier ${b.tier}</span>
+        <h2>${b.capability}</h2>
       </div>
-      <p class="card-sub">${b.description}</p>
+      <p class="bench-name">${b.name} · <span class="bench-desc-inline">${b.description}</span></p>
       <p class="card-why">${b.whyItMatters}</p>
       <table class="rank">
         ${shown.map(m => `
@@ -896,14 +898,6 @@ function toggleCard(id) {
   renderGrid();
 }
 
-function setTier(t) {
-  activeTier = t;
-  document.querySelectorAll("#tier-filter button").forEach(btn => {
-    btn.classList.toggle("on", btn.dataset.tier === t);
-  });
-  renderGrid();
-}
-
 // ============================================================================
 // Render — model view
 // ============================================================================
@@ -947,8 +941,8 @@ function showModelDetail(modelName) {
       ${rows.map(r => `
         <div class="mrow">
           <div class="bname">
-            ${r.benchmark.name}
-            <span class="bdesc">${r.benchmark.description}</span>
+            ${r.benchmark.capability}
+            <span class="bdesc">${r.benchmark.name} · ${r.benchmark.description}</span>
           </div>
           <div class="mrank ${r.hit ? '' : 'notop'}">${r.hit ? '#' + r.hit.displayRank : 'not ranked'}</div>
           <div class="mscore">${r.hit ? fmtScore(r.hit.score, r.benchmark.scoreFormat) : '—'}</div>
@@ -1054,8 +1048,8 @@ function renderCompare() {
       <tbody>
         ${rows.map(r => `
           <tr>
-            <td class="bench">${r.benchmark.name}
-              <span class="bd">${r.benchmark.description}</span>
+            <td class="bench">${r.benchmark.capability}
+              <span class="bd">${r.benchmark.name}</span>
             </td>
             ${r.scores.map(s => {
               if (s.score === null) return `<td class="cell absent">—</td>`;
@@ -1065,7 +1059,7 @@ function renderCompare() {
           </tr>
         `).join("")}
         <tr class="composite-row">
-          <td class="bench">Composite (Tier 1 × 2, Tier 2 × 1)
+          <td class="bench">Overall (default weights)
             <span class="bd">Normalized: top of each benchmark = 100</span>
           </td>
           ${compositeScores.map(s => `<td class="cell">${s.score.toFixed(1)}</td>`).join("")}
@@ -1095,18 +1089,14 @@ function defaultWeights() {
 
 function resetWeights() { weights = defaultWeights(); renderWeightControls(); renderComposite(); }
 function equalWeights() { BENCHMARK_DATA.forEach(b => { weights[b.id] = 1; }); renderWeightControls(); renderComposite(); }
-function tier1OnlyWeights() { BENCHMARK_DATA.forEach(b => { weights[b.id] = b.tier === 1 ? 1 : 0; }); renderWeightControls(); renderComposite(); }
 
 function renderWeightControls() {
   const grid = document.getElementById("weight-grid");
   grid.innerHTML = BENCHMARK_DATA.map(b => `
     <div class="wrow">
       <label>
-        <span class="wlabel-row">
-          <span class="wlabel-name">${b.name}</span>
-          <span class="wt">T${b.tier}</span>
-        </span>
-        <span class="wlabel-desc">${b.description}</span>
+        <span class="wlabel-name">${b.capability}</span>
+        <span class="wlabel-desc">${b.description} · <span class="wlabel-bench">${b.name}</span></span>
         <input type="range" min="0" max="3" step="0.5" value="${weights[b.id]}" data-id="${b.id}" oninput="onWeightChange(event)">
       </label>
       <span class="wval" id="wv-${b.id}">${weights[b.id].toFixed(1)}</span>
@@ -1393,7 +1383,7 @@ function analyzeUsecase() {
     if (per.length === 0) return "Ranks on broader benchmarks but not the ones most relevant to your use case.";
     const best = per[0];
     const word = best.normalized >= 95 ? "tops" : best.normalized >= 85 ? "strong on" : "competitive on";
-    return `${word} ${best.bench.name} (#${best.hit.displayRank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
+    return `${word} ${best.bench.capability} (${best.bench.name}: #${best.hit.displayRank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.capability}` : ''}.`;
   }
 
   results.innerHTML = `
@@ -1409,7 +1399,7 @@ function analyzeUsecase() {
     <div class="detection">
       <div class="title">Benchmarks weighted highest for you</div>
       <div class="tags">
-        ${topBenches.map(b => `<span class="tagpill">${b.name} · ${b.weight.toFixed(1)}×</span>`).join("")}
+        ${topBenches.map(b => `<span class="tagpill">${b.capability} · ${b.weight.toFixed(1)}×</span>`).join("")}
       </div>
       <p style="margin-top:10px; color:var(--ink-3); font-size:12px;">These are the leaderboards most predictive of success for your use case. Recommended models below are ranked by weighted composite across all benchmarks with this emphasis.</p>
     </div>
@@ -1447,8 +1437,6 @@ function showView(v) {
     document.getElementById("view-" + name).style.display = v === name ? "block" : "none";
     document.getElementById("btn-" + name).classList.toggle("active", v === name);
   });
-  // Tier filter only makes sense on the bench view
-  document.getElementById("tier-filter").style.visibility = v === "bench" ? "visible" : "hidden";
 }
 
 // ============================================================================
