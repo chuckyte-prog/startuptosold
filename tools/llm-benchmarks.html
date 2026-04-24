@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>LLM Benchmarks — Rankings that matter for your use case</title>
+<meta name="description" content="Top 20 models across 8 LLM benchmarks that actually predict real-world usefulness. Describe your use case to get a tailored ranking." />
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1XV0PEXSQJ');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0d10;
+    --bg-2: #12151a;
+    --bg-3: #181c22;
+    --line: #23282f;
+    --line-2: #2f353d;
+    --ink: #e7ebf0;
+    --ink-2: #a7afba;
+    --ink-3: #6b7381;
+    --accent: #e85d26;
+    --accent-2: #ff8a5c;
+    --good: #3ecf8e;
+    --ok: #d8b64a;
+    --preview: #7c5cff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font-family: inherit; cursor: pointer; }
+
+  .shell { max-width: 1280px; margin: 0 auto; padding: 40px 28px 80px; }
+
+  /* Header */
+  header.hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; border-bottom: 1px solid var(--line); padding-bottom: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+  header h1 { margin: 0 0 6px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  header h1 .accent { color: var(--accent); }
+  header .tagline { margin: 0; color: var(--ink-2); font-size: 15px; max-width: 640px; }
+  header .snapshot { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-3); border: 1px solid var(--line); padding: 8px 12px; border-radius: 6px; background: var(--bg-2); white-space: nowrap; }
+
+  /* View switcher */
+  .controls { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .view-toggle { display: inline-flex; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px; gap: 2px; }
+  .view-toggle button { background: transparent; color: var(--ink-2); border: 0; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+  .view-toggle button.active { background: var(--accent); color: white; }
+  .tier-filter { display: inline-flex; gap: 6px; align-items: center; color: var(--ink-3); font-size: 13px; }
+  .tier-filter button { background: var(--bg-2); color: var(--ink-2); border: 1px solid var(--line); padding: 6px 12px; border-radius: 6px; font-size: 13px; }
+  .tier-filter button.on { background: var(--bg-3); color: var(--ink); border-color: var(--line-2); }
+
+  /* Benchmark grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 18px; }
+  .card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 20px 20px 16px; transition: border-color 0.15s; }
+  .card:hover { border-color: var(--line-2); }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
+  .card-head h2 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .tier-pill { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; white-space: nowrap; }
+  .tier-pill.t1 { background: rgba(232, 93, 38, 0.15); color: var(--accent-2); }
+  .tier-pill.t2 { background: rgba(62, 207, 142, 0.12); color: var(--good); }
+
+  .card-sub { color: var(--ink-2); font-size: 13px; margin: 2px 0 2px; }
+  .card-why { color: var(--ink-3); font-size: 12px; font-style: italic; margin: 0 0 14px; }
+
+  table.rank { width: 100%; border-collapse: collapse; }
+  table.rank td { padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; vertical-align: middle; }
+  table.rank tr:first-child td { border-top: 0; }
+  table.rank .rk { color: var(--ink-3); width: 28px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+  table.rank .mdl { cursor: pointer; }
+  table.rank .mdl:hover .mdl-name { color: var(--accent-2); text-decoration: underline; }
+  .mdl-name { font-weight: 600; }
+  .mdl-org { color: var(--ink-3); font-size: 12px; margin-left: 6px; }
+  .preview-tag { color: var(--preview); font-size: 10px; font-weight: 700; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .score { text-align: right; font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+  .card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; color: var(--ink-3); flex-wrap: wrap; gap: 8px; }
+  .card-foot a { font-size: 11px; }
+  .card-foot button { background: transparent; border: 1px solid var(--line); color: var(--ink-2); padding: 3px 8px; border-radius: 4px; font-size: 11px; font-family: inherit; }
+  .card-foot button:hover { border-color: var(--accent); color: var(--ink); }
+  .card-note { color: var(--ink-3); font-size: 11px; margin: 8px 0 0; font-style: italic; padding: 8px 10px; background: var(--bg-3); border-left: 2px solid var(--line-2); border-radius: 3px; }
+
+  /* Model detail view */
+  .model-view { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .model-view h2 { margin: 0 0 4px; font-size: 24px; }
+  .model-view .org-label { color: var(--ink-2); font-size: 14px; margin-bottom: 20px; }
+  .model-picker { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+  .model-picker input { flex: 1; min-width: 240px; background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 10px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; }
+  .model-picker input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+  .model-picker select { background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 10px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; min-width: 260px; }
+  .model-rows { display: grid; gap: 10px; }
+  .mrow { display: grid; grid-template-columns: 1fr 90px 120px; gap: 16px; align-items: center; padding: 14px 16px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 8px; }
+  .mrow .bname { font-weight: 600; }
+  .mrow .bname .bdesc { display: block; color: var(--ink-3); font-size: 12px; font-weight: 400; margin-top: 2px; }
+  .mrow .mrank { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 700; color: var(--accent); text-align: center; }
+  .mrow .mrank.notop { color: var(--ink-3); font-size: 13px; }
+  .mrow .mscore { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--ink-2); text-align: right; }
+
+  .empty { color: var(--ink-3); font-style: italic; padding: 40px; text-align: center; }
+
+  /* Compare view */
+  .compare-wrap { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; min-height: 32px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-3); border: 1px solid var(--line-2); color: var(--ink); font-size: 13px; padding: 5px 8px 5px 12px; border-radius: 20px; }
+  .chip button { background: transparent; border: 0; color: var(--ink-3); font-size: 16px; line-height: 1; padding: 0 4px; cursor: pointer; }
+  .chip button:hover { color: var(--accent-2); }
+  .model-add { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+  .model-add select { flex: 1; min-width: 240px; background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 10px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; }
+  .model-add .quick { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .model-add .quick button { background: var(--bg-3); border: 1px solid var(--line); color: var(--ink-2); padding: 7px 12px; border-radius: 6px; font-size: 12px; }
+  .model-add .quick button:hover { border-color: var(--accent); color: var(--ink); }
+
+  table.compare { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  table.compare th, table.compare td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  table.compare th { background: var(--bg-3); color: var(--ink-2); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; position: sticky; top: 0; }
+  table.compare th.benchcol { min-width: 200px; }
+  table.compare td.bench { font-weight: 600; }
+  table.compare td.bench .bd { display: block; color: var(--ink-3); font-size: 11px; font-weight: 400; margin-top: 2px; }
+  table.compare td.cell { text-align: center; font-family: "JetBrains Mono", monospace; font-size: 13px; position: relative; }
+  table.compare td.cell.best { color: var(--good); font-weight: 700; }
+  table.compare td.cell.absent { color: var(--ink-3); }
+  table.compare td.cell .rk { display: block; font-size: 10px; color: var(--ink-3); margin-top: 2px; font-weight: 400; }
+  table.compare tr.composite-row td { background: rgba(232, 93, 38, 0.06); font-weight: 700; border-top: 2px solid var(--accent); border-bottom: 2px solid var(--accent); }
+  table.compare tr.composite-row td.cell { color: var(--accent); font-size: 16px; }
+
+  /* Composite view */
+  .composite-wrap { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .composite-intro { color: var(--ink-2); font-size: 14px; margin: 0 0 20px; max-width: 720px; }
+  .weights { background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px; padding: 18px; margin-bottom: 24px; }
+  .weights h3 { margin: 0 0 4px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
+  .weights p { margin: 0 0 14px; color: var(--ink-3); font-size: 12px; }
+  .weight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 22px; }
+  .wrow { display: grid; grid-template-columns: 1fr 36px; gap: 10px; align-items: center; }
+  .wrow label { font-size: 13px; }
+  .wrow label .wt { color: var(--ink-3); font-size: 11px; margin-left: 6px; }
+  .wrow input[type=range] { width: 100%; }
+  .wrow .wval { font-family: "JetBrains Mono", monospace; font-size: 13px; text-align: right; color: var(--accent); font-weight: 700; }
+  .weights-actions { display: flex; gap: 10px; margin-top: 14px; }
+  .weights-actions button { background: transparent; border: 1px solid var(--line-2); color: var(--ink-2); padding: 6px 12px; border-radius: 6px; font-size: 12px; }
+  .weights-actions button:hover { border-color: var(--accent); color: var(--ink); }
+
+  table.composite { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  table.composite th, table.composite td { padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  table.composite th { text-align: left; background: var(--bg-3); color: var(--ink-2); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  table.composite th.num, table.composite td.num { text-align: right; font-family: "JetBrains Mono", monospace; }
+  table.composite td.rank-badge { width: 50px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--ink-3); }
+  table.composite tr.top1 td.rank-badge { color: var(--accent); font-size: 16px; }
+  table.composite tr.top1 td.composite-score { color: var(--accent); font-weight: 700; }
+  .bar { display: inline-block; height: 8px; background: linear-gradient(to right, var(--accent), var(--accent-2)); border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+  .missing-note { color: var(--ink-3); font-size: 11px; margin-left: 6px; font-style: italic; }
+
+  /* Use case view */
+  .usecase-wrap { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .usecase-wrap h3 { margin: 0 0 6px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
+  .usecase-wrap p { margin: 0 0 14px; color: var(--ink-2); font-size: 14px; }
+  .usecase-wrap textarea { width: 100%; min-height: 110px; background: var(--bg-3); border: 1px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 8px; font-size: 14px; font-family: inherit; line-height: 1.55; resize: vertical; box-sizing: border-box; }
+  .usecase-wrap textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+  .usecase-examples { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 18px; }
+  .usecase-examples button { background: var(--bg-3); border: 1px solid var(--line); color: var(--ink-2); padding: 6px 11px; border-radius: 4px; font-size: 12px; font-family: inherit; cursor: pointer; }
+  .usecase-examples button:hover { border-color: var(--accent); color: var(--ink); }
+  .usecase-go { background: var(--accent); color: white; border: 0; padding: 12px 22px; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; }
+  .usecase-go:hover { background: var(--accent-2); }
+
+  .detection { background: var(--bg-3); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-top: 22px; }
+  .detection .title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); margin-bottom: 8px; }
+  .detection .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tagpill { background: rgba(232, 93, 38, 0.12); color: var(--accent-2); font-size: 12px; padding: 4px 9px; border-radius: 12px; font-weight: 600; }
+  .tagpill.inactive { background: var(--bg-2); color: var(--ink-3); }
+
+  .recommendations { margin-top: 26px; }
+  .recommendations h3 { margin-bottom: 14px; }
+  .rec-card { background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; display: grid; grid-template-columns: 60px 1fr 120px; gap: 16px; align-items: center; }
+  .rec-card.top { border-color: var(--accent); border-left: 4px solid var(--accent); }
+  .rec-rank { font-family: "JetBrains Mono", monospace; font-size: 20px; font-weight: 800; color: var(--ink-3); text-align: center; }
+  .rec-card.top .rec-rank { color: var(--accent); }
+  .rec-body .rec-name { font-size: 16px; font-weight: 700; }
+  .rec-body .rec-org { color: var(--ink-3); font-size: 12px; }
+  .rec-body .rec-reason { color: var(--ink-2); font-size: 13px; margin-top: 4px; line-height: 1.45; }
+  .rec-score { text-align: right; }
+  .rec-score .big { font-family: "JetBrains Mono", monospace; font-size: 22px; font-weight: 800; color: var(--accent); }
+  .rec-score .lbl { color: var(--ink-3); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  @media (max-width: 640px) {
+    .rec-card { grid-template-columns: 40px 1fr 80px; gap: 10px; padding: 14px; }
+    .rec-body .rec-name { font-size: 14px; }
+    .rec-score .big { font-size: 18px; }
+  }
+
+  footer { margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12px; }
+
+  @media (max-width: 640px) {
+    .shell { padding: 24px 16px 60px; }
+    header.hero { align-items: flex-start; }
+    .mrow { grid-template-columns: 1fr 70px 90px; gap: 10px; padding: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero">
+  <div>
+    <h1>LLM <span class="accent">Benchmarks</span> that matter</h1>
+    <p class="tagline">Top 20 models across 8 benchmarks that actually predict real-world usefulness — agentic coding, browser automation, tool use, reasoning, long-context, and writing quality. Describe your use case to get a ranking tailored to your work.</p>
+  </div>
+  <div class="snapshot" id="snapshot">Snapshot: 2026-04-23</div>
+</header>
+
+<div class="controls">
+  <div class="view-toggle" role="tablist">
+    <button id="btn-bench" class="active" onclick="showView('bench')">By benchmark</button>
+    <button id="btn-model" onclick="showView('model')">By model</button>
+    <button id="btn-compare" onclick="showView('compare')">Compare</button>
+    <button id="btn-composite" onclick="showView('composite')">Best for me</button>
+    <button id="btn-usecase" onclick="showView('usecase')">For my use case</button>
+  </div>
+  <div class="tier-filter" id="tier-filter">
+    <span>Show:</span>
+    <button class="on" data-tier="all" onclick="setTier('all')">All</button>
+    <button data-tier="1" onclick="setTier('1')">Tier 1 only</button>
+    <button data-tier="2" onclick="setTier('2')">Tier 2 only</button>
+  </div>
+</div>
+
+<section id="view-bench">
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="view-model" style="display:none">
+  <div class="model-view">
+    <div class="model-picker">
+      <select id="model-select">
+        <option value="">-- Pick a model --</option>
+      </select>
+    </div>
+    <div id="model-detail"></div>
+  </div>
+</section>
+
+<section id="view-compare" style="display:none">
+  <div class="compare-wrap">
+    <div class="model-add">
+      <select id="compare-picker">
+        <option value="">+ Add a model to compare…</option>
+      </select>
+      <div class="quick">
+        <button onclick="quickCompareFrontier()">Quick: top frontier</button>
+        <button onclick="clearCompare()">Clear</button>
+      </div>
+    </div>
+    <div class="chips" id="compare-chips"></div>
+    <div id="compare-table"></div>
+  </div>
+</section>
+
+<section id="view-usecase" style="display:none">
+  <div class="usecase-wrap">
+    <h3>Describe what you'll use the model for</h3>
+    <p>Write a few sentences about the work — the kinds of tasks, whether you need coding, browsing, tool use, writing quality, long documents, or reasoning. We'll map your description to the benchmarks that matter most and rank models for your specific use case.</p>
+    <textarea id="usecase-input" placeholder="e.g. I'm building a web research agent that browses sites, extracts data, and writes concise summaries. It needs to handle multi-step tool calls reliably and preserve my voice in the final output."></textarea>
+    <div class="usecase-examples">
+      <span style="color: var(--ink-3); font-size: 12px; align-self: center;">Try:</span>
+      <button onclick="setUsecase('coding')">Shipping code / dev agent</button>
+      <button onclick="setUsecase('browser')">Browser automation agent</button>
+      <button onclick="setUsecase('writing')">Writing content in my voice</button>
+      <button onclick="setUsecase('research')">Research & analysis</button>
+      <button onclick="setUsecase('agent')">Multi-step autonomous agent</button>
+      <button onclick="setUsecase('longdoc')">Long document / big context</button>
+    </div>
+    <button class="usecase-go" onclick="analyzeUsecase()">Analyze & recommend models</button>
+
+    <div id="usecase-results"></div>
+  </div>
+</section>
+
+<section id="view-composite" style="display:none">
+  <div class="composite-wrap">
+    <p class="composite-intro">Composite ranking across all benchmarks, normalized so the top scorer on each benchmark = 100, others scale relative to it. Tier 1 benchmarks (core to your work) weighted 2x by default, Tier 2 weighted 1x. Tune the weights below if your current focus is different.</p>
+    <div class="weights">
+      <h3>Weights</h3>
+      <p>Higher weight = benchmark contributes more to the composite score. 0 = ignore entirely.</p>
+      <div class="weight-grid" id="weight-grid"></div>
+      <div class="weights-actions">
+        <button onclick="resetWeights()">Reset to tier defaults</button>
+        <button onclick="equalWeights()">Equal weights</button>
+        <button onclick="tier1OnlyWeights()">Tier 1 only</button>
+      </div>
+    </div>
+    <div id="composite-table"></div>
+  </div>
+</section>
+
+<footer>
+  Data curated from <a href="https://llm-stats.com" target="_blank">llm-stats.com</a>,
+  <a href="https://www.tbench.ai/leaderboard" target="_blank">tbench.ai</a>,
+  <a href="https://arena.ai/leaderboard" target="_blank">arena.ai</a>,
+  <a href="https://leaderboard.steel.dev/results" target="_blank">steel.dev</a>,
+  <a href="https://artificialanalysis.ai" target="_blank">artificialanalysis.ai</a>,
+  and published model cards. Scores reflect the latest available public numbers and may vary 1–3 points between aggregators. Ask Claude to refresh when new models ship.
+</footer>
+
+</div>
+
+<script>
+// ============================================================================
+// BENCHMARK_DATA — snapshot 2026-04-23. To refresh, ask Claude: "refresh the benchmarks".
+// Each benchmark: { tier, name, description, whyItMatters, sourceUrl, lastUpdated, scoreFormat, models: [{rank, model, org, score, preview?}] }
+// ============================================================================
+const BENCHMARK_DATA = [
+  {
+    id: "swebench",
+    tier: 1,
+    name: "SWE-bench Verified",
+    description: "Real GitHub issues resolved end-to-end",
+    whyItMatters: "Best proxy for \"can the model ship code in a real repo\"",
+    sourceUrl: "https://llm-stats.com/benchmarks/swe-bench-verified",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["coding", "agentic", "dev"],
+    models: [
+      { rank: 1, model: "Claude Mythos Preview", org: "Anthropic", score: 93.9, preview: true },
+      { rank: 2, model: "Claude Opus 4.7", org: "Anthropic", score: 87.6 },
+      { rank: 3, model: "GPT-5.3 Codex", org: "OpenAI", score: 85.0 },
+      { rank: 4, model: "Claude Opus 4.5", org: "Anthropic", score: 80.9 },
+      { rank: 5, model: "Claude Opus 4.6", org: "Anthropic", score: 80.8 },
+      { rank: 6, model: "Gemini 3.1 Pro", org: "Google", score: 80.6 },
+      { rank: 7, model: "MiniMax M2.5", org: "MiniMax", score: 80.2 },
+      { rank: 7, model: "Kimi K2.6", org: "Moonshot AI", score: 80.2 },
+      { rank: 9, model: "GPT-5.2", org: "OpenAI", score: 80.0 },
+      { rank: 10, model: "Claude Sonnet 4.6", org: "Anthropic", score: 79.6 },
+      { rank: 11, model: "Qwen3.6 Plus", org: "Alibaba", score: 78.8 },
+      { rank: 12, model: "Gemini 3 Flash", org: "Google", score: 78.0 },
+      { rank: 12, model: "MiMo-V2-Pro", org: "Xiaomi", score: 78.0 },
+      { rank: 14, model: "GLM-5", org: "Zhipu AI", score: 77.8 },
+      { rank: 15, model: "Muse Spark", org: "Meta", score: 77.4 },
+      { rank: 16, model: "Qwen3.6-27B", org: "Alibaba", score: 77.2 },
+      { rank: 17, model: "Kimi K2.5", org: "Moonshot AI", score: 76.8 },
+      { rank: 18, model: "Seed 2.0 Pro", org: "ByteDance", score: 76.5 },
+      { rank: 19, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 76.4 },
+      { rank: 20, model: "GPT-5.1", org: "OpenAI", score: 76.3 }
+    ]
+  },
+  {
+    id: "termbench",
+    tier: 1,
+    name: "Terminal-Bench 2.0",
+    description: "Multi-step terminal / agentic tasks",
+    whyItMatters: "Best proxy for agents that chain CLI + browser + APIs",
+    sourceUrl: "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["coding", "agentic", "tool-use", "dev"],
+    note: "Agent+model pairings. Same model appears multiple times with different agent scaffolds.",
+    models: [
+      { rank: 1, model: "GPT-5.5 (Codex)", org: "OpenAI", score: 82.0 },
+      { rank: 2, model: "GPT-5.4 (ForgeCode)", org: "OpenAI", score: 81.8 },
+      { rank: 3, model: "Gemini 3.1 Pro (TongAgents)", org: "Google", score: 80.2 },
+      { rank: 4, model: "Claude Opus 4.6 (ForgeCode)", org: "Anthropic", score: 79.8 },
+      { rank: 5, model: "GPT-5.3 Codex (SageAgent)", org: "OpenAI", score: 78.4 },
+      { rank: 6, model: "Gemini 3.1 Pro (ForgeCode)", org: "Google", score: 78.4 },
+      { rank: 7, model: "GPT-5.3 Codex (Droid)", org: "OpenAI", score: 77.3 },
+      { rank: 8, model: "Claude Opus 4.6 (Capy)", org: "Anthropic", score: 75.3 },
+      { rank: 9, model: "GPT-5.3 Codex (Simple Codex)", org: "OpenAI", score: 75.1 },
+      { rank: 10, model: "Gemini 3.1 Pro (Terminus-KIRA)", org: "Google", score: 74.8 },
+      { rank: 11, model: "Claude Opus 4.6 (Terminus-KIRA)", org: "Anthropic", score: 74.7 },
+      { rank: 12, model: "GPT-5.3 Codex (Mux)", org: "OpenAI", score: 74.6 },
+      { rank: 13, model: "Claude Opus 4.6 (MAYA-V2)", org: "Anthropic", score: 72.1 },
+      { rank: 14, model: "Claude Opus 4.6 (TongAgents)", org: "Anthropic", score: 71.9 },
+      { rank: 15, model: "Junie CLI (multi-model)", org: "JetBrains", score: 71.0 },
+      { rank: 16, model: "GPT-5.3 Codex (CodeBrain-1)", org: "OpenAI", score: 70.3 },
+      { rank: 17, model: "Claude Opus 4.6 (Droid)", org: "Anthropic", score: 69.9 },
+      { rank: 18, model: "Gemini 3 Pro (Ante)", org: "Google", score: 69.4 },
+      { rank: 19, model: "GPT-5.3 Codex (IndusAGI)", org: "OpenAI", score: 69.1 },
+      { rank: 20, model: "Claude Opus 4.6 (Crux)", org: "Anthropic", score: 66.9 }
+    ]
+  },
+  {
+    id: "browsecomp",
+    tier: 1,
+    name: "BrowseComp",
+    description: "Agentic web browsing & research",
+    whyItMatters: "Web agents, research automation, deep search synthesis",
+    sourceUrl: "https://leaderboard.steel.dev/results",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["browsing", "agentic", "research", "tool-use"],
+    note: "Mix of single-agent and agent-swarm numbers from published model cards + Steel.dev index. Top-20 coverage thin; most published sources only report top 5-8.",
+    models: [
+      { rank: 1, model: "GPT-5.5 Pro", org: "OpenAI", score: 90.1 },
+      { rank: 2, model: "GPT-5.4 Pro", org: "OpenAI", score: 89.3 },
+      { rank: 3, model: "Kimi K2.6 (Agent Swarm)", org: "Moonshot AI", score: 86.3 },
+      { rank: 4, model: "Gemini 3.1 Pro", org: "Google", score: 85.9 },
+      { rank: 5, model: "Claude Opus 4.6", org: "Anthropic", score: 83.7 },
+      { rank: 6, model: "Claude Opus 4.7", org: "Anthropic", score: 79.3 },
+      { rank: 7, model: "GPT-5.4", org: "OpenAI", score: 78.4 },
+      { rank: 8, model: "Kimi K2 Thinking", org: "Moonshot AI", score: 60.2 },
+      { rank: 9, model: "OpenAI Deep Research", org: "OpenAI", score: 51.5 },
+      { rank: 10, model: "WebSailor-72B", org: "Academic", score: 12.0 }
+    ]
+  },
+  {
+    id: "taubench",
+    tier: 1,
+    name: "Tau-bench",
+    description: "Multi-turn tool use (airline / retail agents)",
+    whyItMatters: "Closest public benchmark to triage, outreach, and scheduling agents",
+    sourceUrl: "https://leaderboard.steel.dev/results",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["tool-use", "agentic"],
+    note: "Public Tau-bench data lags newest models. Top 5-8 are from model cards + comparative blogs; ranks beyond that rely on older benchmarks.",
+    models: [
+      { rank: 1, model: "Claude Opus 4.6", org: "Anthropic", score: 72.0 },
+      { rank: 2, model: "GPT-5.4", org: "OpenAI", score: 68.0 },
+      { rank: 3, model: "Gemini 3.1 Pro", org: "Google", score: 65.0 },
+      { rank: 4, model: "Claude Opus 4.7", org: "Anthropic", score: 64.0 },
+      { rank: 5, model: "Claude 3.5 Sonnet", org: "Anthropic", score: 62.0 },
+      { rank: 6, model: "GPT-4o", org: "OpenAI", score: 50.0 },
+      { rank: 7, model: "GPT-4-turbo", org: "OpenAI", score: 44.0 },
+      { rank: 8, model: "Llama 3.1 70B", org: "Meta", score: 28.0 }
+    ]
+  },
+  {
+    id: "gpqa",
+    tier: 2,
+    name: "GPQA Diamond",
+    description: "Graduate-level physics / chem / bio reasoning",
+    whyItMatters: "Reasoning floor-check: deal analysis, P&L reading, hard domain questions",
+    sourceUrl: "https://llm-stats.com/benchmarks/gpqa",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["reasoning", "knowledge"],
+    models: [
+      { rank: 1, model: "Claude Mythos Preview", org: "Anthropic", score: 94.6, preview: true },
+      { rank: 2, model: "Gemini 3.1 Pro", org: "Google", score: 94.3 },
+      { rank: 3, model: "Claude Opus 4.7", org: "Anthropic", score: 94.2 },
+      { rank: 4, model: "GPT-5.5", org: "OpenAI", score: 93.6 },
+      { rank: 5, model: "GPT-5.2 Pro", org: "OpenAI", score: 93.2 },
+      { rank: 6, model: "GPT-5.4", org: "OpenAI", score: 92.8 },
+      { rank: 7, model: "GPT-5.2", org: "OpenAI", score: 92.4 },
+      { rank: 8, model: "Gemini 3 Pro", org: "Google", score: 91.9 },
+      { rank: 9, model: "Claude Opus 4.6", org: "Anthropic", score: 91.3 },
+      { rank: 10, model: "Kimi K2.6", org: "Moonshot AI", score: 90.5 },
+      { rank: 11, model: "Qwen3.6 Plus", org: "Alibaba", score: 90.4 },
+      { rank: 11, model: "Gemini 3 Flash", org: "Google", score: 90.4 },
+      { rank: 13, model: "Claude Sonnet 4.6", org: "Anthropic", score: 89.9 },
+      { rank: 14, model: "Muse Spark", org: "Meta", score: 89.5 },
+      { rank: 15, model: "Seed 2.0 Pro", org: "ByteDance", score: 88.9 },
+      { rank: 16, model: "Grok-4 Heavy", org: "xAI", score: 88.4 },
+      { rank: 16, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 88.4 },
+      { rank: 18, model: "GPT-5.1 Thinking", org: "OpenAI", score: 88.1 },
+      { rank: 19, model: "GPT-5.1 High", org: "OpenAI", score: 88.1 },
+      { rank: 20, model: "GPT-5 Medium", org: "OpenAI", score: 88.1 }
+    ]
+  },
+  {
+    id: "mmlupro",
+    tier: 2,
+    name: "MMLU-Pro",
+    description: "Broad reasoning + professional knowledge",
+    whyItMatters: "Floor check on general-purpose capability across 10-choice hard questions",
+    sourceUrl: "https://artificialanalysis.ai/evaluations/mmlu-pro",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["reasoning", "knowledge"],
+    note: "Top tier heavily saturated with Gemini/Claude frontier reasoning variants. Open models dominate the long tail on llm-stats; frontier leaders from Artificial Analysis listed here.",
+    models: [
+      { rank: 1, model: "Gemini 3.1 Pro Preview", org: "Google", score: 90.99 },
+      { rank: 2, model: "Gemini 3 Pro", org: "Google", score: 90.1 },
+      { rank: 3, model: "Claude Opus 4.7", org: "Anthropic", score: 89.87 },
+      { rank: 4, model: "Claude Opus 4.5 (Reasoning)", org: "Anthropic", score: 89.5 },
+      { rank: 5, model: "Gemini 3 Flash Preview", org: "Google", score: 89.0 },
+      { rank: 6, model: "Qwen3.6 Plus", org: "Alibaba", score: 88.5 },
+      { rank: 7, model: "MiniMax M2.1", org: "MiniMax", score: 88.0 },
+      { rank: 8, model: "Qwen3.5-397B-A17B", org: "Alibaba", score: 87.8 },
+      { rank: 9, model: "Kimi K2.5", org: "Moonshot AI", score: 87.1 },
+      { rank: 10, model: "ERNIE 5.0", org: "Baidu", score: 87.0 },
+      { rank: 11, model: "Qwen3.5-122B-A10B", org: "Alibaba", score: 86.7 },
+      { rank: 12, model: "Qwen3.6-27B", org: "Alibaba", score: 86.2 },
+      { rank: 13, model: "Qwen3.5-27B", org: "Alibaba", score: 86.1 },
+      { rank: 14, model: "Qwen3.5-35B-A3B", org: "Alibaba", score: 85.3 },
+      { rank: 15, model: "Gemma 4 31B", org: "Google", score: 85.2 },
+      { rank: 16, model: "DeepSeek-V3.2 (Thinking)", org: "DeepSeek", score: 85.0 },
+      { rank: 17, model: "MiMo-V2-Flash", org: "Xiaomi", score: 84.9 },
+      { rank: 18, model: "Kimi K2-Thinking", org: "Moonshot AI", score: 84.6 },
+      { rank: 19, model: "GLM-4.5", org: "Zhipu AI", score: 84.6 },
+      { rank: 20, model: "GLM-4.7", org: "Zhipu AI", score: 84.3 }
+    ]
+  },
+  {
+    id: "lmarena",
+    tier: 2,
+    name: "LMArena (Arena Elo)",
+    description: "Open-ended human preference, blind battles",
+    whyItMatters: "Proxy for writing quality, voice, general instruction following",
+    sourceUrl: "https://arena.ai/leaderboard",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "elo",
+    tags: ["writing", "voice", "general"],
+    note: "Scores beyond #10 shown on the leaderboard without public Elo numbers — ranks are directional, exact Elo not published.",
+    models: [
+      { rank: 1, model: "Claude Opus 4.7 (Thinking)", org: "Anthropic", score: 1503 },
+      { rank: 2, model: "Claude Opus 4.6 (Thinking)", org: "Anthropic", score: 1502 },
+      { rank: 3, model: "Claude Opus 4.6", org: "Anthropic", score: 1496 },
+      { rank: 4, model: "Claude Opus 4.7", org: "Anthropic", score: 1494 },
+      { rank: 5, model: "Gemini 3.1 Pro Preview", org: "Google", score: 1493 },
+      { rank: 6, model: "Muse Spark", org: "Meta", score: 1490 },
+      { rank: 7, model: "Gemini 3 Pro", org: "Google", score: 1486 },
+      { rank: 8, model: "Grok-4.20 Beta1", org: "xAI", score: 1482 },
+      { rank: 9, model: "GPT-5.4 High", org: "OpenAI", score: 1482 },
+      { rank: 10, model: "Grok-4.20 Reasoning", org: "xAI", score: 1480 },
+      { rank: 11, model: "GPT-5.2 Chat", org: "OpenAI", score: 1475 },
+      { rank: 12, model: "Grok-4.20 Multi-agent", org: "xAI", score: 1472 },
+      { rank: 13, model: "Gemini 3 Flash", org: "Google", score: 1468 },
+      { rank: 14, model: "Claude Opus 4.5 (Thinking)", org: "Anthropic", score: 1465 },
+      { rank: 15, model: "Claude Opus 4.5", org: "Anthropic", score: 1460 },
+      { rank: 16, model: "Grok-4.1 Thinking", org: "xAI", score: 1456 },
+      { rank: 17, model: "GLM-5.1", org: "Zhipu AI", score: 1452 },
+      { rank: 18, model: "GPT-5.4", org: "OpenAI", score: 1448 },
+      { rank: 19, model: "Qwen3.5 Max Preview", org: "Alibaba", score: 1444 },
+      { rank: 20, model: "Claude Sonnet 4.6", org: "Anthropic", score: 1440 }
+    ]
+  },
+  {
+    id: "longctx",
+    tier: 2,
+    name: "Long-Context (MRCR @ 1M)",
+    description: "8-needle multi-needle retrieval at 1M tokens",
+    whyItMatters: "Heavy vault / codebase retrieval, large CLAUDE.md chains, long document analysis",
+    sourceUrl: "https://awesomeagents.ai/leaderboards/long-context-benchmarks-leaderboard/",
+    lastUpdated: "2026-04-23",
+    scoreFormat: "pct",
+    tags: ["long-context", "retrieval"],
+    note: "Coverage is sparse at 1M — only 5-6 models have verified scores. Most models collapse beyond 128K. Published numbers vary based on needle count.",
+    models: [
+      { rank: 1, model: "Claude Opus 4.6", org: "Anthropic", score: 76.0 },
+      { rank: 2, model: "GPT-5.5", org: "OpenAI", score: 74.0 },
+      { rank: 3, model: "GPT-5.2", org: "OpenAI", score: 72.0 },
+      { rank: 4, model: "Claude Opus 4.7", org: "Anthropic", score: 32.2 },
+      { rank: 5, model: "Gemini 3 Pro", org: "Google", score: 26.3 },
+      { rank: 6, model: "Claude Sonnet 4.5", org: "Anthropic", score: 18.5 }
+    ]
+  }
+];
+
+// ============================================================================
+// Render — benchmark view
+// ============================================================================
+let activeTier = "all";
+
+function fmtScore(score, format) {
+  if (format === "elo") return Math.round(score);
+  return score.toFixed(1) + "%";
+}
+
+const expandedCards = new Set();
+
+function renderGrid() {
+  const grid = document.getElementById("grid");
+  const filtered = BENCHMARK_DATA.filter(b => activeTier === "all" || String(b.tier) === activeTier);
+  grid.innerHTML = filtered.map(b => {
+    const expanded = expandedCards.has(b.id);
+    const showCount = expanded ? b.models.length : Math.min(5, b.models.length);
+    const shown = b.models.slice(0, showCount);
+    const hasMore = b.models.length > 5;
+    return `
+    <div class="card">
+      <div class="card-head">
+        <h2>${b.name}</h2>
+        <span class="tier-pill t${b.tier}">Tier ${b.tier}</span>
+      </div>
+      <p class="card-sub">${b.description}</p>
+      <p class="card-why">${b.whyItMatters}</p>
+      <table class="rank">
+        ${shown.map(m => `
+          <tr class="mdl" onclick="selectModel('${m.model.replace(/'/g, "\\'")}')">
+            <td class="rk">#${m.rank}</td>
+            <td>
+              <span class="mdl-name">${m.model}</span>
+              ${m.preview ? '<span class="preview-tag">preview</span>' : ''}
+              <span class="mdl-org">${m.org}</span>
+            </td>
+            <td class="score">${fmtScore(m.score, b.scoreFormat)}</td>
+          </tr>
+        `).join("")}
+      </table>
+      ${b.note ? `<p class="card-note">${b.note}</p>` : ''}
+      <div class="card-foot">
+        <span>Updated ${b.lastUpdated} · ${b.models.length} models tracked</span>
+        <div style="display:flex; gap:10px; align-items:center;">
+          ${hasMore ? `<button onclick="toggleCard('${b.id}')">${expanded ? 'Show top 5' : `Show all ${b.models.length}`}</button>` : ''}
+          <a href="${b.sourceUrl}" target="_blank" rel="noopener">View source →</a>
+        </div>
+      </div>
+    </div>
+  `;
+  }).join("");
+}
+
+function toggleCard(id) {
+  if (expandedCards.has(id)) expandedCards.delete(id);
+  else expandedCards.add(id);
+  renderGrid();
+}
+
+function setTier(t) {
+  activeTier = t;
+  document.querySelectorAll("#tier-filter button").forEach(btn => {
+    btn.classList.toggle("on", btn.dataset.tier === t);
+  });
+  renderGrid();
+}
+
+// ============================================================================
+// Render — model view
+// ============================================================================
+function allModels() {
+  const set = new Map();
+  BENCHMARK_DATA.forEach(b => b.models.forEach(m => {
+    if (!set.has(m.model)) set.set(m.model, { org: m.org, preview: !!m.preview });
+  }));
+  return Array.from(set.entries()).map(([model, meta]) => ({ model, ...meta }))
+    .sort((a, b) => a.model.localeCompare(b.model));
+}
+
+function populateModelSelect() {
+  const sel = document.getElementById("model-select");
+  const grouped = {};
+  allModels().forEach(m => {
+    grouped[m.org] = grouped[m.org] || [];
+    grouped[m.org].push(m);
+  });
+  sel.innerHTML = '<option value="">-- Pick a model --</option>' +
+    Object.entries(grouped).sort().map(([org, models]) => `
+      <optgroup label="${org}">
+        ${models.map(m => `<option value="${m.model}">${m.model}${m.preview ? ' (preview)' : ''}</option>`).join("")}
+      </optgroup>
+    `).join("");
+  sel.addEventListener("change", e => showModelDetail(e.target.value));
+}
+
+function showModelDetail(modelName) {
+  const container = document.getElementById("model-detail");
+  if (!modelName) { container.innerHTML = '<div class="empty">Pick a model from the dropdown to see its ranking across every benchmark.</div>'; return; }
+  const rows = BENCHMARK_DATA.map(b => {
+    const hit = b.models.find(m => m.model === modelName);
+    return { benchmark: b, hit };
+  });
+  const meta = allModels().find(m => m.model === modelName) || {};
+  container.innerHTML = `
+    <h2>${modelName}${meta.preview ? ' <span class="preview-tag">preview</span>' : ''}</h2>
+    <div class="org-label">${meta.org || ''}</div>
+    <div class="model-rows">
+      ${rows.map(r => `
+        <div class="mrow">
+          <div class="bname">
+            ${r.benchmark.name}
+            <span class="bdesc">${r.benchmark.description}</span>
+          </div>
+          <div class="mrank ${r.hit ? '' : 'notop'}">${r.hit ? '#' + r.hit.rank : 'not in top 5'}</div>
+          <div class="mscore">${r.hit ? fmtScore(r.hit.score, r.benchmark.scoreFormat) : '—'}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function selectModel(name) {
+  showView("model");
+  document.getElementById("model-select").value = name;
+  showModelDetail(name);
+}
+
+// ============================================================================
+// Compare view — pick multiple models, see them side-by-side
+// ============================================================================
+let compareModels = [];
+
+function populateComparePicker() {
+  const sel = document.getElementById("compare-picker");
+  const grouped = {};
+  allModels().forEach(m => { (grouped[m.org] = grouped[m.org] || []).push(m); });
+  sel.innerHTML = '<option value="">+ Add a model to compare…</option>' +
+    Object.entries(grouped).sort().map(([org, models]) => `
+      <optgroup label="${org}">
+        ${models.map(m => `<option value="${m.model}">${m.model}${m.preview ? ' (preview)' : ''}</option>`).join("")}
+      </optgroup>
+    `).join("");
+  sel.addEventListener("change", e => {
+    if (e.target.value && !compareModels.includes(e.target.value)) {
+      compareModels.push(e.target.value);
+      renderCompare();
+    }
+    e.target.value = "";
+  });
+}
+
+function removeCompareModel(m) {
+  compareModels = compareModels.filter(x => x !== m);
+  renderCompare();
+}
+
+function clearCompare() { compareModels = []; renderCompare(); }
+
+function quickCompareFrontier() {
+  // Pick the best non-preview model from each top org on SWE-bench (anchor benchmark)
+  compareModels = ["Claude Opus 4.7", "GPT-5.3 Codex", "Gemini 3.1 Pro Preview"];
+  // Only keep ones that actually exist in the data
+  const existing = new Set(allModels().map(m => m.model));
+  compareModels = compareModels.filter(m => existing.has(m));
+  renderCompare();
+}
+
+function renderCompare() {
+  const chips = document.getElementById("compare-chips");
+  chips.innerHTML = compareModels.length === 0
+    ? '<span style="color:var(--ink-3); font-size:13px; font-style:italic;">No models selected. Add models above, or use "Quick: top frontier".</span>'
+    : compareModels.map(m => {
+        const meta = allModels().find(x => x.model === m) || {};
+        return `<span class="chip">${m}${meta.preview ? ' <span class="preview-tag">preview</span>' : ''} <button onclick="removeCompareModel('${m.replace(/'/g, "\\'")}')" aria-label="remove">×</button></span>`;
+      }).join("");
+
+  const container = document.getElementById("compare-table");
+  if (compareModels.length === 0) { container.innerHTML = ""; return; }
+
+  // For each benchmark, find each model's score and whose is best
+  const rows = BENCHMARK_DATA.map(b => {
+    const scores = compareModels.map(mn => {
+      const hit = b.models.find(m => m.model === mn);
+      return { model: mn, score: hit ? hit.score : null, rank: hit ? hit.rank : null };
+    });
+    const valid = scores.filter(s => s.score !== null).map(s => s.score);
+    const best = valid.length > 0 ? Math.max(...valid) : null;
+    return { benchmark: b, scores, best };
+  });
+
+  // Composite row — use default tier weights for this view
+  const compositeScores = compareModels.map(mn => computeComposite(mn, defaultWeights()));
+
+  container.innerHTML = `
+    <table class="compare">
+      <thead>
+        <tr>
+          <th class="benchcol">Benchmark</th>
+          ${compareModels.map(m => `<th style="text-align:center">${m}</th>`).join("")}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td class="bench">${r.benchmark.name}
+              <span class="bd">${r.benchmark.description}</span>
+            </td>
+            ${r.scores.map(s => {
+              if (s.score === null) return `<td class="cell absent">—</td>`;
+              const isBest = r.best !== null && s.score === r.best && compareModels.length > 1;
+              return `<td class="cell ${isBest ? 'best' : ''}">${fmtScore(s.score, r.benchmark.scoreFormat)}<span class="rk">#${s.rank} overall</span></td>`;
+            }).join("")}
+          </tr>
+        `).join("")}
+        <tr class="composite-row">
+          <td class="bench">Composite (Tier 1 × 2, Tier 2 × 1)
+            <span class="bd">Normalized: top of each benchmark = 100</span>
+          </td>
+          ${compositeScores.map(s => `<td class="cell">${s.score.toFixed(1)}</td>`).join("")}
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+// ============================================================================
+// Composite view — normalized weighted ranking across benchmarks
+// ============================================================================
+let weights = {};
+
+function defaultWeights() {
+  const w = {};
+  BENCHMARK_DATA.forEach(b => { w[b.id] = b.tier === 1 ? 2 : 1; });
+  return w;
+}
+
+function resetWeights() { weights = defaultWeights(); renderWeightControls(); renderComposite(); }
+function equalWeights() { BENCHMARK_DATA.forEach(b => { weights[b.id] = 1; }); renderWeightControls(); renderComposite(); }
+function tier1OnlyWeights() { BENCHMARK_DATA.forEach(b => { weights[b.id] = b.tier === 1 ? 1 : 0; }); renderWeightControls(); renderComposite(); }
+
+function renderWeightControls() {
+  const grid = document.getElementById("weight-grid");
+  grid.innerHTML = BENCHMARK_DATA.map(b => `
+    <div class="wrow">
+      <label>
+        ${b.name}
+        <span class="wt">T${b.tier}</span>
+        <input type="range" min="0" max="3" step="0.5" value="${weights[b.id]}" data-id="${b.id}" oninput="onWeightChange(event)">
+      </label>
+      <span class="wval" id="wv-${b.id}">${weights[b.id].toFixed(1)}</span>
+    </div>
+  `).join("");
+}
+
+function onWeightChange(e) {
+  const id = e.target.dataset.id;
+  weights[id] = parseFloat(e.target.value);
+  document.getElementById("wv-" + id).textContent = weights[id].toFixed(1);
+  renderComposite();
+}
+
+// For each benchmark, normalize so top score in that benchmark = 100.
+// A model missing from a benchmark's top-5 gets null (excluded from that benchmark's weight).
+function computeComposite(modelName, w) {
+  let weightedSum = 0;
+  let weightTotal = 0;
+  const perBench = {};
+  let missingBenchmarks = 0;
+
+  BENCHMARK_DATA.forEach(b => {
+    const weight = w[b.id] ?? (b.tier === 1 ? 2 : 1);
+    if (weight === 0) return;
+    const hit = b.models.find(m => m.model === modelName);
+    if (!hit) { perBench[b.id] = null; missingBenchmarks++; return; }
+    const topScore = Math.max(...b.models.map(m => m.score));
+    const normalized = (hit.score / topScore) * 100;
+    perBench[b.id] = normalized;
+    weightedSum += normalized * weight;
+    weightTotal += weight;
+  });
+
+  const score = weightTotal > 0 ? weightedSum / weightTotal : 0;
+  return { score, perBench, missingBenchmarks };
+}
+
+function renderComposite() {
+  const all = allModels();
+  const results = all.map(m => {
+    const c = computeComposite(m.model, weights);
+    return { ...m, ...c };
+  }).sort((a, b) => b.score - a.score);
+
+  const maxScore = results[0]?.score || 100;
+
+  const container = document.getElementById("composite-table");
+  container.innerHTML = `
+    <table class="composite">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Model</th>
+          <th>Organization</th>
+          <th class="num">Composite</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        ${results.map((r, i) => `
+          <tr class="${i === 0 ? 'top1' : ''}">
+            <td class="rank-badge">#${i + 1}</td>
+            <td>
+              ${r.model}
+              ${r.preview ? '<span class="preview-tag">preview</span>' : ''}
+              ${r.missingBenchmarks > 0 ? `<span class="missing-note">(in ${BENCHMARK_DATA.length - r.missingBenchmarks}/${BENCHMARK_DATA.length} benchmarks)</span>` : ''}
+            </td>
+            <td>${r.org}</td>
+            <td class="num composite-score">${r.score.toFixed(1)}</td>
+            <td><span class="bar" style="width:${(r.score / maxScore) * 140}px"></span></td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+    <p class="missing-note" style="margin-top:14px; display:block">Models are ranked against only the benchmarks where they appear in the top 5. A model absent from many benchmarks isn't penalized; it's just scored on what we know about it. "In 3/8 benchmarks" = score based on 3 data points.</p>
+  `;
+}
+
+// ============================================================================
+// Use case view — describe work, get model recommendations
+// ============================================================================
+const USECASE_EXAMPLES = {
+  coding: "I'm building developer tools that live inside a real codebase. I need the model to understand existing code, ship working patches, run tests, and handle multi-file edits reliably. It should be strong at agentic coding tasks.",
+  browser: "I need an agent that drives a web browser: logs into accounts, fills forms, extracts data from pages, and chains together multi-step workflows. Tool use reliability matters more than raw reasoning.",
+  writing: "I want to generate blog posts, marketing copy, and emails that sound like me. Writing quality and voice-preservation matter most. The model will rarely need to code or use tools.",
+  research: "I'm using this for research and analysis — reading long documents, synthesizing findings, and reasoning through complex domain questions. I care about accuracy and depth more than speed.",
+  agent: "I'm building an autonomous agent that runs on a schedule, makes multi-step tool calls, browses the web, and handles edge cases without constant supervision. Reliability over long chains is critical.",
+  longdoc: "I'll feed the model very long inputs — entire codebases, multi-document analyses, or 100k+ token context windows. Retrieval accuracy across the full context is what matters."
+};
+
+// Signal weights — how much each tag boosts each benchmark
+const SIGNAL_MAP = {
+  "coding": { swebench: 3, termbench: 2, taubench: 1 },
+  "dev": { swebench: 2.5, termbench: 2 },
+  "agentic": { termbench: 2.5, taubench: 2, browsecomp: 1.5 },
+  "tool-use": { taubench: 3, termbench: 1.5 },
+  "browsing": { browsecomp: 3, taubench: 1 },
+  "research": { browsecomp: 2, gpqa: 1.5, mmlupro: 1 },
+  "writing": { lmarena: 3 },
+  "voice": { lmarena: 2.5 },
+  "general": { lmarena: 1.5, mmlupro: 1 },
+  "reasoning": { gpqa: 2.5, mmlupro: 2 },
+  "knowledge": { mmlupro: 2, gpqa: 1.5 },
+  "long-context": { longctx: 3 },
+  "retrieval": { longctx: 2.5 }
+};
+
+// Keyword detection — maps input text to signal tags
+const KEYWORDS = {
+  "coding":      ["code", "coding", "programming", "dev", "developer", "programmer", "github", "bug", "pull request", "pr ", "repo", "repository", "patch", "refactor", "function", "api", "sdk", "framework", "typescript", "python", "javascript", "ship code"],
+  "agentic":     ["agent", "agentic", "autonomous", "multi-step", "multi step", "orchestrat", "pipeline", "workflow", "chain", "autonomy"],
+  "tool-use":    ["tool use", "tool-use", "function call", "calls tools", "use tools", "plugin", "api call", "mcp", "structured output"],
+  "browsing":    ["browser", "browse", "scrape", "scraping", "website", "web page", "crawl", "web research", "deep research", "surf"],
+  "research":    ["research", "analyze", "analysis", "synthesize", "synthesis", "investigate", "summarize", "summari"],
+  "writing":     ["write", "writing", "blog", "copy", "article", "content", "email", "newsletter", "marketing", "social media", "post "],
+  "voice":       ["voice", "tone", "style", "sound like me", "my voice", "personality", "brand voice"],
+  "reasoning":   ["reason", "reasoning", "logic", "logical", "complex problem", "hard question", "math", "science", "physics", "chemistry"],
+  "knowledge":   ["knowledge", "trivia", "general knowledge", "professional", "domain expert"],
+  "long-context":["long context", "long-context", "big context", "128k", "200k", "1m token", "million token", "entire codebase", "whole codebase", "large document", "long document"],
+  "retrieval":   ["retrieve", "retrieval", "rag", "find in", "search through"],
+  "dev":         ["shipping code", "building tools", "cli", "command line", "terminal"],
+  "general":     ["general purpose", "general-purpose", "broad", "everyday"]
+};
+
+function setUsecase(key) {
+  document.getElementById("usecase-input").value = USECASE_EXAMPLES[key] || "";
+  analyzeUsecase();
+}
+
+function detectSignals(text) {
+  const t = " " + text.toLowerCase() + " ";
+  const detected = {};
+  for (const [tag, words] of Object.entries(KEYWORDS)) {
+    for (const w of words) {
+      if (t.includes(w.toLowerCase())) {
+        detected[tag] = (detected[tag] || 0) + 1;
+      }
+    }
+  }
+  return detected;
+}
+
+function weightsFromSignals(signals) {
+  // Start from small baseline so we don't divide by zero
+  const w = {};
+  BENCHMARK_DATA.forEach(b => { w[b.id] = 0.2; });
+  for (const [tag, count] of Object.entries(signals)) {
+    const boosts = SIGNAL_MAP[tag] || {};
+    for (const [benchId, boost] of Object.entries(boosts)) {
+      w[benchId] = (w[benchId] || 0) + boost * Math.min(count, 3);
+    }
+  }
+  return w;
+}
+
+function benchmarkReasonFor(benchId, signals) {
+  const b = BENCHMARK_DATA.find(x => x.id === benchId);
+  if (!b) return "";
+  return b.whyItMatters;
+}
+
+function analyzeUsecase() {
+  const text = document.getElementById("usecase-input").value.trim();
+  const results = document.getElementById("usecase-results");
+  if (!text) { results.innerHTML = '<p style="color:var(--ink-3); font-style:italic; margin-top:24px;">Describe your use case above, then click Analyze.</p>'; return; }
+
+  const signals = detectSignals(text);
+  const w = weightsFromSignals(signals);
+
+  // Rank all models using these weights
+  const ranked = allModels().map(m => {
+    const c = computeComposite(m.model, w);
+    return { ...m, ...c };
+  }).sort((a, b) => b.score - a.score);
+
+  // Detected tags with labels
+  const tagLabels = {
+    "coding": "Coding", "agentic": "Agentic", "tool-use": "Tool use",
+    "browsing": "Browsing", "research": "Research", "writing": "Writing",
+    "voice": "Voice/style", "reasoning": "Reasoning", "knowledge": "Knowledge",
+    "long-context": "Long context", "retrieval": "Retrieval", "dev": "Dev tools",
+    "general": "General-purpose"
+  };
+  const allTags = Object.keys(tagLabels);
+  const detectedTags = Object.keys(signals);
+
+  // Top weighted benchmarks (sort & take top 4)
+  const benchWeights = BENCHMARK_DATA.map(b => ({ ...b, weight: w[b.id] || 0 }))
+    .sort((a, b) => b.weight - a.weight);
+  const topBenches = benchWeights.slice(0, 4).filter(b => b.weight > 0.5);
+
+  // Top 5 model recommendations
+  const top5 = ranked.slice(0, 5);
+
+  // Build reason per model: name the 1-2 benchmarks where they score highest among the weighted set
+  function reasonFor(modelName) {
+    const per = [];
+    for (const b of topBenches) {
+      const hit = b.models.find(m => m.model === modelName);
+      if (hit) {
+        const topScore = Math.max(...b.models.map(x => x.score));
+        per.push({ bench: b, hit, normalized: (hit.score / topScore) * 100 });
+      }
+    }
+    per.sort((a, b) => b.normalized - a.normalized);
+    if (per.length === 0) return "Ranks on broader benchmarks but not the ones most relevant to your use case.";
+    const best = per[0];
+    const wonder = best.normalized >= 95 ? "tops" : best.normalized >= 85 ? "strong on" : "competitive on";
+    return `${wonder} ${best.bench.name} (#${best.hit.rank}, ${fmtScore(best.hit.score, best.bench.scoreFormat)})${per.length > 1 ? ` and solid on ${per[1].bench.name}` : ''}.`;
+  }
+
+  results.innerHTML = `
+    <div class="detection">
+      <div class="title">Detected from your description</div>
+      <div class="tags">
+        ${allTags.map(t => `<span class="tagpill ${detectedTags.includes(t) ? '' : 'inactive'}">${tagLabels[t]}</span>`).join("")}
+      </div>
+      ${detectedTags.length === 0 ? '<p style="margin-top:10px; color:var(--ink-3); font-size:12px;">No specific signals detected — recommendations default to overall tier-weighted composite.</p>' : ''}
+    </div>
+
+    ${topBenches.length > 0 ? `
+    <div class="detection">
+      <div class="title">Benchmarks weighted highest for you</div>
+      <div class="tags">
+        ${topBenches.map(b => `<span class="tagpill">${b.name} · ${b.weight.toFixed(1)}×</span>`).join("")}
+      </div>
+      <p style="margin-top:10px; color:var(--ink-3); font-size:12px;">These are the leaderboards most predictive of success for your use case. Recommended models below are ranked by weighted composite across all benchmarks with this emphasis.</p>
+    </div>
+    ` : ''}
+
+    <div class="recommendations">
+      <h3>Top 5 models for this use case</h3>
+      ${top5.map((m, i) => `
+        <div class="rec-card ${i === 0 ? 'top' : ''}">
+          <div class="rec-rank">#${i + 1}</div>
+          <div class="rec-body">
+            <div>
+              <span class="rec-name">${m.model}</span>
+              ${m.preview ? '<span class="preview-tag">preview</span>' : ''}
+              <span class="rec-org">· ${m.org}</span>
+            </div>
+            <div class="rec-reason">${reasonFor(m.model)}</div>
+          </div>
+          <div class="rec-score">
+            <div class="big">${m.score.toFixed(1)}</div>
+            <div class="lbl">fit score</div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+
+    <p style="color:var(--ink-3); font-size:12px; margin-top:22px; font-style:italic;">Fit score = composite across all benchmarks, weighted by what your description emphasized. Top scorer on each benchmark = 100. A model scoring 100 wins every weighted benchmark; 85 means it's strong but not dominant on what you care about.</p>
+  `;
+}
+
+// ============================================================================
+// View switching
+// ============================================================================
+function showView(v) {
+  ["bench", "model", "compare", "composite", "usecase"].forEach(name => {
+    document.getElementById("view-" + name).style.display = v === name ? "block" : "none";
+    document.getElementById("btn-" + name).classList.toggle("active", v === name);
+  });
+  // Tier filter only makes sense on the bench view
+  document.getElementById("tier-filter").style.visibility = v === "bench" ? "visible" : "hidden";
+}
+
+// ============================================================================
+// Init
+// ============================================================================
+document.getElementById("snapshot").textContent = "Snapshot: " + BENCHMARK_DATA[0].lastUpdated;
+weights = defaultWeights();
+renderGrid();
+populateModelSelect();
+showModelDetail("");
+populateComparePicker();
+renderCompare();
+renderWeightControls();
+renderComposite();
+analyzeUsecase();
+</script>
+</body>
+</html>
