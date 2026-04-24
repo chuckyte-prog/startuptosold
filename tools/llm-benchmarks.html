@@ -173,6 +173,10 @@
   .bar { display: inline-block; height: 8px; background: linear-gradient(to right, var(--accent), var(--accent-2)); border-radius: 4px; margin-left: 8px; vertical-align: middle; }
   .missing-note { color: var(--ink-3); font-size: 11px; margin-left: 6px; font-style: italic; }
 
+  .coverage-note { background: rgba(232, 93, 38, 0.06); border: 1px solid rgba(232, 93, 38, 0.25); border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
+  .coverage-note strong { color: var(--accent-2); font-weight: 700; }
+  .coverage-note p { margin: 6px 0 0; color: var(--ink-2); font-size: 13px; }
+
   /* Use case view */
   .usecase-wrap { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
   .usecase-wrap h3 { margin: 0 0 6px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
@@ -1031,6 +1035,13 @@ function renderCompare() {
   // Composite row — use default tier weights for this view
   const compositeScores = compareModels.map(mn => computeComposite(mn, defaultWeights()));
 
+  // Coverage check — flag any model with data on < half of benchmarks
+  const totalBenchmarks = BENCHMARK_DATA.length;
+  const coverageNote = compareModels.map(mn => {
+    const covered = BENCHMARK_DATA.filter(b => b.canonicalModels.find(m => m.canonical === mn)).length;
+    return { model: mn, covered, total: totalBenchmarks };
+  }).filter(c => c.covered < totalBenchmarks / 2);
+
   container.innerHTML = `
     <div class="table-scroll">
     <table class="compare">
@@ -1062,6 +1073,12 @@ function renderCompare() {
       </tbody>
     </table>
     </div>
+    ${coverageNote.length > 0 ? `
+      <div class="coverage-note">
+        <strong>⚠ Limited benchmark coverage:</strong> ${coverageNote.map(c => `${c.model} (${c.covered}/${c.total} benchmarks)`).join(', ')}.
+        <p>Open-weights models that fit on home hardware are rarely submitted to expensive agentic evals like SWE-bench, Terminal-Bench, BrowseComp, or Tau-bench. They typically only appear on cheap-to-run benchmarks like GPQA and MMLU-Pro. A dash (—) doesn't mean the model is bad at that benchmark — it means nobody has publicly tested it. The composite score penalizes missing data as a "no evidence" 60% baseline, so a model absent from most benchmarks will score lower than its real capability might suggest.</p>
+      </div>
+    ` : ''}
   `;
 }
 
@@ -1147,8 +1164,17 @@ function renderComposite() {
 
   const maxScore = results[0]?.score || 100;
 
+  // Show coverage banner when hardware filter is active AND the filtered set is sparse
+  const showHardwareExplainer = ['laptop', 'midrange', 'highend', 'openweights'].includes(hardwareFilter.composite);
+
   const container = document.getElementById("composite-table");
   container.innerHTML = `
+    ${showHardwareExplainer ? `
+      <div class="coverage-note">
+        <strong>⚠ Why scores look low here:</strong>
+        <p>Open-weights models that fit on home hardware are rarely submitted to expensive agentic evals (SWE-bench, Terminal-Bench, BrowseComp, Tau-bench, LMArena). They usually only appear on cheap-to-run reasoning benchmarks like GPQA and MMLU-Pro. The composite score penalizes missing data as a "no evidence" 60% baseline, so scores here understate real capability — a 27B model might be genuinely good at coding, but if nobody tested it on SWE-bench, this tool can't tell you. Use these rankings as a rough guide, then test yourself on your actual use case.</p>
+      </div>
+    ` : ''}
     <div class="table-scroll">
     <table class="composite">
       <thead>
