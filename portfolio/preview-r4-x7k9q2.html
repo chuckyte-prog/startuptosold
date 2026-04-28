@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Road to 4.0 | From Spreadsheets to a Sold-Out Coaching Business | Startup to Sold</title>
+  <meta name="description" content="A pickleball coach was running signups on spreadsheets and chasing Venmo at the court. We built the platform that turned it into a business: 4,531 players served, 539 sessions, 93% sellout." />
+  <meta property="og:title" content="Road to 4.0: From Spreadsheets to a Sold-Out Coaching Business" />
+  <meta property="og:description" content="Spreadsheets and Venmo to a sold-out coaching business. 4,531 players served, 539 sessions hosted, 93% sellout rate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/portfolio/road-to-4-0.html" />
+  <meta property="og:image" content="https://startuptosold.com/images/portfolio/road-to-4-0/hero-medalists.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://startuptosold.com/portfolio/road-to-4-0" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #e85d26;
+      --dark-bg: #0f1623;
+      --dark-surface: #162032;
+      --dark-text: #f2f2f5;
+      --dark-muted: #8e8e99;
+      --dark-rule: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--dark-text); font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV (shared) ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 3rem; height: 64px; background: rgba(15,22,35,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--dark-rule); }
+    .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dark-text); text-decoration: none; }
+    .nav-dot { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-text); }
+    .nav-right { display: flex; justify-content: flex-end; }
+    .nav-phone { font-size: 0.85rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--dark-text); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,22,35,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 1.4rem; font-weight: 700; color: var(--dark-text); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { color: var(--orange) !important; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--orange); }
+
+    /* ── HERO (story-specific layout: left column copy, right column hero photo) ── */
+    .hero {
+      background: var(--dark-bg);
+      padding: 9rem 3rem 6rem;
+      border-bottom: 1px solid var(--dark-rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 85% 40%, rgba(232,93,38,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--orange); font-style: normal; display: block; }
+    .hero-sub { font-size: 1.05rem; color: var(--dark-muted); line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+    .hero-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-image: url('../images/portfolio/road-to-4-0/hero-medalists.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--dark-rule);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+    }
+
+    /* ── STATS BAR (full-width, under hero) ── */
+    .stats-bar {
+      background: var(--dark-surface);
+      border-bottom: 1px solid var(--dark-rule);
+      padding: 2.5rem 3rem;
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .stat {
+      padding: 0 2rem;
+      border-right: 1px solid var(--dark-rule);
+      text-align: center;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-number { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-muted); line-height: 1.4; }
+
+    /* ── GENERIC SECTIONS ── */
+    .section { padding: 6rem 3rem; border-bottom: 1px solid var(--dark-rule); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-inner-wide { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .section h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section h2 em { color: var(--orange); font-style: normal; }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--dark-muted);
+      max-width: 720px;
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .section-lead + .section-lead { margin-top: 1rem; }
+
+    /* bg variants */
+    .bg-surface { background: var(--dark-surface); }
+    .bg-bg { background: var(--dark-bg); }
+
+    /* ── PAIN / FIX / RESULT CARDS (the core of this page) ── */
+    .pain-fix-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+    .pain-fix-intro-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-image: url('../images/portfolio/road-to-4-0/action-doubles.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--dark-rule);
+    }
+    .pain-fix-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .pain-fix-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0;
+      background: var(--dark-bg);
+      border: 1px solid var(--dark-rule);
+      transition: border-color 0.2s;
+    }
+    .pain-fix-card:hover { border-color: rgba(232,93,38,0.25); }
+    .pain-fix-pain,
+    .pain-fix-fix {
+      padding: 2rem 2.25rem;
+      border-right: 1px solid var(--dark-rule);
+    }
+    .pain-fix-fix { border-right: none; }
+    .pain-fix-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+      margin-bottom: 0.85rem;
+    }
+    .pain-fix-pain .pain-fix-label { color: var(--dark-muted); }
+    .pain-fix-fix .pain-fix-label { color: var(--orange); }
+    .pain-fix-pain-body {
+      font-size: 0.98rem;
+      color: var(--dark-text);
+      line-height: 1.65;
+      font-style: italic;
+    }
+    .pain-fix-fix-body {
+      font-size: 0.95rem;
+      color: var(--dark-muted);
+      line-height: 1.7;
+    }
+    .pain-fix-metric {
+      padding: 2rem 2.5rem;
+      background: rgba(232,93,38,0.05);
+      border-left: 1px solid var(--dark-rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 180px;
+    }
+    .pain-fix-metric-number {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    .pain-fix-metric-label {
+      font-size: 0.78rem;
+      color: var(--dark-muted);
+      line-height: 1.45;
+    }
+
+    /* ── PULL QUOTE (Will's big quote) ── */
+    .pullquote {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    .pullquote blockquote {
+      font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--dark-text);
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .pullquote blockquote::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--orange);
+      position: absolute;
+      left: -1.5rem;
+      top: -0.5rem;
+      line-height: 1;
+      font-style: normal;
+      opacity: 0.5;
+    }
+    .pullquote cite {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+      font-style: normal;
+    }
+    .pullquote cite strong { color: var(--dark-text); font-weight: 700; }
+
+    /* ── THREE CATEGORIES STRIP ── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .category-card {
+      background: var(--dark-bg);
+      border: 1px solid var(--dark-rule);
+      padding: 2rem 1.75rem;
+    }
+    .category-number {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .category-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--dark-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+    .category-body {
+      font-size: 0.9rem;
+      color: var(--dark-muted);
+      line-height: 1.7;
+    }
+
+    /* ── TESTIMONIALS STRIP ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .testimonial {
+      padding: 2rem 1.75rem;
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-rule);
+      border-left: 2px solid var(--orange);
+    }
+    .testimonial-quote {
+      font-size: 1rem;
+      color: var(--dark-text);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .testimonial-cite {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dark-muted);
+    }
+    .testimonial-cite strong { color: var(--dark-text); }
+
+    /* ── CLOSING NARRATIVE + MOMENT PHOTO ── */
+    .closing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .closing-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-image: url('../images/portfolio/road-to-4-0/medal-celebration.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      border: 1px solid var(--dark-rule);
+    }
+
+    /* ── CTA ── */
+    .section-cta { background: var(--dark-surface); padding: 6rem 3rem; text-align: center; }
+    .section-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-cta h2 em { color: var(--orange); font-style: normal; }
+    .section-cta p { font-size: 1rem; color: var(--dark-muted); margin-bottom: 2.5rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.2s; }
+    .btn-primary:hover { background: #c44a1a; }
+    .cta-secondary { margin-top: 1.25rem; font-size: 0.88rem; color: var(--dark-muted); }
+    .cta-secondary a { color: var(--dark-muted); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.2s, border-color 0.2s; }
+    .cta-secondary a:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark-surface); border-top: 1px solid var(--dark-rule); padding: 4rem 3rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.5rem; }
+    .footer-tagline { font-size: 0.85rem; color: var(--dark-muted); line-height: 1.6; }
+    .footer-col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-muted); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--dark-text); }
+    .footer-contact a { display: block; font-size: 0.9rem; color: var(--dark-muted); text-decoration: none; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid var(--dark-rule); padding-top: 1.5rem; font-size: 0.8rem; color: var(--dark-muted); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s, transform 0.5s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Tablet ── */
+    @media (max-width: 1024px) {
+      .pain-fix-card { grid-template-columns: 1fr 1fr; }
+      .pain-fix-metric {
+        grid-column: 1 / -1;
+        border-left: none;
+        border-top: 1px solid var(--dark-rule);
+        min-width: 0;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 1.25rem 2rem;
+      }
+      .pain-fix-metric-number { margin-bottom: 0; }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-photo { aspect-ratio: 3 / 2; }
+      .stats-bar { padding: 1.5rem 1.5rem; }
+      .stats-inner { grid-template-columns: 1fr; gap: 1.25rem 0; }
+      .stat { padding: 1rem 1rem; border-right: none; border-bottom: 1px solid var(--dark-rule); }
+      .stat:last-child { border-bottom: none; }
+      .section, .section-cta { padding: 4rem 1.5rem; }
+      .pain-fix-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .pain-fix-intro-photo { aspect-ratio: 3 / 2; }
+      .pain-fix-card { grid-template-columns: 1fr; }
+      .pain-fix-pain,
+      .pain-fix-fix {
+        border-right: none;
+        border-bottom: 1px solid var(--dark-rule);
+        padding: 1.5rem 1.5rem;
+      }
+      .pullquote { padding: 2rem 0; }
+      .pullquote blockquote::before { display: none; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .closing-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .closing-photo { aspect-ratio: 3 / 2; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/ai-automations.html">AI Automations</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858-523-8881</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#services">Services</a>
+    <a href="/ai-automations.html">AI Automations</a>
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div style="margin-bottom: 2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
+        <div class="hero-eyebrow">Case Study · 2023–Present</div>
+        <h1>From spreadsheets<em>to a sold-out coaching business.</em></h1>
+        <p class="hero-sub">When Will Tams started Road to 4.0, signups were a spreadsheet and payments were Venmo at the court. Two years later: 4,531 players served, 539 sessions hosted, 93% sellout rate. Every pain point he hit, I turned into a fix. This is the platform that runs his business.</p>
+        <a href="#cta" class="btn-primary">I Can Build This For You</a>
+      </div>
+      <div class="hero-photo" role="img" aria-label="Three Road to 4.0 tournament medalists holding paddles and medals at the net"></div>
+    </div>
+  </section>
+
+  <!-- ── STATS BAR ── -->
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-number">4,531</div>
+        <div class="stat-label">Players Served</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">93%</div>
+        <div class="stat-label">Sellout Rate</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">539</div>
+        <div class="stat-label">Sessions Hosted</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE CHALLENGE ── -->
+  <section class="section bg-bg">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Challenge</div>
+      <h2>A coach with a program. <em>No system to run it on.</em></h2>
+      <p class="section-lead">Will Tams wanted to start a pickleball drill group in the East Bay. He'd coached Ultimate Frisbee and baseball for 25 years, but had never formally coached pickleball. He wanted to focus on what he's best at, the coaching, but everything else was pulling him off the court.</p>
+      <p class="section-lead">Signups were a Google spreadsheet. Payments were Venmo when people showed up. Half the time he didn't know who'd paid until the lesson started. Off-the-shelf SaaS didn't fit a small coaching business, and he had no in-house engineering. Every operational problem was his to solve, alone, between coaching sessions.</p>
+      <p class="section-lead" style="color: var(--dark-text); font-style: italic; margin-top: 1rem;">Then the first clinic sold out. Then the second. The pain points started compounding.</p>
+    </div>
+  </section>
+
+  <!-- ── THE APPROACH ── -->
+  <section class="section bg-surface" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Approach</div>
+      <h2>One pain point at a time.</h2>
+      <p class="section-lead">No roadmap. No big design phase. Will would hit a wall on Tuesday (a refund chase, a no-show wave, a roster mismatch) and I'd ship a fix by the weekend. Every pain point became its own working session: what's actually broken, what would solve it, and what's the smallest version I can ship before the next clinic.</p>
+    </div>
+  </section>
+
+  <!-- ── HERO PAIN #1 ── -->
+  <section class="section bg-bg">
+    <div class="section-inner-wide">
+      <div class="section-eyebrow">Hero Pain #1</div>
+      <h2>From hobby to business <em>in one signup flow.</em></h2>
+      <div class="pain-fix-intro">
+        <div class="pain-fix-intro-photo" role="img" aria-label="Road to 4.0 doubles action on the court"></div>
+        <div>
+          <p class="section-lead" style="margin-bottom: 1rem;">Before I got involved, signups lived in a spreadsheet and money lived in Venmo. Will would coach a clinic and then chase players off-court for payment, sometimes for days afterward. Half the people who said they'd come never paid. There was no way to actually <em>reserve</em> a spot.</p>
+          <p class="section-lead">It wasn't a business yet. It was a hobby with money attached.</p>
+          <p class="section-lead"><strong style="color: var(--dark-text);">The fix was the foundation:</strong> a real signup flow with Stripe Connect, where paying <em>is</em> reserving. No payment, no spot. Roster auto-built from confirmed payments. Refund policy enforced by code. The day this shipped, Road to 4.0 stopped being a hobby.</p>
+        </div>
+      </div>
+
+      <div class="pain-fix-list">
+        <div class="pain-fix-card">
+          <div class="pain-fix-pain">
+            <div class="pain-fix-label">The Pain</div>
+            <p class="pain-fix-pain-body">"I'm running signups on a spreadsheet and chasing Venmo payments at the court. This isn't a real business yet."</p>
+          </div>
+          <div class="pain-fix-fix">
+            <div class="pain-fix-label">What I Built</div>
+            <p class="pain-fix-fix-body">Pay-to-reserve signup flow with Stripe Connect. Players reserve their spot only after payment. Roster builds itself from confirmed signups.</p>
+          </div>
+          <div class="pain-fix-metric">
+            <div class="pain-fix-metric-number">Foundational</div>
+            <div class="pain-fix-metric-label">Without this, there is no business to run.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HERO PAIN #2 ── -->
+  <section class="section bg-surface">
+    <div class="section-inner-wide">
+      <div class="section-eyebrow">Hero Pain #2</div>
+      <h2>Stop the no-shows. <em>Save the lesson.</em></h2>
+
+      <div style="max-width: 720px; margin-bottom: 2.5rem;">
+        <p class="section-lead">In pickleball, the math matters. You need clean sets of four. One no-show and your courts are off. One late arrival and the coach has to stop and catch them up, which means the players who showed up on time get less of the lesson they paid for.</p>
+        <p class="section-lead">Will couldn't babysit sixteen people's calendars every week. He needed the system to do it.</p>
+        <p class="section-lead"><strong style="color: var(--dark-text);">The fix was simple, and it worked.</strong> Every session got automated reminder emails: one 24 hours out, one 2 hours out. Players actually showed up. The ones who couldn't make it had time to refund or cancel cleanly. Everyone else got a real lesson.</p>
+      </div>
+
+      <div class="pain-fix-list">
+        <div class="pain-fix-card">
+          <div class="pain-fix-pain">
+            <div class="pain-fix-label">The Pain</div>
+            <p class="pain-fix-pain-body">"People sign up but don't show, or show up late. Either way, the lesson is broken. The math doesn't work, and on-time players lose out because I'm catching latecomers up."</p>
+          </div>
+          <div class="pain-fix-fix">
+            <div class="pain-fix-label">What I Built</div>
+            <p class="pain-fix-fix-body">Automated reminder emails 24 hours and 2 hours before each session. Customizable templates. Zero manual work per session.</p>
+          </div>
+          <div class="pain-fix-metric">
+            <div class="pain-fix-metric-number">~50% drop</div>
+            <div class="pain-fix-metric-label">No-shows and late arrivals fell by roughly half.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PULL QUOTE (mid-page) ── -->
+  <section class="section bg-bg" style="padding: 4rem 3rem;">
+    <div class="pullquote">
+      <blockquote>
+        Every pain point I had, Chuck turned into a fix.
+      </blockquote>
+      <cite><strong>Will Tams</strong> &nbsp;·&nbsp; Founder, Road to 4.0</cite>
+    </div>
+  </section>
+
+  <!-- ── HERO PAIN #3 ── -->
+  <section class="section bg-surface">
+    <div class="section-inner-wide">
+      <div class="section-eyebrow">Hero Pain #3</div>
+      <h2>Players sorted by skill, <em>automatically.</em></h2>
+
+      <div style="max-width: 720px; margin-bottom: 2.5rem;">
+        <p class="section-lead">Pickleball players really, really, really want to be matched by skill. When skill levels are mismatched, the better players get bored, the weaker players feel exposed, and the lesson feels off, even when everything else is working.</p>
+        <p class="section-lead">The very first drill group, sixteen people showed up and there was no way to sort them. Some were total beginners, some were edging toward 4.0. They all played on the same courts, in the same drills, and most went home thinking "that wasn't quite for me."</p>
+        <p class="section-lead"><strong style="color: var(--dark-text);">The fix had two pieces, working together:</strong> players self-rated their skill at signup, and the roster auto-sorted them onto courts by skill level. By clinic three, the problem was gone. Reviews went up. Retention went up. Players told their friends.</p>
+      </div>
+
+      <div class="pain-fix-list">
+        <div class="pain-fix-card">
+          <div class="pain-fix-pain">
+            <div class="pain-fix-label">The Pain</div>
+            <p class="pain-fix-pain-body">"Sixteen people showed up at totally different skill levels. There's no way to sort them, so everyone gets a worse lesson. And they remember it."</p>
+          </div>
+          <div class="pain-fix-fix">
+            <div class="pain-fix-label">What I Built</div>
+            <p class="pain-fix-fix-body">Skill self-assessment on signup, plus a roster that auto-sorts by skill onto separate courts. Two pieces, one outcome: players matched correctly from the moment they walk on.</p>
+          </div>
+          <div class="pain-fix-metric">
+            <div class="pain-fix-metric-number">Reviews up</div>
+            <div class="pain-fix-metric-label">Player experience improved. Retention followed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MORE FRICTION WE REMOVED ── -->
+  <section class="section bg-bg">
+    <div class="section-inner">
+      <div class="section-eyebrow">More Friction We Removed</div>
+      <h2>Every other pain point <em>got the same treatment.</em></h2>
+      <p class="section-lead" style="margin-bottom: 2.5rem;">The three above were the biggest. They weren't the only ones. Every week brought a new wall, and every wall got fixed before the next session.</p>
+
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem; max-width: 820px;">
+        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">10 MIN &rarr; 20 SEC</span>
+          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Cloning a session.</strong> Setting up next week used to take ten minutes and risk misconfiguration. One click now.</span>
+        </li>
+        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">2–3 HRS / WEEK</span>
+          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Automated refunds with a variable deadline policy.</strong> No more manual chasing or double-refund anxiety.</span>
+        </li>
+        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">ONE CLICK</span>
+          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Copy every attendee email at once.</strong> Made ad-hoc messages (parking notes, last-minute changes, next-session promos) possible at all.</span>
+        </li>
+        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">15 &rarr; 16</span>
+          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Waitlist with auto-bumping.</strong> Turns 15 players and a dropout into 16 players and four perfect courts.</span>
+        </li>
+        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">500+ SUBSCRIBERS</span>
+          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Interest List as a marketing funnel.</strong> Every successful session feeds the list. The list fills the next session.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SECONDARY PULL QUOTE (Yelp) ── -->
+  <section class="section bg-surface" style="padding: 4rem 3rem;">
+    <div class="pullquote">
+      <blockquote style="font-size: clamp(1.05rem, 1.8vw, 1.3rem); font-style: italic;">
+        What am I going to call Yelp and ask them for? You'd be lucky if a year later there was functionality that dealt with it.
+      </blockquote>
+      <cite><strong>Will Tams</strong> &nbsp;·&nbsp; on what makes custom-built different</cite>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="section bg-bg">
+    <div class="section-inner">
+      <div class="section-eyebrow">What Players Said</div>
+      <h2>When the system works, <em>players feel it.</em></h2>
+      <p class="section-lead">These are unsolicited emails from players after their sessions. They don't know (or care) what's running in the background. That's the point. When the operations are right, players feel a business that's <em>well organized</em> without ever needing to know why.</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <p class="testimonial-quote">"Guys — quit your day jobs! That clinic was great. Well organized, informative and fun."</p>
+          <div class="testimonial-cite"><strong>Bill Powning</strong><br>After the first-ever clinic, Dec 2023</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">"It was the best clinic I've participated in. I loved it and can't wait until the next one!"</p>
+          <div class="testimonial-cite"><strong>Amy Potozkin</strong><br>Player, Feb 2024</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">"You two guys are by far the most 'efficient' coaches / teachers I've found."</p>
+          <div class="testimonial-cite"><strong>Carmen Padron</strong><br>Player, Feb 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CLOSING NARRATIVE ── -->
+  <section class="section bg-surface">
+    <div class="section-inner">
+      <div class="closing-grid">
+        <div>
+          <div class="section-eyebrow">What This Proves</div>
+          <h2>Find the pain. <em>Ship the fix.</em></h2>
+          <p class="section-lead">Road to 4.0 is what happens when a coach with a real program gets a builder who can take friction out of the business as fast as friction shows up. Every feature on this page started the same way: a wall hit on a Tuesday, a fix shipped by the weekend, permanent infrastructure by the next session.</p>
+          <p class="section-lead">Will runs Road to 4.0 solo now. The platform still runs underneath it, supporting his sub-coaches, his tournaments, and a growing community of players. The platform got so good that other coaches started using it too.</p>
+          <p class="section-lead" style="color: var(--dark-text); margin-top: 1.5rem;">That's the model I bring to every client engagement. Find the pain point. Build the fix this week, not next quarter. Let it compound.</p>
+        </div>
+        <div class="closing-photo" role="img" aria-label="A player joyfully receiving a medal at a Road to 4.0 tournament"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="section-cta" id="cta">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="justify-content: center;">Get Started</div>
+      <h2>Running a brand new business? <em>Let's talk about what to build first.</em></h2>
+      <p>A 30-minute call. No pitch. Tell me your biggest pain point and I'll tell you what an afternoon of work could do to it.</p>
+      <a href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session</a>
+      <p class="cta-secondary">Or reach me at <a href="tel:8585238881">858-523-8881</a> &nbsp;&middot;&nbsp; <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Startup to Sold Consulting<span style="color:var(--orange);">.</span></div>
+          <p class="footer-tagline">Hands-on operations partner for Bay Area businesses.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links"><li><a href="/ai-automations.html">AI Automations</a></li><li><a href="/brokers.html">Brokers</a></li><li><a href="/business-valuation-calculator.html">Valuation Calculator</a></li><li><a href="/portfolio.html">Portfolio</a></li><li><a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a></li></ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Contact</div>
+          <div class="footer-contact">
+            <a href="tel:8585238881">858-523-8881</a>
+            <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Startup to Sold Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
