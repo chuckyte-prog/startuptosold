@@ -93,11 +93,25 @@
     .hero-photo {
       width: 100%;
       aspect-ratio: 4 / 3;
-      background-image: url('../images/portfolio/road-to-4-0/hero-medalists.jpg');
+      background-image: url('../images/portfolio/road-to-4-0/will-coaching.jpg');
       background-size: cover;
       background-position: center;
       border: 1px solid var(--dark-rule);
       box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+    }
+    .hero-logo {
+      width: 88px;
+      height: auto;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .hero-concept {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--dark-rule);
+      box-shadow: 0 20px 40px -16px rgba(0,0,0,0.5);
     }
 
     /* ── STATS BAR (full-width, under hero) ── */
@@ -452,6 +466,7 @@
     <div class="hero-inner">
       <div>
         <div style="margin-bottom: 2rem;"><a href="../portfolio.html" class="back-link">&larr; Back to Portfolio</a></div>
+        <img src="../images/portfolio/road-to-4-0/road-to-4-0-logo.png" alt="Road to 4.0 logo" class="hero-logo" />
         <div class="hero-eyebrow">Case Study · 2023–Present</div>
         <h1>From spreadsheets<em>to a sold-out coaching business.</em></h1>
         <p class="hero-sub">When Will Tams started Road to 4.0, signups were a spreadsheet and payments were Venmo at the court. Two years later: 4,531 players served, 539 sessions hosted, 93% sellout rate. Every pain point he hit, I turned into a fix. This is the platform that runs his business.</p>
@@ -484,7 +499,7 @@
     <div class="section-inner">
       <div class="section-eyebrow">The Challenge</div>
       <h2>A coach with a program. <em>No system to run it on.</em></h2>
-      <p class="section-lead">Will Tams wanted to start a pickleball drill group in the East Bay. He'd coached Ultimate Frisbee and baseball for 25 years, but had never formally coached pickleball. He wanted to focus on what he's best at, the coaching, but everything else was pulling him off the court.</p>
+      <p class="section-lead">Will Tams wanted to start a pickleball coaching business in the East Bay. He'd coached Ultimate Frisbee and baseball for 25 years, but pickleball coaching was new. He wanted to focus on what he's best at, the coaching, but everything else was pulling him off the court.</p>
       <p class="section-lead">Signups were a Google spreadsheet. Payments were Venmo when people showed up. Half the time he didn't know who'd paid until the lesson started. Off-the-shelf SaaS didn't fit a small coaching business, and he had no in-house engineering. Every operational problem was his to solve, alone, between coaching sessions.</p>
       <p class="section-lead" style="color: var(--dark-text); font-style: italic; margin-top: 1rem;">Then the first clinic sold out. Then the second. The pain points started compounding.</p>
     </div>
@@ -494,18 +509,18 @@
   <section class="section bg-surface" style="padding-top: 4rem; padding-bottom: 4rem;">
     <div class="section-inner">
       <div class="section-eyebrow">The Approach</div>
-      <h2>One pain point at a time.</h2>
+      <h2>Chuck came in as the consultant. <em>Will stayed on the court.</em></h2>
+      <p class="section-lead">Will brought me in to build the custom software his coaching business needed. He'd run Road to 4.0 and do the actual coaching. I'd build the platform underneath it, one pain point at a time.</p>
       <p class="section-lead">No roadmap. No big design phase. Will would hit a wall on Tuesday (a refund chase, a no-show wave, a roster mismatch) and I'd ship a fix by the weekend. Every pain point became its own working session: what's actually broken, what would solve it, and what's the smallest version I can ship before the next clinic.</p>
     </div>
   </section>
 
-  <!-- ── HERO PAIN #1 ── -->
+  <!-- ── HERO #1: HOBBY → BUSINESS ── -->
   <section class="section bg-bg">
     <div class="section-inner-wide">
-      <div class="section-eyebrow">Hero Pain #1</div>
       <h2>From hobby to business <em>in one signup flow.</em></h2>
       <div class="pain-fix-intro">
-        <div class="pain-fix-intro-photo" role="img" aria-label="Road to 4.0 doubles action on the court"></div>
+        <div class="hero-concept" style="background-image: url('../images/portfolio/road-to-4-0/concept-hobby-to-business.png');" role="img" aria-label="Illustration of a chaotic spreadsheet and Venmo on the left transforming into a clean Stripe-powered reservation card on the right"></div>
         <div>
           <p class="section-lead" style="margin-bottom: 1rem;">Before I got involved, signups lived in a spreadsheet and money lived in Venmo. Will would coach a clinic and then chase players off-court for payment, sometimes for days afterward. Half the people who said they'd come never paid. There was no way to actually <em>reserve</em> a spot.</p>
           <p class="section-lead">It wasn't a business yet. It was a hobby with money attached.</p>
@@ -532,16 +547,18 @@
     </div>
   </section>
 
-  <!-- ── HERO PAIN #2 ── -->
+  <!-- ── HERO #2: NO-SHOWS ── -->
   <section class="section bg-surface">
     <div class="section-inner-wide">
-      <div class="section-eyebrow">Hero Pain #2</div>
       <h2>Stop the no-shows. <em>Save the lesson.</em></h2>
 
-      <div style="max-width: 720px; margin-bottom: 2.5rem;">
-        <p class="section-lead">In pickleball, the math matters. You need clean sets of four. One no-show and your courts are off. One late arrival and the coach has to stop and catch them up, which means the players who showed up on time get less of the lesson they paid for.</p>
-        <p class="section-lead">Will couldn't babysit sixteen people's calendars every week. He needed the system to do it.</p>
-        <p class="section-lead"><strong style="color: var(--dark-text);">The fix was simple, and it worked.</strong> Every session got automated reminder emails: one 24 hours out, one 2 hours out. Players actually showed up. The ones who couldn't make it had time to refund or cancel cleanly. Everyone else got a real lesson.</p>
+      <div class="pain-fix-intro">
+        <div class="hero-concept" style="background-image: url('../images/portfolio/road-to-4-0/concept-no-shows.png');" role="img" aria-label="Illustration of a pickleball court with 24-hour and 2-hour reminder notifications arcing down to each player"></div>
+        <div>
+          <p class="section-lead" style="margin-bottom: 1rem;">In pickleball, the math matters. You need clean sets of four. One no-show and your courts are off. One late arrival and the coach has to stop and catch them up, which means the players who showed up on time get less of the lesson they paid for.</p>
+          <p class="section-lead">Will couldn't babysit sixteen people's calendars every week. He needed the system to do it.</p>
+          <p class="section-lead"><strong style="color: var(--dark-text);">The fix was simple, and it worked.</strong> Every session got automated reminder emails: one 24 hours out, one 2 hours out. Players actually showed up. The ones who couldn't make it had time to refund or cancel cleanly. Everyone else got a real lesson.</p>
+        </div>
       </div>
 
       <div class="pain-fix-list">
@@ -552,7 +569,7 @@
           </div>
           <div class="pain-fix-fix">
             <div class="pain-fix-label">What I Built</div>
-            <p class="pain-fix-fix-body">Automated reminder emails 24 hours and 2 hours before each session. Customizable templates. Zero manual work per session.</p>
+            <p class="pain-fix-fix-body">Automated reminder emails 24 hours and 2 hours before each session. Zero manual work per session.</p>
           </div>
           <div class="pain-fix-metric">
             <div class="pain-fix-metric-number">~50% drop</div>
@@ -573,23 +590,25 @@
     </div>
   </section>
 
-  <!-- ── HERO PAIN #3 ── -->
-  <section class="section bg-surface">
+  <!-- ── HERO #3: SKILL SORTING ── -->
+  <section class="section bg-bg">
     <div class="section-inner-wide">
-      <div class="section-eyebrow">Hero Pain #3</div>
       <h2>Players sorted by skill, <em>automatically.</em></h2>
 
-      <div style="max-width: 720px; margin-bottom: 2.5rem;">
-        <p class="section-lead">Pickleball players really, really, really want to be matched by skill. When skill levels are mismatched, the better players get bored, the weaker players feel exposed, and the lesson feels off, even when everything else is working.</p>
-        <p class="section-lead">The very first drill group, sixteen people showed up and there was no way to sort them. Some were total beginners, some were edging toward 4.0. They all played on the same courts, in the same drills, and most went home thinking "that wasn't quite for me."</p>
-        <p class="section-lead"><strong style="color: var(--dark-text);">The fix had two pieces, working together:</strong> players self-rated their skill at signup, and the roster auto-sorted them onto courts by skill level. By clinic three, the problem was gone. Reviews went up. Retention went up. Players told their friends.</p>
+      <div class="pain-fix-intro">
+        <div class="hero-concept" style="background-image: url('../images/portfolio/road-to-4-0/concept-skill-sorting.png');" role="img" aria-label="Illustration of mismatched players on the left being sorted by skill onto three separate courts on the right"></div>
+        <div>
+          <p class="section-lead" style="margin-bottom: 1rem;">Pickleball players really, really, really want to be matched by skill. When skill levels are mismatched, the better players get bored, the weaker players feel exposed, and the lesson feels off, even when everything else is working.</p>
+          <p class="section-lead">The very first drill group, sixteen people showed up and there was no way to sort them. Some were total beginners, some were edging toward 4.0. They all played on the same courts, in the same drills, and most went home thinking "that wasn't quite for me."</p>
+          <p class="section-lead"><strong style="color: var(--dark-text);">The fix had two pieces, working together:</strong> players self-rated their skill at signup, and the roster auto-sorted them onto courts by skill level. By clinic three, the problem was gone. Reviews went up. Retention went up. Players told their friends.</p>
+        </div>
       </div>
 
       <div class="pain-fix-list">
         <div class="pain-fix-card">
           <div class="pain-fix-pain">
             <div class="pain-fix-label">The Pain</div>
-            <p class="pain-fix-pain-body">"Sixteen people showed up at totally different skill levels. There's no way to sort them, so everyone gets a worse lesson. And they remember it."</p>
+            <p class="pain-fix-pain-body">"Beginners and advanced players on the same court. Nobody's getting the lesson they came for."</p>
           </div>
           <div class="pain-fix-fix">
             <div class="pain-fix-label">What I Built</div>
@@ -611,28 +630,34 @@
       <h2>Every other pain point <em>got the same treatment.</em></h2>
       <p class="section-lead" style="margin-bottom: 2.5rem;">The three above were the biggest. They weren't the only ones. Every week brought a new wall, and every wall got fixed before the next session.</p>
 
-      <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem; max-width: 820px;">
-        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">10 MIN &rarr; 20 SEC</span>
-          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Cloning a session.</strong> Setting up next week used to take ten minutes and risk misconfiguration. One click now.</span>
-        </li>
-        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">2–3 HRS / WEEK</span>
-          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Automated refunds with a variable deadline policy.</strong> No more manual chasing or double-refund anxiety.</span>
-        </li>
-        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">ONE CLICK</span>
-          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Copy every attendee email at once.</strong> Made ad-hoc messages (parking notes, last-minute changes, next-session promos) possible at all.</span>
-        </li>
-        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">15 &rarr; 16</span>
-          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Waitlist with auto-bumping.</strong> Turns 15 players and a dropout into 16 players and four perfect courts.</span>
-        </li>
-        <li style="display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; white-space: nowrap;">500+ SUBSCRIBERS</span>
-          <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Interest List as a marketing funnel.</strong> Every successful session feeds the list. The list fills the next session.</span>
-        </li>
-      </ul>
+      <div style="max-width: 880px;">
+        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; padding: 0 1.5rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: var(--dark-muted); letter-spacing: 0.14em; text-transform: uppercase;">
+          <div>Benefit</div>
+          <div>What I Built</div>
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">~1 hour/week saved</span>
+            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>One-click session cloning.</strong> Setting up next week dropped from 10 minutes (and the stress of misconfiguring it) to 20 seconds.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">2–3 hours/week saved</span>
+            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Automated refunds with a variable deadline policy.</strong> No more manual chasing, no more double-refund anxiety.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">Last-minute comms unlocked</span>
+            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>One-click copy of every attendee email.</strong> Parking notes, last-minute changes, next-session promos, all sendable in seconds.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">Full courts, every session</span>
+            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Waitlist with auto-bumping.</strong> When someone drops, the next player on the waitlist gets bumped in automatically. 15 plus a dropout becomes 16 and four perfect courts.</span>
+          </li>
+          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
+            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">500+ leads in the funnel</span>
+            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Interest List as a marketing funnel.</strong> Every successful session feeds the list. The list fills the next session.</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -678,7 +703,7 @@
           <div class="section-eyebrow">What This Proves</div>
           <h2>Find the pain. <em>Ship the fix.</em></h2>
           <p class="section-lead">Road to 4.0 is what happens when a coach with a real program gets a builder who can take friction out of the business as fast as friction shows up. Every feature on this page started the same way: a wall hit on a Tuesday, a fix shipped by the weekend, permanent infrastructure by the next session.</p>
-          <p class="section-lead">Will runs Road to 4.0 solo now. The platform still runs underneath it, supporting his sub-coaches, his tournaments, and a growing community of players. The platform got so good that other coaches started using it too.</p>
+          <p class="section-lead">Will's business kept growing. The platform underneath it kept growing too, supporting his sub-coaches, his tournaments, and a community of players that has now passed 4,500. The platform got so good that other coaches started using it too.</p>
           <p class="section-lead" style="color: var(--dark-text); margin-top: 1.5rem;">That's the model I bring to every client engagement. Find the pain point. Build the fix this week, not next quarter. Let it compound.</p>
         </div>
         <div class="closing-photo" role="img" aria-label="A player joyfully receiving a medal at a Road to 4.0 tournament"></div>
