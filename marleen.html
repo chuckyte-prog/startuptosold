@@ -303,13 +303,13 @@
     .flip {
       perspective: 1200px;
       cursor: pointer;
-      min-height: 220px;
+      min-height: 340px;
     }
     .flip-inner {
       position: relative;
       width: 100%;
       height: 100%;
-      min-height: 220px;
+      min-height: 340px;
       transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
       transform-style: preserve-3d;
     }
@@ -327,8 +327,10 @@
       background: var(--paper);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      overflow: hidden;
     }
+    .flip-front { justify-content: space-between; }
+    .flip-back { gap: 0.5rem; }
     .flip-front {
       background: linear-gradient(135deg, #fff 0%, #fdf6f0 100%);
       border-color: rgba(232, 93, 38, 0.25);
@@ -597,7 +599,7 @@
       .step { gap: 1rem; }
       .step-num { width: 36px; height: 36px; font-size: 1rem; }
       .knew-card { padding: 1.4rem; }
-      .flip, .flip-inner { min-height: 200px; }
+      .flip, .flip-inner { min-height: 320px; }
       .flip-face { padding: 1.4rem; }
       .flip-front .teaser-q { font-size: 1rem; }
       .example-card { padding: 1.75rem 1.4rem; }
@@ -640,7 +642,7 @@
   <section class="knew build-section" id="knew-section" data-build="1">
     <div class="container-wide reveal">
       <h2>What it knew about you.</h2>
-      <p class="lede">Before writing a word, the AI read through our family emails going back to 2018. Tap each card to see what it figured out, all on its own.</p>
+      <p class="lede">Before writing a word, the AI read through our family emails going back to 2010. Tap each card to see what it figured out, all on its own.</p>
 
       <div class="knew-grid">
 
@@ -667,7 +669,7 @@
             </div>
             <div class="flip-face flip-back">
               <div class="label">Family Seder Host</div>
-              <p>It knows you host the family Passover Seder every year in Tracy. Last spring, 27 people. You made a kid-friendly Haggadah by hand. Mom brought matzah and a dark chocolate Seder plate.</p>
+              <p>It knows you host the family Passover Seder most years in Tracy. Last spring, 27 people. You made a kid-friendly Haggadah by hand. Mom brought matzah and a dark chocolate Seder plate.</p>
             </div>
           </div>
         </div>
@@ -691,12 +693,13 @@
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <div class="teaser-label">Card 4 of 6</div>
-              <div class="teaser-q">What did Uncle Jim insist we needed?</div>
+              <div class="teaser-q">What did you write when I sold my first company?</div>
               <div class="teaser-cta">Tap to reveal</div>
             </div>
             <div class="flip-face flip-back">
-              <div class="label">The signing party</div>
-              <p>Uncle Jim wrote back: <em>"Marleen already bought one, we need a signature party!"</em> I said I'd bring a pen to Passover. You bought the first copy.</p>
+              <div class="label">When I sold DVD Your Memories</div>
+              <p>December 2012. The AI found your reply.</p>
+              <p class="quote">"CONGRATULATIONS!!! You are an amazing person, a great business man, and an even better nephew. I'm so very, very happy for you!"</p>
             </div>
           </div>
         </div>
@@ -840,8 +843,8 @@
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const promptText = "Look up everything about my Aunt Marleen in my email and build her a personalized webpage on my company's website.";
     const buildSteps = [
-      { line: '<span class="terminal-comment">// Reading family emails since 2018...</span>', delay: 600 },
-      { line: '<span class="terminal-comment">// Found 47 threads. Pulling out the highlights...</span>', delay: 900 },
+      { line: '<span class="terminal-comment">// Reading family emails going back to 2010...</span>', delay: 600 },
+      { line: '<span class="terminal-comment">// Found 140+ threads going back 15 years. Pulling out the highlights...</span>', delay: 900 },
       { line: '<span class="build-narrate">› Building the section about what it knew about you...</span>', delay: 1100, build: 1 },
       { line: '<span class="terminal-comment">// Writing the explanation in plain language...</span>', delay: 900 },
       { line: '<span class="build-narrate">› Building the "how is this possible?" section...</span>', delay: 1100, build: 2 },
