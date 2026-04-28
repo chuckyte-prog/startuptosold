@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI &amp; Operations Audit — Startup to Sold</title>
+  <meta name="description" content="An audit of your operations and a roadmap for what to fix first, including where AI fits and where it doesn't. 90 minutes of your time. $1,000. If we don't find $25,000 of operational waste, you don't pay." />
+  <link rel="canonical" href="https://startuptosold.com/audit" />
+  <meta property="og:title" content="AI &amp; Operations Audit — Startup to Sold" />
+  <meta property="og:description" content="Stop guessing what to do about AI. An audit of your operations and a roadmap for what to fix first. 90 minutes of your time. $1,000." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://startuptosold.com/audit" />
+  <meta property="og:image" content="https://startuptosold.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://startuptosold.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XV0PEXSQJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XV0PEXSQJ');
+  </script>
+
+  <!-- Fonts: Plus Jakarta Sans (UI/body) + Fraunces (display, editorial serif with character) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper: #faf9f7;          /* warm off-white background */
+      --paper-shade: #f4f1ec;    /* slightly darker, used for guarantee block */
+      --ink: #1c1c1e;            /* body text */
+      --ink-soft: #2e2e32;       /* H1 / display */
+      --muted: #565659;          /* secondary text */
+      --muted-soft: #8e8e93;     /* tertiary / labels */
+      --rule: #e6e1d7;           /* horizontal rules, borders */
+      --rule-strong: #d3cdc1;    /* hairlines on guarantee */
+      --orange: #e85d26;
+      --orange-dark: #c44a1a;
+      --orange-soft: rgba(232, 93, 38, 0.08);
+      --serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'kern' 1, 'liga' 1;
+    }
+
+    /* Faint paper-grain texture, very subtle */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      opacity: 0.025;
+      mix-blend-mode: multiply;
+    }
+
+    /* All real content sits above the texture */
+    nav, main, footer { position: relative; z-index: 1; }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.1rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      background: rgba(250, 249, 247, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--rule);
+      background: rgba(250, 249, 247, 0.96);
+    }
+    .nav-logo {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .nav-dot { color: var(--orange); }
+    .nav-links {
+      justify-self: center;
+      display: flex; gap: 2rem; align-items: center; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-right { justify-self: end; display: flex; align-items: center; gap: 1rem; }
+    .nav-phone {
+      font-size: 0.82rem; font-weight: 700; color: var(--orange);
+      text-decoration: none; letter-spacing: 0.02em;
+    }
+    .nav-phone:hover { color: var(--orange-dark); }
+    .nav-hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 0.25rem; color: var(--ink);
+      flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: currentColor;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(250, 249, 247, 0.98);
+      z-index: 199;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a {
+      font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--ink); text-decoration: none;
+    }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-phone { font-size: 1.1rem; color: var(--orange) !important; margin-top: 1rem; }
+
+    /* ─── SHARED ─────────────────────────────────────────────── */
+    main { padding-top: 0; }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    .container--wide { max-width: 1100px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .h-display {
+      font-family: var(--serif);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--ink-soft);
+    }
+
+    .h-section {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: var(--ink-soft);
+    }
+
+    .lede {
+      font-size: 1.08rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .num {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section divider — editorial hairline */
+    .section {
+      padding: 5.5rem 0;
+      border-top: 1px solid var(--rule);
+      position: relative;
+    }
+    .section--lead { padding-top: 7rem; }
+
+    /* ─── HERO ────────────────────────────────────────────────── */
+    .hero {
+      padding: 9rem 0 5.5rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow { margin-bottom: 1.75rem; }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5.2vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink-soft);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      font-weight: inherit;
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 1.12rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-meta-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+    }
+    .hero-meta-value {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0.15rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--orange);
+      color: white;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1.1rem 2rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn-primary svg { width: 14px; height: 14px; }
+
+    .cta-aside {
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .hero-trust {
+      font-size: 0.86rem;
+      color: var(--muted-soft);
+      letter-spacing: 0.01em;
+      line-height: 1.65;
+    }
+    .hero-trust strong {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .hero-photo {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow:
+        0 1px 1px rgba(28, 28, 30, 0.04),
+        0 12px 32px rgba(28, 28, 30, 0.08),
+        0 32px 64px rgba(28, 28, 30, 0.08);
+    }
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block;
+      filter: saturate(0.96);
+    }
+    .hero-photo-caption {
+      margin-top: 1rem;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Initial fade-up on hero load */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+    }
+    .fade-up.d-1 { animation-delay: 0.05s; }
+    .fade-up.d-2 { animation-delay: 0.15s; }
+    .fade-up.d-3 { animation-delay: 0.25s; }
+    .fade-up.d-4 { animation-delay: 0.35s; }
+    .fade-up.d-5 { animation-delay: 0.45s; }
+    .fade-up.d-photo { animation-delay: 0.2s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { animation: none; opacity: 1; transform: none; }
+    }
+
+    /* ─── PROBLEM ────────────────────────────────────────────── */
+    .problem-body {
+      max-width: 680px;
+      margin-top: 2rem;
+    }
+    .problem-body p {
+      font-size: 1.12rem;
+      line-height: 1.78;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .problem-body p:last-child { margin-bottom: 0; }
+
+    .problem-body p strong {
+      font-weight: 700;
+      color: var(--ink-soft);
+    }
+
+    /* ─── WHAT YOU WALK AWAY WITH ────────────────────────────── */
+    .deliverables {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .deliverable {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 1.75rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--rule);
+      align-items: start;
+    }
+    .deliverable:last-child { border-bottom: 1px solid var(--rule); }
+    .deliverable-num {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 2.4rem;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .deliverable-body h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--ink-soft);
+      margin-bottom: 0.45rem;
+    }
+    .deliverable-body p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .deliverable-body p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ─── WHAT YOU GET (SHIP MANIFEST) ───────────────────────── */
+    .manifest {
+      margin-top: 2.25rem;
+      border: 1px solid var(--rule);
+      background: rgba(255,255,255,0.5);
+    }
+    .manifest-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--rule);
+      align-items: baseline;
+    }
+    .manifest-row:last-child { border-bottom: none; }
+    .manifest-label {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      line-height: 1.4;
+    }
+    .manifest-value {
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    .manifest-value strong {
+      font-weight: 700;
+    }
+
+    /* ─── GUARANTEE ──────────────────────────────────────────── */
+    .section-guarantee {
+      padding: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ─── MID-PAGE CTA ───────────────────────────────────────── */
+    .section--midcta { padding: 4.5rem 0; }
+    .midcta-lead {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin-bottom: 1.75rem;
+      max-width: 620px;
+    }
+    .guarantee-card {
+      background: var(--paper-shade);
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .guarantee-card::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 0;
+      width: 4px;
+      background: var(--orange);
+    }
+    .guarantee-inner {
+      max-width: 820px;
+      padding: 0 2.5rem 0 calc(2.5rem + 0px);
+      margin: 0 auto;
+      text-align: left;
+    }
+    .guarantee-eyebrow {
+      margin-bottom: 1.5rem;
+    }
+    .guarantee-headline {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink-soft);
+      margin-bottom: 1.5rem;
+    }
+    .guarantee-headline .num {
+      color: var(--orange);
+    }
+    .guarantee-body {
+      font-size: 1.08rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 640px;
+    }
+
+    /* ─── WHY THIS AUDIT ────────────────────────────────────── */
+    .why-body {
+      max-width: 700px;
+      margin-top: 2rem;
+    }
+    .why-body p {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .why-body p:last-child { margin-bottom: 0; }
+    .why-body p:last-child {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--orange);
+    }
+
+    /* ─── PORTFOLIO ─────────────────────────────────────────── */
+    .portfolio-intro {
+      max-width: 680px;
+      margin-top: 1.75rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .portfolio-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--rule);
+      padding: 1.75rem 1.6rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      position: relative;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(28, 28, 30, 0.06);
+      border-color: var(--rule-strong);
+    }
+    .portfolio-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .portfolio-card h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--ink-soft);
+    }
+    .portfolio-card p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .portfolio-arrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-soft);
+      transition: color 0.2s;
+    }
+    .portfolio-card:hover .portfolio-arrow { color: var(--orange); }
+
+    /* ─── UPSELL (HONEST) ───────────────────────────────────── */
+    .upsell-body {
+      max-width: 680px;
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.78;
+    }
+
+    /* ─── FAQ ───────────────────────────────────────────────── */
+    .faq {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    details.faq-item {
+      border-bottom: 1px solid var(--rule);
+      padding: 0;
+    }
+    details.faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.12rem;
+      color: var(--ink-soft);
+      letter-spacing: -0.005em;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary:hover { color: var(--orange); }
+    .faq-toggle {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted-soft);
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+      transform-origin: center;
+      width: 1.5rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    details[open] .faq-toggle {
+      transform: rotate(45deg);
+      color: var(--orange);
+    }
+    .faq-answer {
+      padding: 0 0 1.75rem 0;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+
+    /* ─── FINAL CTA ─────────────────────────────────────────── */
+    .section-final {
+      padding: 6rem 0 7rem;
+      border-top: 1px solid var(--rule);
+      text-align: left;
+    }
+    .final-headline {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--ink-soft);
+      margin-bottom: 1.5rem;
+      max-width: 680px;
+    }
+    .final-body {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+      max-width: 620px;
+    }
+    .final-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .final-email {
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .final-email:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .footer-dot { color: var(--orange); }
+    .footer-links {
+      display: flex;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.84rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-contact {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.84rem;
+    }
+    .footer-contact a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact a:hover { color: var(--orange); }
+    .footer-contact span { color: var(--muted-soft); }
+
+    /* ─── TABLET (≤ 1024px) ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.4fr 1fr;
+        gap: 3.5rem;
+      }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .container { padding-left: 2rem; padding-right: 2rem; }
+      .guarantee-inner { padding-left: 2rem; padding-right: 2rem; }
+    }
+
+    /* ─── MOBILE (≤ 768px) ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { font-size: 17px; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      .container,
+      .container--wide {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .hero { padding: 7rem 0 3.5rem; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .hero h1 { font-size: clamp(2.1rem, 9vw, 2.6rem); }
+      .hero-sub { font-size: 1.04rem; }
+      .hero-meta {
+        gap: 1.25rem;
+      }
+      .hero-meta-item { flex: 1 1 auto; min-width: 0; }
+      .hero-photo { aspect-ratio: 4/5; max-width: 320px; margin: 0 auto; }
+      .hero-photo-caption { text-align: center; max-width: 320px; margin-left: auto; margin-right: auto; }
+
+      .section { padding: 3.75rem 0; }
+      .section--lead { padding-top: 4.5rem; }
+
+      .deliverable {
+        grid-template-columns: 44px 1fr;
+        gap: 1.1rem;
+        padding: 1.5rem 0;
+      }
+      .deliverable-num { font-size: 1.7rem; }
+      .deliverable-body h3 { font-size: 1.15rem; }
+      .deliverable-body p { font-size: 0.95rem; }
+
+      .manifest-row {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+        padding: 1.25rem 1.25rem;
+      }
+      .manifest-label { font-size: 0.66rem; }
+      .manifest-value { font-size: 0.96rem; }
+
+      .guarantee-card { padding: 3.5rem 0; }
+      .guarantee-headline { font-size: clamp(1.5rem, 6.5vw, 1.95rem); }
+      .guarantee-body { font-size: 1rem; }
+
+      .why-body p:last-child {
+        font-size: 1.05rem;
+        padding-left: 1rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .portfolio-card { padding: 1.5rem 1.25rem; }
+
+      details.faq-item summary {
+        font-size: 1rem;
+        gap: 1rem;
+        padding: 1.25rem 0;
+      }
+      .faq-answer {
+        font-size: 0.96rem;
+        padding-bottom: 1.5rem;
+      }
+
+      .final-headline { font-size: clamp(1.6rem, 6.5vw, 2rem); }
+      .final-body { font-size: 1rem; }
+      .final-cta-row { gap: 1.25rem; }
+
+      footer {
+        padding: 2rem 1.5rem;
+      }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+      .footer-links { gap: 1.25rem; }
+      .footer-contact { flex-wrap: wrap; }
+
+      .btn-primary {
+        padding: 1rem 1.6rem;
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-ctas { gap: 1rem; flex-direction: column; align-items: stretch; }
+      .cta-aside { text-align: center; }
+    }
+
+    /* Very small phones */
+    @media (max-width: 380px) {
+      .container,
+      .container--wide {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      .hero-meta { gap: 1rem; }
+    }
+
+    /* Print — because this page is itself a document, print should work */
+    @media print {
+      nav, .mobile-menu, .hero-ctas, .final-cta-row, footer { display: none; }
+      body { background: white; }
+      body::before { display: none; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="/" class="nav-logo">Startup to Sold<span class="nav-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/audit.html">Audit</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:8585238881" class="nav-phone">858&nbsp;523&nbsp;8881</a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#services">Services</a>
+    <a href="/portfolio.html">Portfolio</a>
+    <a href="/#about">About</a>
+    <a href="/audit.html">Audit</a>
+    <a href="tel:8585238881" class="mobile-phone">858-523-8881</a>
+  </div>
+
+  <main>
+
+    <!-- ─── HERO ──────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container container--wide">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <div class="eyebrow hero-eyebrow fade-up d-1">AI &amp; Operations Audit</div>
+            <h1 class="fade-up d-2">Stop guessing what to do <em>about AI.</em></h1>
+            <p class="hero-sub fade-up d-3">An audit of your operations and a roadmap for what to fix first &mdash; including where AI fits and where it doesn&rsquo;t.</p>
+
+            <div class="hero-meta fade-up d-3">
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">Your time</span>
+                <span class="hero-meta-value num">90 minutes</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">Investment</span>
+                <span class="hero-meta-value num">$1,000</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">Guarantee</span>
+                <span class="hero-meta-value num">$25,000 found</span>
+              </div>
+            </div>
+
+            <div class="hero-ctas fade-up d-4">
+              <a href="https://calendly.com/chuck-startuptosold/15-mins" target="_blank" rel="noopener" class="btn-primary">
+                Book a free 15-min fit call
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </a>
+              <span class="cta-aside">A short call to see if the audit is a fit. No pitch.</span>
+            </div>
+
+            <p class="hero-trust fade-up d-5">
+              <strong>Two seven-figure exits</strong> &middot; <strong>Inc. Magazine</strong> published &middot; <strong>UC Berkeley Extension</strong> instructor &middot; <strong>MBA</strong>, UC Davis
+            </p>
+          </div>
+
+          <div class="hero-photo-col fade-up d-photo">
+            <div class="hero-photo">
+              <img src="chuck-working.jpg" alt="Chuck Temple working through an AI integration plan" />
+            </div>
+            <p class="hero-photo-caption">Chuck Temple. Operator, founder, author of Startup to Sold.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROBLEM ───────────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">The week you&rsquo;re having</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">Every owner I talk to is in <em style="font-style:normal;color:var(--orange);">roughly the same place.</em></h2>
+        <div class="problem-body">
+          <p>You read about AI every day. Your competitors are probably using it. Your kids and grandkids talk about it. Some salesperson keeps trying to sell you a tool that costs $4,000 a month and promises to change your business.</p>
+          <p>You don&rsquo;t know what&rsquo;s real and what&rsquo;s noise. You don&rsquo;t know what&rsquo;s worth paying for. You don&rsquo;t know what to fix first &mdash; your operations are full of things you&rsquo;ve been meaning to get to for years, and now there&rsquo;s a whole new category of things you don&rsquo;t even understand.</p>
+          <p><strong>So you do nothing, or you buy the wrong thing, or you sit through another sales call and feel exactly the same afterward.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── WHAT YOU WALK AWAY WITH ───────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">What you walk away with</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">Three things, on paper, by the end of the week.</h2>
+
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-num num">01</div>
+            <div class="deliverable-body">
+              <h3>Clarity on what&rsquo;s actually broken.</h3>
+              <p>Not the symptoms &mdash; the real bottlenecks costing you money, time, or sleep. Named, ranked by what they cost you, in plain English.</p>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num num">02</div>
+            <div class="deliverable-body">
+              <h3>A roadmap for what to fix first.</h3>
+              <p>The top three to five interventions, ordered by impact and effort. For each one: what to do, who can do it, what it costs, what it saves. <strong>Real numbers.</strong></p>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num num">03</div>
+            <div class="deliverable-body">
+              <h3>Where AI fits, and where it doesn&rsquo;t.</h3>
+              <p>For each fix on the roadmap: is this a tool you can buy, a custom build, a process change, or something AI is genuinely the right answer for? Some things AI is great at. Some things it&rsquo;s terrible at. You&rsquo;ll know which is which for your specific business.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── WHAT YOU GET (MANIFEST) ───────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">What you actually get</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">Four pieces. About a week, end&#8209;to&#8209;end.</h2>
+
+        <div class="manifest">
+          <div class="manifest-row">
+            <div class="manifest-label">Discovery call</div>
+            <div class="manifest-value">A <strong>60&#8209;minute conversation</strong> with me, after you book the audit. I ask questions about how your business actually runs. You talk; I listen and dig.</div>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-label">Written report</div>
+            <div class="manifest-value">Specific to your business. Diagnosis, roadmap, financial impact, and a four&#8209;day implementation plan for the quick wins. <strong>Roughly 9&ndash;12 pages, designed to be readable in 15 minutes.</strong></div>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-label">Review call</div>
+            <div class="manifest-value">A <strong>30&#8209;minute walkthrough</strong>. You ask questions, push back, redirect.</div>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-label">Question bank</div>
+            <div class="manifest-value">A copy of the discovery questions, so you can <strong>run the same diagnostic on your own business in six months.</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── GUARANTEE ─────────────────────────────────────── -->
+    <section class="section-guarantee">
+      <div class="guarantee-card">
+        <div class="guarantee-inner">
+          <div class="eyebrow guarantee-eyebrow">The guarantee</div>
+          <h2 class="guarantee-headline">If the audit doesn&rsquo;t find at&nbsp;least <span class="num">$25,000</span> of operational waste, you don&rsquo;t pay.</h2>
+          <p class="guarantee-body">That&rsquo;s $25,000 of annual waste, lost revenue, or owner time I&rsquo;d get back in the first six months. If I can&rsquo;t show you that, refund in full. That&rsquo;s not a sales gimmick. It&rsquo;s the floor.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MID-PAGE CTA ──────────────────────────────────── -->
+    <section class="section section--midcta">
+      <div class="container">
+        <p class="midcta-lead">Ready to see what&rsquo;s leaking? Book a free 15-minute fit call. If the audit&rsquo;s a fit, we&rsquo;ll set it up.</p>
+        <a href="https://calendly.com/chuck-startuptosold/15-mins" target="_blank" rel="noopener" class="btn-primary">
+          Book a 15-minute call
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── WHY THIS AUDIT IS DIFFERENT ───────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">Why this audit, not another one</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">An operator first. The AI part comes second.</h2>
+
+        <div class="why-body">
+          <p>Most &ldquo;AI audits&rdquo; are tools consultants who learned about AI six months ago and now sell you a list of SaaS to buy. The &ldquo;operations audits&rdquo; are usually big-firm consultants who hand you a binder and disappear.</p>
+          <p>I&rsquo;m neither. I ran a four-location media company that sold for seven figures. I ran an electric scooter media business from zero to a million in revenue and sold that too. I built operations from scratch as COO of a fast-growing juice company. I wrote a book on what I learned &mdash; Inc. Magazine published it in 2023. When AI got good enough to actually rebuild operations around, I went deep. The portfolio below is real, deployed, and runs every day.</p>
+          <p>When I look at your business, I see operations first. AI shows up where it&rsquo;s the right answer, and stays out of the way where it isn&rsquo;t. You&rsquo;re not buying a tools list. You&rsquo;re buying a clear answer to &ldquo;what should I fix first.&rdquo;</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PORTFOLIO ─────────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">What I build, when it&rsquo;s the right answer</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">Real things. Running every day.</h2>
+        <p class="portfolio-intro">When the audit recommends a custom build, this is what &ldquo;custom build&rdquo; actually looks like coming from me &mdash; not a slide deck of someone else&rsquo;s case studies.</p>
+
+        <div class="portfolio-grid">
+          <a href="/portfolio/bushrod-court-scraper.html" class="portfolio-card">
+            <span class="portfolio-tag">Automation</span>
+            <h3>Bushrod Court Scraper</h3>
+            <p>60 hours a year saved. $1,500 a year in labor. One click. Runs free.</p>
+            <span class="portfolio-arrow">View &rarr;</span>
+          </a>
+          <a href="/portfolio/morning-operations.html" class="portfolio-card">
+            <span class="portfolio-tag">Orchestration</span>
+            <h3>Morning Operations</h3>
+            <p>Five accounts synced, emails triaged, voice captures routed before coffee. Built around your actual day.</p>
+            <span class="portfolio-arrow">View &rarr;</span>
+          </a>
+          <a href="/portfolio/knowledge-base.html" class="portfolio-card">
+            <span class="portfolio-tag">Knowledge ops</span>
+            <h3>Knowledge Base</h3>
+            <p>Drop a book, transcript, or strategy doc into a folder. Get cited answers months later.</p>
+            <span class="portfolio-arrow">View &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── UPSELL (HONEST) ───────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">If you want help after</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">No pressure either way.</h2>
+        <div class="upsell-body">
+          <p>The audit ends with a clear roadmap. Most owners take it from there themselves &mdash; that&rsquo;s fine, that&rsquo;s why the report has a four-day quick-wins plan. Some owners want me to build one of the recommendations for them, or stay on as a fractional operations partner. We can talk about that on the review call if it&rsquo;s the right next step.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FAQ ───────────────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">Honest answers</div>
+        <h2 class="h-section" style="margin-top: 1.25rem;">Questions I get before booking.</h2>
+
+        <div class="faq">
+          <details class="faq-item">
+            <summary>How is this different from someone selling me an AI tool? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              I don&rsquo;t sell tools. I&rsquo;ll recommend tools, builds, or process changes &mdash; whichever is actually right. If the answer for your business is &ldquo;you don&rsquo;t need AI for any of this,&rdquo; I&rsquo;ll tell you that.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What if my business is too small for $25,000 of waste? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              Then the audit is free, per the guarantee. If a business is under roughly $1.5M in revenue, that threshold is harder to clear. I&rsquo;ll be straight on the fit call if I think your business isn&rsquo;t the right size.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How much of my time will this actually take? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              60 minutes for the discovery call. 30 minutes for the review call. That&rsquo;s it. Everything else happens on my side without you involved.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How long until I get the report? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              About a week from the discovery call.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you work with my industry? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              Probably. I&rsquo;ve worked with home services, professional firms, multi-location service businesses, and creative agencies. The operations problems are mostly the same regardless of vertical. If yours is genuinely outside what I can help with, I&rsquo;ll say so on the fit call.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What if I read the report and decide not to do anything? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              That&rsquo;s a totally normal outcome. The audit gives you clarity. What you do with it is up to you.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Is this remote or in-person? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              Remote works fine for the audit itself. If you&rsquo;re in the Bay Area and want me to walk through your operation in person, that&rsquo;s available &mdash; usually adds a day to the timeline, no extra cost.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you sign an NDA? <span class="faq-toggle">+</span></summary>
+            <div class="faq-answer">
+              Yes. Send me one or use mine.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FINAL CTA ─────────────────────────────────────── -->
+    <section class="section-final">
+      <div class="container">
+        <h2 class="final-headline">Want to know what&rsquo;s actually going on in your business?</h2>
+        <p class="final-body">Book a free 15-minute fit call. We&rsquo;ll talk briefly about how your business runs and where the friction is. If the audit is a fit, we&rsquo;ll set it up. If it&rsquo;s not, I&rsquo;ll tell you.</p>
+        <div class="final-cta-row">
+          <a href="https://calendly.com/chuck-startuptosold/15-mins" target="_blank" rel="noopener" class="btn-primary">
+            Book a 15-minute call
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a href="mailto:chuck@startuptosold.com" class="final-email">Or email me directly: chuck@startuptosold.com</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">Startup to Sold Consulting<span class="footer-dot">.</span></a>
+      <div class="footer-links">
+        <a href="/audit.html">Audit</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/business-valuation-calculator.html">Valuation Calculator</a>
+        <a href="https://www.amazon.com/dp/1639090142" target="_blank" rel="noopener">The Book</a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:chuck@startuptosold.com">chuck@startuptosold.com</a>
+        <span>&middot;</span>
+        <a href="tel:8585238881">858-523-8881</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll state
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close FAQ items when another opens (single-open accordion)
+    const faqItems = document.querySelectorAll('details.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('toggle', () => {
+        if (item.open) {
+          faqItems.forEach(other => {
+            if (other !== item) other.removeAttribute('open');
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
