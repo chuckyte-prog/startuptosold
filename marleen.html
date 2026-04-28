@@ -516,6 +516,76 @@
     /* ─── REVEAL ANIMATION (progressive enhancement) ─────── */
     .reveal { transition: opacity 0.8s ease, transform 0.8s ease; }
 
+    /* ─── DREAM (what I want to do) ──────────────────────── */
+    .dream {
+      background: var(--white);
+      border-top: 1px solid var(--rule);
+    }
+    .dream h2 em {
+      font-style: italic;
+      color: var(--orange);
+    }
+    .dream .lede { margin-bottom: 2rem; }
+    .dream p { color: var(--ink); }
+
+    .example-card {
+      background: linear-gradient(135deg, #fff8f3 0%, #fdf3eb 100%);
+      border: 1px solid rgba(232, 93, 38, 0.25);
+      border-radius: 16px;
+      padding: 2.25rem 2rem;
+      margin: 2.5rem 0;
+      position: relative;
+    }
+    .example-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 2rem;
+      width: 60px; height: 4px;
+      background: var(--orange);
+      border-radius: 0 0 4px 4px;
+    }
+    .example-card .example-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .example-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+    .example-card p { font-size: 1rem; line-height: 1.7; }
+    .example-card .punchline {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px dashed rgba(232, 93, 38, 0.35);
+      font-size: 1.02rem;
+    }
+
+    .dream-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.85rem 1.5rem;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dream-link:hover {
+      background: var(--orange-dark);
+      transform: translateX(2px);
+    }
+
     /* ─── MOBILE ─────────────────────────────────────────── */
     @media (max-width: 640px) {
       body { font-size: 17px; }
@@ -530,6 +600,8 @@
       .flip, .flip-inner { min-height: 200px; }
       .flip-face { padding: 1.4rem; }
       .flip-front .teaser-q { font-size: 1rem; }
+      .example-card { padding: 1.75rem 1.4rem; }
+      .example-card h3 { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -568,7 +640,7 @@
   <section class="knew build-section" id="knew-section" data-build="1">
     <div class="container-wide reveal">
       <h2>What it knew about you.</h2>
-      <p class="lede">Before writing a word, the AI read through our family emails going back to 2018. Tap each card to see what it figured out — all on its own.</p>
+      <p class="lede">Before writing a word, the AI read through our family emails going back to 2018. Tap each card to see what it figured out, all on its own.</p>
 
       <div class="knew-grid">
 
@@ -624,7 +696,7 @@
             </div>
             <div class="flip-face flip-back">
               <div class="label">The signing party</div>
-              <p>Uncle Jim wrote back: <em>"Marleen already bought one — we need a signature party!"</em> I said I'd bring a pen to Passover. You bought the first copy.</p>
+              <p>Uncle Jim wrote back: <em>"Marleen already bought one, we need a signature party!"</em> I said I'd bring a pen to Passover. You bought the first copy.</p>
             </div>
           </div>
         </div>
@@ -695,9 +767,37 @@
         <div class="step-num">4</div>
         <div>
           <h3>The AI is now writing the next AI.</h3>
-          <p>This is the wild part. The engineers at Anthropic, OpenAI, Google — they use AI to build the next version of AI. Each generation builds the one after it. That's why progress is moving so fast. It's compounding.</p>
+          <p>This is the wild part. The engineers at Anthropic, OpenAI, and Google all use AI to build the next version of AI. Each generation builds the one after it. That's why progress is moving so fast. It's compounding.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ─── WHAT I WANT TO DO WITH THIS ──────────────────── -->
+  <section class="dream reveal">
+    <div class="container">
+      <h2>What I actually want to <em>do</em> with all this.</h2>
+      <p class="lede">This part isn't about showing off. It's about why I've been heads-down learning all of it for the last year.</p>
+
+      <p>Big tech companies already have this. They have armies of engineers building these systems for themselves. <span class="accent">The local businesses don't.</span> The dentist on Tracy Boulevard, the moving company down the road, the bookkeeper with 40 small clients, the law firm with three partners. They're all still doing things by hand that AI could be doing for them in seconds.</p>
+
+      <p>That's the work I want. I want to walk into a small business and say: <em>"Show me the thing you do every week that you hate doing."</em> Then build the AI that does it for them, while they go run their actual business.</p>
+
+      <div class="example-card">
+        <div class="example-eyebrow">For example</div>
+        <h3>Imagine your Seder, but for a business.</h3>
+        <p>Think about what you do every Passover. You send the invite to 22 people. You track who's coming. You assign who brings matzah, who brings wine, who brings the salad. You answer the same questions five times. You update the headcount. You text the people who haven't replied. You make a kid-friendly Haggadah by hand because nobody's selling the one you want.</p>
+
+        <p>Now picture a small business owner doing that <em>every single day</em>. Customers instead of family. Estimates instead of side dishes. Follow-ups instead of RSVPs. Same exhausting coordination, but for their livelihood.</p>
+
+        <p class="punchline">I'd build the AI that handles all of it for them. Answers the questions, drafts the proposals, follows up with the no-replies, keeps the running list. So the owner can do the part that actually needs them. <span class="accent">Same way you'd want help with the Seder so you could just enjoy your family.</span></p>
+      </div>
+
+      <p>The startup I sold (DVD Your Memories, the one in my book) ran on me doing all of that by hand for years. If I'd had what I have now back then, I'd have gotten my evenings back a decade earlier.</p>
+
+      <p>So that's what I'm building toward. Helping small business owners get their evenings back. <span class="accent">That's the dream.</span></p>
+
+      <a href="https://startuptosold.com/automations" class="dream-link">See the kind of work I'd do →</a>
     </div>
   </section>
 
@@ -706,7 +806,7 @@
     <div class="container">
       <h2>The job changed.</h2>
       <p>I used to write code. Now I describe what I want and the AI writes it. I check the work, redirect when it's off, and handle the parts that need a human's judgment.</p>
-      <p>The skill that matters isn't typing anymore. It's <span class="accent">knowing what's worth building</span> — and being able to tell the AI what "good" looks like.</p>
+      <p>The skill that matters isn't typing anymore. It's <span class="accent">knowing what's worth building</span>, and being able to tell the AI what "good" looks like.</p>
       <p>That's the shift. That's why I'm so excited about this. And that's why I wanted to show you, not just tell you.</p>
     </div>
   </section>
@@ -716,7 +816,7 @@
     <div class="container reveal">
       <p>You bought the first copy of my book. Figured it was only fair you got the first AI-generated webpage I've ever made for anyone.</p>
       <p>Love you, Aunt Marleen. See you at the next Seder.</p>
-      <div class="signature">— Chuck</div>
+      <div class="signature">Love, Chuck</div>
       <div class="footer-note">P.S. This page is just for you. It's not linked from anywhere on the website. Only people I send the link to can find it.</div>
     </div>
   </section>
