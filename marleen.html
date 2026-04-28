@@ -299,6 +299,138 @@
       font-size: 0.9rem;
     }
 
+    /* ─── FLIP CARDS ─────────────────────────────────────── */
+    .flip {
+      perspective: 1200px;
+      cursor: pointer;
+      min-height: 220px;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+      padding: 1.75rem;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .flip-front {
+      background: linear-gradient(135deg, #fff 0%, #fdf6f0 100%);
+      border-color: rgba(232, 93, 38, 0.25);
+    }
+    .flip-front .teaser-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .flip-front .teaser-q {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.4;
+      margin: 0.6rem 0;
+    }
+    .flip-front .teaser-cta {
+      font-size: 0.85rem;
+      color: var(--orange);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .flip-front .teaser-cta::after {
+      content: '↻';
+      font-size: 1rem;
+      transition: transform 0.3s;
+    }
+    .flip:hover .flip-front .teaser-cta::after { transform: rotate(180deg); }
+    .flip-back {
+      transform: rotateY(180deg);
+      background: var(--paper);
+    }
+    .flip-back .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .flip-back p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 0;
+    }
+    .flip-back .quote {
+      font-style: italic;
+      color: var(--muted);
+      border-left: 3px solid var(--orange);
+      padding-left: 0.85rem;
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+    }
+
+    /* ─── BUILD-IN ANIMATION ─────────────────────────────── */
+    .build-narrate {
+      color: #74c0fc;
+      transition: opacity 0.3s;
+    }
+    .build-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .build-section.built {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .demo-replay {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.55rem 1.1rem;
+      background: transparent;
+      border: 1px solid var(--orange);
+      color: var(--orange);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .demo-replay:hover { background: var(--orange); color: white; }
+    .demo-replay::before { content: '↻'; font-size: 1rem; }
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: #d8d8de;
+      vertical-align: text-bottom;
+      animation: blink 1s steps(2) infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
     /* ─── HOW IT WORKS (THE BRIEF) ───────────────────────── */
     .brief {
       background: var(--off-white);
@@ -395,6 +527,9 @@
       .step { gap: 1rem; }
       .step-num { width: 36px; height: 36px; font-size: 1rem; }
       .knew-card { padding: 1.4rem; }
+      .flip, .flip-inner { min-height: 200px; }
+      .flip-face { padding: 1.4rem; }
+      .flip-front .teaser-q { font-size: 1rem; }
     }
   </style>
 </head>
@@ -412,70 +547,122 @@
     <div class="scroll-hint">scroll</div>
   </section>
 
-  <!-- ─── THE DEMO ─────────────────────────────────────── -->
+  <!-- ─── THE DEMO (live build replay) ─────────────────── -->
   <section class="demo">
     <div class="container reveal">
-      <h2>Here's what just happened.</h2>
-      <p class="lede">I was sitting at my computer talking with you about AI. After you left, I typed one sentence to my AI assistant:</p>
+      <h2>Watch it build itself.</h2>
+      <p class="lede">I was sitting at my computer talking with you about AI. After you left, I typed one sentence to my AI assistant. Here's what happened next:</p>
 
-      <div class="terminal">
+      <div class="terminal" id="terminal">
         <div class="terminal-dots"><span></span><span></span><span></span></div>
-        <div class="terminal-line"><span class="terminal-prompt">chuck&nbsp;›</span><span class="terminal-user">Look up everything about my Aunt Marleen in my email and build her a personalized webpage on my company's website.</span></div>
-        <div class="terminal-line">&nbsp;</div>
-        <div class="terminal-line"><span class="terminal-comment">// AI reads through years of family emails...</span></div>
-        <div class="terminal-line"><span class="terminal-comment">// AI writes the HTML, the styles, the words...</span></div>
-        <div class="terminal-line"><span class="terminal-comment">// AI deploys it to startuptosold.com...</span></div>
-        <div class="terminal-line">&nbsp;</div>
-        <div class="terminal-line"><span class="terminal-success">✓ Done. Page live in about 4 minutes.</span></div>
+        <div class="terminal-line"><span class="terminal-prompt">chuck&nbsp;›</span><span class="terminal-user" id="prompt-text"></span><span class="cursor" id="cursor"></span></div>
+        <div id="build-log"></div>
       </div>
 
-      <p>I didn't write a single line of the page you're reading. I described what I wanted, the AI did the rest. <span class="accent">That's the shift I was trying to explain.</span></p>
+      <button class="demo-replay" id="replay" type="button" hidden>Replay the build</button>
+      <p style="margin-top: 2rem;">I didn't write a single line of the page below. I described what I wanted, the AI did the rest. <span class="accent">That's the shift I was trying to explain.</span></p>
     </div>
   </section>
 
-  <!-- ─── KNEW ABOUT YOU ───────────────────────────────── -->
-  <section class="knew">
+  <!-- ─── KNEW ABOUT YOU (flip cards) ──────────────────── -->
+  <section class="knew build-section" id="knew-section" data-build="1">
     <div class="container-wide reveal">
       <h2>What it knew about you.</h2>
-      <p class="lede">Before writing a word, the AI read through our family emails going back to 2018. Here's what it pulled out, all on its own:</p>
+      <p class="lede">Before writing a word, the AI read through our family emails going back to 2018. Tap each card to see what it figured out — all on its own.</p>
 
       <div class="knew-grid">
-        <div class="knew-card">
-          <div class="label">Worthy Matron</div>
-          <p>It found your installation invitation and knows you and Uncle Jim were installed as Worthy Matron and Worthy Patron of the Tracy Eastern Star Chapter on November 15th. (Co-presidents for the year. <em>That's a big deal</em>, you wrote.)</p>
+
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 1 of 6</div>
+              <div class="teaser-q">Guess what it figured out about your November plans?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">Worthy Matron</div>
+              <p>It found your installation invitation and knows you and Uncle Jim were installed as Worthy Matron and Worthy Patron of the Tracy Eastern Star Chapter on November 15th. (Co-presidents for the year. <em>That's a big deal</em>, you wrote.)</p>
+            </div>
+          </div>
         </div>
 
-        <div class="knew-card">
-          <div class="label">Family Seder Host</div>
-          <p>It knows you host the family Passover Seder every year in Tracy. Last spring, 27 people. You made a kid-friendly Haggadah by hand. Mom brought matzah and a dark chocolate Seder plate.</p>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 2 of 6</div>
+              <div class="teaser-q">What did it learn about Passover at your house?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">Family Seder Host</div>
+              <p>It knows you host the family Passover Seder every year in Tracy. Last spring, 27 people. You made a kid-friendly Haggadah by hand. Mom brought matzah and a dark chocolate Seder plate.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="knew-card">
-          <div class="label">First in line for the book</div>
-          <p>When my book hit the shelves in March 2023, you were the first person to write back.</p>
-          <p class="quote">"Who would have guessed that little nephew of mine running around and being all cute would end up to have books for sale? You're so cool, Chuck."</p>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 3 of 6</div>
+              <div class="teaser-q">Who replied first when my book hit the shelves?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">First in line for the book</div>
+              <p>When my book hit the shelves in March 2023, you were the first person to write back.</p>
+              <p class="quote">"Who would have guessed that little nephew of mine running around and being all cute would end up to have books for sale? You're so cool, Chuck."</p>
+            </div>
+          </div>
         </div>
 
-        <div class="knew-card">
-          <div class="label">The signing party</div>
-          <p>Uncle Jim wrote back: <em>"Marleen already bought one — we need a signature party!"</em> I said I'd bring a pen to Passover. You bought the first copy.</p>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 4 of 6</div>
+              <div class="teaser-q">What did Uncle Jim insist we needed?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">The signing party</div>
+              <p>Uncle Jim wrote back: <em>"Marleen already bought one — we need a signature party!"</em> I said I'd bring a pen to Passover. You bought the first copy.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="knew-card">
-          <div class="label">The keeper of the family</div>
-          <p>Thanksgiving in Pine Grove. Hanukkah. New Year's. The family cruise. You're the one who sends the invitation, plans the menu, and gets us all in the same room.</p>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 5 of 6</div>
+              <div class="teaser-q">What role does the AI think you play in our family?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">The keeper of the family</div>
+              <p>Thanksgiving in Pine Grove. Hanukkah. New Year's. The family cruise. You're the one who sends the invitation, plans the menu, and gets us all in the same room.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="knew-card">
-          <div class="label">Aunt Marleen</div>
-          <p>You always sign your emails to me <em>"Love, Aunt Marleen."</em> The AI noticed.</p>
+        <div class="flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="teaser-label">Card 6 of 6</div>
+              <div class="teaser-q">How does the AI know you sign your emails?</div>
+              <div class="teaser-cta">Tap to reveal</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div class="label">Aunt Marleen</div>
+              <p>You always sign your emails to me <em>"Love, Aunt Marleen."</em> The AI noticed.</p>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- ─── HOW IT WORKS (THE BRIEF) ─────────────────────── -->
-  <section class="brief">
+  <section class="brief build-section" data-build="2">
     <div class="container reveal">
       <h2>How is this even possible?</h2>
       <p class="lede">The short version, since I know you'll wonder.</p>
@@ -515,7 +702,7 @@
   </section>
 
   <!-- ─── PUNCHLINE ─────────────────────────────────────── -->
-  <section class="punch reveal">
+  <section class="punch reveal build-section" data-build="3">
     <div class="container">
       <h2>The job changed.</h2>
       <p>I used to write code. Now I describe what I want and the AI writes it. I check the work, redirect when it's off, and handle the parts that need a human's judgment.</p>
@@ -525,7 +712,7 @@
   </section>
 
   <!-- ─── SIGNOFF ───────────────────────────────────────── -->
-  <section class="signoff">
+  <section class="signoff build-section" data-build="4">
     <div class="container reveal">
       <p>You bought the first copy of my book. Figured it was only fair you got the first AI-generated webpage I've ever made for anyone.</p>
       <p>Love you, Aunt Marleen. See you at the next Seder.</p>
@@ -535,33 +722,131 @@
   </section>
 
   <script>
-    // Subtle fade-up on scroll. Safe fallbacks ensure content always shows.
-    const reveals = document.querySelectorAll('.reveal');
-    const showAll = () => reveals.forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || !('IntersectionObserver' in window)) {
-      // No animation; nothing to do, content is already visible by default.
-    } else {
-      reveals.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
+    // ─── Flip cards ───────────────────────────────────────
+    document.querySelectorAll('.flip').forEach(card => {
+      const toggle = () => card.classList.toggle('flipped');
+      card.addEventListener('click', toggle);
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
       });
-      const observer = new IntersectionObserver((entries) => {
+    });
+
+    // ─── Build replay (Section 2: "Watch it build itself") ──
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const promptText = "Look up everything about my Aunt Marleen in my email and build her a personalized webpage on my company's website.";
+    const buildSteps = [
+      { line: '<span class="terminal-comment">// Reading family emails since 2018...</span>', delay: 600 },
+      { line: '<span class="terminal-comment">// Found 47 threads. Pulling out the highlights...</span>', delay: 900 },
+      { line: '<span class="build-narrate">› Building the section about what it knew about you...</span>', delay: 1100, build: 1 },
+      { line: '<span class="terminal-comment">// Writing the explanation in plain language...</span>', delay: 900 },
+      { line: '<span class="build-narrate">› Building the "how is this possible?" section...</span>', delay: 1100, build: 2 },
+      { line: '<span class="terminal-comment">// Adding the punchline about how the job changed...</span>', delay: 900 },
+      { line: '<span class="build-narrate">› Building the closer...</span>', delay: 900, build: 3 },
+      { line: '<span class="terminal-comment">// Signing off the way Chuck would...</span>', delay: 700, build: 4 },
+      { line: '<span class="terminal-success">✓ Done. Page built in about 4 minutes.</span>', delay: 1000 }
+    ];
+
+    const promptEl = document.getElementById('prompt-text');
+    const cursorEl = document.getElementById('cursor');
+    const logEl = document.getElementById('build-log');
+    const replayBtn = document.getElementById('replay');
+    const buildSections = document.querySelectorAll('.build-section');
+
+    const resetBuild = () => {
+      promptEl.textContent = '';
+      logEl.innerHTML = '';
+      cursorEl.style.display = 'inline-block';
+      buildSections.forEach(s => s.classList.remove('built'));
+    };
+
+    const showAllSections = () => buildSections.forEach(s => s.classList.add('built'));
+
+    const typePrompt = (text, i = 0) => new Promise(resolve => {
+      if (i >= text.length) return resolve();
+      promptEl.textContent = text.slice(0, i + 1);
+      setTimeout(() => typePrompt(text, i + 1).then(resolve), 28);
+    });
+
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+    let isPlaying = false;
+    const playBuild = async () => {
+      if (isPlaying) return;
+      isPlaying = true;
+      resetBuild();
+      replayBtn.hidden = true;
+
+      await typePrompt(promptText);
+      cursorEl.style.display = 'none';
+      logEl.insertAdjacentHTML('beforeend', '<div class="terminal-line">&nbsp;</div>');
+
+      for (const step of buildSteps) {
+        await sleep(step.delay);
+        logEl.insertAdjacentHTML('beforeend', `<div class="terminal-line">${step.line}</div>`);
+        if (step.build) {
+          const target = document.querySelector(`[data-build="${step.build}"]`);
+          if (target) target.classList.add('built');
+        }
+      }
+
+      replayBtn.hidden = false;
+      isPlaying = false;
+    };
+
+    replayBtn.addEventListener('click', playBuild);
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      // No animation: just show everything.
+      showAllSections();
+      promptEl.textContent = promptText;
+      cursorEl.style.display = 'none';
+      buildSteps.forEach(step => {
+        logEl.insertAdjacentHTML('beforeend', `<div class="terminal-line">${step.line}</div>`);
+      });
+      replayBtn.hidden = true;
+    } else {
+      // Trigger the build replay when the terminal scrolls into view.
+      const terminal = document.getElementById('terminal');
+      const triggerObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
+            playBuild();
+            triggerObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
-      reveals.forEach(el => observer.observe(el));
-      // Fallback: ensure everything reveals within 4s no matter what.
-      setTimeout(showAll, 4000);
+      }, { threshold: 0.4 });
+      triggerObserver.observe(terminal);
+
+      // Fallback: if user never scrolls or animation hangs, show after 25s.
+      setTimeout(showAllSections, 25000);
     }
+
+    // ─── Subtle fade-up for .reveal containers (hero/demo/etc.) ──
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+    });
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    }, 4000);
   </script>
 
 </body>
