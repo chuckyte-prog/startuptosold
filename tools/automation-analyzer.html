@@ -356,6 +356,7 @@
     html.embed input[type="email"] {
       background: #faf9f6;
       border-color: rgba(28,28,30,0.15);
+      color: var(--ink);
     }
     html.embed textarea:focus,
     html.embed input[type="text"]:focus,
@@ -364,6 +365,97 @@
       background: #fff;
       border-color: var(--orange);
     }
+    html.embed textarea::placeholder,
+    html.embed input::placeholder { color: rgba(28,28,30,0.45); }
+
+    /* TYPE COLORS on the white panel.
+       The default theme uses near-white text on dark backgrounds. In embed
+       mode the bg is a light host panel, so swap the text colors to dark. */
+    html.embed,
+    html.embed body { color: var(--ink); }
+    html.embed h1,
+    html.embed h2,
+    html.embed h3 { color: var(--ink); }
+    html.embed .input-label,
+    html.embed .followup-intro,
+    html.embed .intake-rate-hint,
+    html.embed .intake-example { color: var(--muted); }
+
+    /* Followup question card — was dark surface in default theme */
+    html.embed .followup-question {
+      background: #faf9f6;
+      border: 1px solid var(--rule);
+    }
+    html.embed .followup-question-text { color: var(--ink); }
+    html.embed .followup-why { color: var(--orange); }
+    html.embed .followup-round-badge {
+      background: rgba(217,131,46,0.10);
+      color: var(--amber);
+    }
+
+    /* Verdict screen — flip the dark-themed pieces to light */
+    html.embed .verdict-headline { color: var(--ink); }
+    html.embed .verdict-explanation { color: var(--muted); }
+    html.embed .verdict-caveat {
+      background: rgba(217,131,46,0.10);
+      color: var(--ink);
+    }
+    html.embed .verdict-caveat strong { color: var(--ink); }
+
+    /* Savings cards — light surface, hairline border, dark text */
+    html.embed .savings-card {
+      background: #faf9f6;
+      border: 1px solid var(--rule);
+    }
+    html.embed .savings-value { color: var(--ink); }
+    html.embed .savings-unit  { color: var(--muted); }
+
+    /* Approach card (the expanded "How this could work" section) */
+    html.embed .verdict-approach-card {
+      background: #faf9f6;
+      border: 1px solid var(--rule);
+    }
+    html.embed .verdict-approach-text { color: var(--ink); }
+    html.embed .verdict-human-note {
+      border-top-color: var(--rule);
+      color: var(--muted);
+    }
+    html.embed .verdict-human-note strong { color: var(--ink); }
+
+    /* Toggle button — was white-on-white in embed mode */
+    html.embed .verdict-details-toggle {
+      color: var(--ink);
+      border-color: rgba(28,28,30,0.18);
+    }
+    html.embed .verdict-details-toggle:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* Subpage link (visible when expanded) */
+    html.embed .verdict-subpage-link { color: var(--ink); }
+    html.embed .verdict-subpage-link:hover { color: var(--orange); }
+
+    /* "Try another task" reset link */
+    html.embed .btn-text { color: var(--muted); }
+    html.embed .btn-text:hover { color: var(--orange); }
+
+    /* Secondary button (Email me this result, modal Cancel) — was white-on-white */
+    html.embed .btn-secondary {
+      color: var(--ink);
+      border-color: rgba(28,28,30,0.18);
+    }
+    html.embed .btn-secondary:hover { border-color: var(--ink); }
+
+    /* Loading block — was dark surface */
+    html.embed .loading-block {
+      background: #faf9f6;
+      border: 1px solid var(--rule);
+    }
+    html.embed .loading-text { color: var(--muted); }
+
+    /* Section labels (the "// LIVE DIAGNOSTIC" eyebrows) keep their orange */
+    html.embed .form-error { color: #c0392b; }
 
     /* MOBILE */
     @media (max-width: 768px) {
