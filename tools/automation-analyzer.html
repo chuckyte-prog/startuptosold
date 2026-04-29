@@ -282,6 +282,23 @@
     .verdict-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
     .verdict-try-another { display: block; margin-top: 1.5rem; }
 
+    /* DETAILS TOGGLE */
+    .verdict-details-toggle {
+      background: transparent; border: 1px solid var(--dark-rule); color: var(--dark-text);
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      padding: 0.85rem 1.4rem; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: border-color 0.15s ease, color 0.15s ease;
+      margin-bottom: 2rem;
+    }
+    .verdict-details-toggle:hover { border-color: var(--orange); color: var(--orange); }
+    .verdict-details-toggle .chevron {
+      display: inline-block; transition: transform 0.2s ease;
+      font-size: 0.85rem; line-height: 1;
+    }
+    .verdict-details-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    #verdict-details[hidden] { display: none; }
+
     /* EMAIL RESULT MODAL */
     .email-modal-backdrop {
       position: fixed; inset: 0; background: rgba(15,22,35,0.75);
@@ -468,8 +485,6 @@
         <div><strong>Heads up:</strong> <span id="verdict-caveat-text">—</span></div>
       </div>
 
-      <p id="verdict-explanation" class="verdict-explanation">—</p>
-
       <div id="verdict-savings-grid" class="verdict-savings-grid" style="display:none;">
         <div class="savings-card">
           <div class="savings-label">Frequency</div>
@@ -488,17 +503,26 @@
         </div>
       </div>
 
-      <div id="verdict-approach-card" class="verdict-approach-card" style="display:none;">
-        <div class="verdict-approach-label">How this could work</div>
-        <div id="verdict-approach-text" class="verdict-approach-text">—</div>
-        <div id="verdict-human-note" class="verdict-human-note" style="display:none;">
-          <strong>What still needs a human: </strong><span id="verdict-human-text">—</span>
-        </div>
-      </div>
+      <button type="button" id="verdict-details-toggle" class="verdict-details-toggle" aria-expanded="false" aria-controls="verdict-details">
+        <span class="toggle-label">How would this actually work?</span>
+        <span class="chevron" aria-hidden="true">▾</span>
+      </button>
 
-      <a id="verdict-subpage-link" class="verdict-subpage-link" href="#" style="display:none;">
-        Read more about this kind of automation
-      </a>
+      <div id="verdict-details" hidden>
+        <p id="verdict-explanation" class="verdict-explanation">—</p>
+
+        <div id="verdict-approach-card" class="verdict-approach-card" style="display:none;">
+          <div class="verdict-approach-label">How this could work</div>
+          <div id="verdict-approach-text" class="verdict-approach-text">—</div>
+          <div id="verdict-human-note" class="verdict-human-note" style="display:none;">
+            <strong>What still needs a human: </strong><span id="verdict-human-text">—</span>
+          </div>
+        </div>
+
+        <a id="verdict-subpage-link" class="verdict-subpage-link" href="#" style="display:none;">
+          Read more about this kind of automation
+        </a>
+      </div>
 
       <div class="verdict-ctas">
         <a id="verdict-cta-primary" class="btn-primary" href="https://calendly.com/chuck-startuptosold/30min" target="_blank" rel="noopener">Book a strategy call</a>
@@ -638,6 +662,8 @@
       humanNote:        document.getElementById("verdict-human-note"),
       humanText:        document.getElementById("verdict-human-text"),
       subpageLink:      document.getElementById("verdict-subpage-link"),
+      detailsToggle:    document.getElementById("verdict-details-toggle"),
+      detailsPanel:     document.getElementById("verdict-details"),
       ctaPrimary:       document.getElementById("verdict-cta-primary"),
       ctaEmail:         document.getElementById("verdict-cta-email"),
       verdictReset:     document.getElementById("verdict-reset-btn"),
@@ -770,6 +796,12 @@
 
     function renderVerdict(verdict) {
       state.latest_verdict = verdict;
+
+      // Reset the details panel to collapsed for every new verdict
+      if (els.detailsToggle && els.detailsPanel) {
+        els.detailsToggle.setAttribute("aria-expanded", "false");
+        els.detailsPanel.hidden = true;
+      }
 
       // Badge + class
       const c = verdict.classification;
@@ -1059,6 +1091,17 @@
 
     els.followupReset.addEventListener("click", resetAll);
     els.verdictReset.addEventListener("click", resetAll);
+
+    // DETAILS TOGGLE -------------------------------------------------------
+    // Embed mode's ResizeObserver on document.body auto-posts the new height
+    // when the panel expands/collapses, so no explicit postHeight call is needed.
+    if (els.detailsToggle && els.detailsPanel) {
+      els.detailsToggle.addEventListener("click", () => {
+        const expanded = els.detailsToggle.getAttribute("aria-expanded") === "true";
+        els.detailsToggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+        els.detailsPanel.hidden = expanded;
+      });
+    }
 
     // EMAIL MODAL ----------------------------------------------------------
     els.ctaEmail.addEventListener("click", () => {
