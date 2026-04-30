@@ -431,6 +431,13 @@
     }
     .testimonial-cite strong { color: var(--dark-text); }
 
+    /* ── FRICTION LIST ── */
+    .friction-header { display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; padding: 0 1.5rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: var(--dark-muted); letter-spacing: 0.14em; text-transform: uppercase; }
+    .friction-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .friction-item { display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange); }
+    .friction-benefit { font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3; }
+    .friction-build { font-size: 0.98rem; color: var(--dark-text); line-height: 1.6; }
+
     /* ── CLOSING NARRATIVE + MOMENT PHOTO ── */
     .closing-grid {
       display: grid;
@@ -531,6 +538,9 @@
         border-bottom: 1px solid var(--dark-rule);
         padding: 1.5rem 1.5rem;
       }
+      .friction-header { display: none; }
+      .friction-item { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.25rem 1.25rem; }
+      .friction-benefit { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
       .pullquote { padding: 2rem 0; }
       .pullquote blockquote::before { display: none; }
       .categories-grid { grid-template-columns: 1fr; }
@@ -631,7 +641,7 @@
       <div class="pain-fix-intro">
         <div class="hero-concept" style="background-image: url('../images/portfolio/road-to-4-0/concept-hobby-to-business.png');" role="img" aria-label="Illustration of a chaotic spreadsheet and Venmo on the left transforming into a clean Stripe-powered reservation card on the right"></div>
         <div>
-          <p class="section-lead" style="margin-bottom: 1rem;">Before I got involved, signups lived in a spreadsheet and money lived in Venmo. Will would coach a clinic and then chase players off-court for payment, sometimes for days afterward. Half the people who said they'd come never paid. There was no way to actually <em>reserve</em> a spot.</p>
+          <p class="section-lead" style="margin-bottom: 1rem;">Before I got involved, signups lived in a spreadsheet and money lived in Venmo. There was no way to actually <em>reserve</em> a spot, and no clean way to keep track of who'd paid for what.</p>
           <p class="section-lead">It wasn't a business yet. It was a hobby with money attached.</p>
           <p class="section-lead"><strong style="color: var(--dark-text);">The fix was the foundation:</strong> a real signup flow with Stripe Connect, where paying <em>is</em> reserving. No payment, no spot. Roster auto-built from confirmed payments. Refund policy enforced by code. The day this shipped, Road to 4.0 stopped being a hobby.</p>
         </div>
@@ -760,30 +770,30 @@
       <p class="section-lead" style="margin-bottom: 2.5rem;">The three above were the biggest. They weren't the only ones. Every week brought a new wall, and every wall got fixed before the next session.</p>
 
       <div style="max-width: 880px;">
-        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; padding: 0 1.5rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: var(--dark-muted); letter-spacing: 0.14em; text-transform: uppercase;">
+        <div class="friction-header">
           <div>Benefit</div>
           <div>What I Built</div>
         </div>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
-          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">~1 hour/week saved</span>
-            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>One-click session cloning.</strong> Setting up next week dropped from 10 minutes (and the stress of misconfiguring it) to 20 seconds.</span>
+        <ul class="friction-list">
+          <li class="friction-item">
+            <span class="friction-benefit">~1 hour/week saved</span>
+            <span class="friction-build"><strong>One-click session cloning.</strong> Setting up next week dropped from 10 minutes (and the stress of misconfiguring it) to 20 seconds.</span>
           </li>
-          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">2–3 hours/week saved</span>
-            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Automated refunds with a variable deadline policy.</strong> No more manual chasing, no more double-refund anxiety.</span>
+          <li class="friction-item">
+            <span class="friction-benefit">2–3 hours/week saved</span>
+            <span class="friction-build"><strong>Automated refunds with a variable deadline policy.</strong> No more manual chasing, no more double-refund anxiety.</span>
           </li>
-          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">Last-minute comms unlocked</span>
-            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>One-click copy of every attendee email.</strong> Parking notes, last-minute changes, next-session promos, all sendable in seconds.</span>
+          <li class="friction-item">
+            <span class="friction-benefit">Last-minute comms unlocked</span>
+            <span class="friction-build"><strong>One-click copy of every attendee email.</strong> Parking notes, last-minute changes, next-session promos, all sendable in seconds.</span>
           </li>
-          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">Full courts, every session</span>
-            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Waitlist with auto-bumping.</strong> When someone drops, the next player on the waitlist gets bumped in automatically. 15 plus a dropout becomes 16 and four perfect courts.</span>
+          <li class="friction-item">
+            <span class="friction-benefit">Full courts, every session</span>
+            <span class="friction-build"><strong>Waitlist with auto-bumping.</strong> When someone drops, the next player on the waitlist gets bumped in automatically. 15 plus a dropout becomes 16 and four perfect courts.</span>
           </li>
-          <li style="display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.5rem; background: var(--dark-surface); border: 1px solid var(--dark-rule); border-left: 2px solid var(--orange);">
-            <span style="font-size: 0.95rem; font-weight: 700; color: var(--orange); line-height: 1.3;">500+ leads in the funnel</span>
-            <span style="font-size: 0.98rem; color: var(--dark-text); line-height: 1.6;"><strong>Interest List as a marketing funnel.</strong> Every successful session feeds the list. The list fills the next session.</span>
+          <li class="friction-item">
+            <span class="friction-benefit">500+ leads in the funnel</span>
+            <span class="friction-build"><strong>Interest List as a marketing funnel.</strong> Every successful session feeds the list. The list fills the next session.</span>
           </li>
         </ul>
       </div>
@@ -809,16 +819,16 @@
 
       <div class="testimonials-grid">
         <div class="testimonial">
-          <p class="testimonial-quote">"Guys — quit your day jobs! That clinic was great. Well organized, informative and fun."</p>
+          <p class="testimonial-quote">"That clinic was great. Well organized, informative and fun. I look forward to taking another one and drilling in the interim."</p>
           <div class="testimonial-cite"><strong>Bill Powning</strong><br>After the first-ever clinic, Dec 2023</div>
         </div>
         <div class="testimonial">
-          <p class="testimonial-quote">"It was the best clinic I've participated in. I loved it and can't wait until the next one!"</p>
-          <div class="testimonial-cite"><strong>Amy Potozkin</strong><br>Player, Feb 2024</div>
+          <p class="testimonial-quote">"Random people come to me to tell me how much better I've gotten…and more importantly, I'm having even more fun! On Saturday someone told me she could not believe I was the same person. She thought maybe I was a body snatcher!"</p>
+          <div class="testimonial-cite"><strong>Carmen P.</strong><br>Private Student-Athlete</div>
         </div>
         <div class="testimonial">
-          <p class="testimonial-quote">"You two guys are by far the most 'efficient' coaches / teachers I've found."</p>
-          <div class="testimonial-cite"><strong>Carmen Padron</strong><br>Player, Feb 2024</div>
+          <p class="testimonial-quote">"Within a week I am seeing a positive impact on my game. Will gave in-depth training on the 3rd shot drop/drive, positioning after the return, dink drills, and paddle position."</p>
+          <div class="testimonial-cite"><strong>Mohan Chandrasekaran</strong><br>Foundations Clinic</div>
         </div>
       </div>
     </div>
