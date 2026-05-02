@@ -34,7 +34,7 @@
       --dark-bg: #0f1623;
       --dark-surface: #162032;
       --dark-text: #f2f2f5;
-      --dark-muted: #8e8e99;
+      --dark-muted: #b8b8c5;
       --dark-rule: rgba(255,255,255,0.08);
       --off-white: #f5f4f1;
       --rule: #e2e0db;
@@ -1579,9 +1579,9 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
         .summary strong { font-weight: 700; }
         .cta-box { margin-top: 28px; padding: 20px; background: #0f1623; color: #f2f2f5; border-radius: 4px; text-align: center; }
         .cta-box h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .cta-box p { font-size: 13px; color: #8e8e99; margin-bottom: 4px; }
+        .cta-box p { font-size: 13px; color: #b8b8c5; margin-bottom: 4px; }
         .cta-box a { color: #e85d26; font-weight: 700; text-decoration: none; }
-        .disclaimer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e0db; font-size: 10px; color: #8e8e99; line-height: 1.6; }
+        .disclaimer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e0db; font-size: 10px; color: #b8b8c5; line-height: 1.6; }
       `;
 
       let html = '<!DOCTYPE html><html><head><title>Business Valuation Report - Startup to Sold</title>';
@@ -1605,7 +1605,7 @@ const VALUATION_DATA={categories:{"Agriculture":{subcategories:{"Farm & Ranch":{
       html += '<div class="overall-score">Overall: ' + printRawDisplay + ' / ' + window._rawMax + '</div>';
       d.pillarResults.forEach(p => {
         const isNA = p.pct === -1;
-        const color = isNA ? '#8e8e99' : p.pct >= 80 ? '#4a9a6a' : p.pct >= 40 ? '#e8a626' : '#c0392b';
+        const color = isNA ? '#b8b8c5' : p.pct >= 80 ? '#4a9a6a' : p.pct >= 40 ? '#e8a626' : '#c0392b';
         const hasDecimal = p.score !== Math.floor(p.score);
         const scoreText = isNA ? 'N/A' : (hasDecimal ? p.score.toFixed(1) : p.score) + ' / ' + p.max;
         const barWidth = isNA ? 0 : p.pct;
